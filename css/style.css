@@ -14,3 +14,21 @@ body, html {
 .nav-link {
     font-size: 1.1em !important;
 }
+
+.navbar {
+    background-color: #2C5C7F !important;
+}
+
+.container {
+    margin-top: 10px;
+
+}
+
+.mb-3 {
+    color: #438CE5;
+}
+
+.container-text {
+    border: 1px solid #438CE5 !important;
+    border-radius: 6px;
+}
