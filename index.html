@@ -29,7 +29,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto nav-pills">
                 <li class="nav-item active">
                     <a href="#" class="nav-link">Войти</a>
                 </li>
@@ -47,9 +47,9 @@
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-8 order-md-1 text-center text-md-left pr-md-5 container-text">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-4">С этим сервисом можно:</h1>
+            <div class="jumbotron jumbotron-fluid shadow rounded">
+                <div class="container ">
+                    <h1 class="display-4 ">С этим сервисом ты сможешь:</h1>
                     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
                         <h2></h2>
                         <div class="carousel-inner">
@@ -71,37 +71,63 @@
             <form>
                 <div class="form-group">
                     <h4 class="form-text">Никнейм</h4>
-                    <input type="email" class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="email" class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
                            placeholder="Твой никнейм">
                 </div>
                 <div class="form-group">
                     <h4 class="form-text">Пароль</h4>
-                    <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="exampleInputPassword1" placeholder="Пароль">
-                    <button type="submit" class="btn btn-info">Вход</button>
+                    <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded"
+                           id="exampleInputPassword1" placeholder="Пароль">
                 </div>
+                <button type="submit" class="btn btn-info shadow-sm rounded">Вход</button>
+                <button type="button" class="btn btn-info  shadow-sm rounded">Зарегистрироваться</button>
                 <!--<div class="form-group form-check">-->
-                    <!--<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-                    <!--<label class="form-check-label" for="exampleCheck1">Check me out</label>-->
+                <!--<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+                <!--<label class="form-check-label" for="exampleCheck1">Check me out</label>-->
                 <!--</div>-->
 
             </form>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="masthead-followup row align-items-center">
+        <div class="col-12 col-md-4 p-4 p-md-1">
+            <div class="card" >
+                <div class="card-body  shadow rounded">
+                    ICON!
+                    <h5 class="card-title">Внеси собственное расписание</h5>
+                    <p class="card-text">Сервис позволяет тебе внести свое расписание, записывать задания на каждый отдельный предмет и отмечать,
+                        если оно было уже выполнено!</p>
+                    <a href="#" class="btn btn-info stretched-link shadow-sm rounded">Попробовать</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 p-4 p-md-1 ">
+            <div class="card">
+                <div class="card-body shadow rounded">
+                    ICON!
+                    <h5 class="card-title">Следи за своими задачами</h5>
+                    <p class="card-text">                Внеси свои задачи, чтобы не забыть, что нужно сделать. Редактируй их, отмечай выполненные и просматривай их в отдельном хранилище!</p>
+                    <a href="#" class="btn btn-info stretched-link shadow-sm rounded">Попробовать</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 p-4 p-md-1">
 
-<div class="masthead-followup row m-0 border border-white">
-    <div class="col-12 col-md-4 p-3 p-md-5">
-        text1
-    </div>
-    <div class="col-12 col-md-4 p-3 p-md-5">
-text2
-    </div>
-    <div class="col-12 col-md-4 p-3 p-md-5">
-text3
-    </div>
+            <div class="card">
+                <div class="card-body shadow rounded">
+                    ICON!
+                    <h5 class="card-title">Сохрани важные ссылки</h5>
+                    <p class="card-text">Сохрани важные ссылки, чтобы не забыть прочитать их позже! Редактируй, добавляй теги, используй поиск по названиям и тегам!</p>
+                    <a href="#" class="btn btn-info stretched-link shadow-sm rounded">Попробовать</a>
+                </div>
+            </div>
+        </div>
 
+    </div>
 </div>
-
 <script src="js/index.js"></script>
 </body>
 </html>
