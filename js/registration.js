@@ -28,10 +28,11 @@ regFormEl.addEventListener('submit', (evt) => {
         return
     }
 
+
     const newUser = {
         nickname: regNickname.trim(),
         password: regPass.trim()
     };
     console.log(newUser);
-    // http.add(newUser);
+    http.add(newUser);
 });
