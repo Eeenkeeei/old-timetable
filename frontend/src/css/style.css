@@ -28,3 +28,7 @@ body, html {
 .mb-3 {
     color: #5C84AD;
 }
+
+#errorEl {
+    margin-top: 10px;
+}
