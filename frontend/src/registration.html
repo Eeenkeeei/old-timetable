@@ -24,7 +24,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-        <a href="#" class="navbar-brad"><img src="img/logo.png" alt=""></a>
+        <a href="index.html" class="navbar-brad"><img src="img/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,13 +47,13 @@
 <div class="container">
 
         <div class="col-12 mx-auto col-md-12 order-md-12">
-            <form>
+            <form id="regForm">
                 <h1>Регистрация</h1>
                 <div class="form-group">
                     <h4 class="form-text">Никнейм</h4>
                     <small class="form-text text-muted">Не менее 4 символов</small>
 
-                    <input type="email" class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="exampleInputEmail1"
+                    <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="regNickname"
                            aria-describedby="emailHelp"
                            placeholder="Твой никнейм">
                 </div>
@@ -62,9 +62,9 @@
                     <small  class="form-text text-muted">Не менее 8 символов</small>
 
                     <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded"
-                           id="exampleInputPassword1" placeholder="Пароль">
+                           id="regPass" placeholder="Пароль" >
                 </div>
-                <button type="button" class="btn btn-info  shadow-sm rounded">Зарегистрироваться</button>
+                <button type="submit" class="btn btn-info  shadow-sm rounded">Зарегистрироваться</button>
                 <!--<div class="form-group form-check">-->
                 <!--<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
                 <!--<label class="form-check-label" for="exampleCheck1">Check me out</label>-->
@@ -73,6 +73,6 @@
         </div>
     </div>
 </div>
-<script src="js/index.js"></script>
+<script src="js/index.js" type="module"></script>
 </body>
 </html>
