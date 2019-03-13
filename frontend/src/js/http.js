@@ -1,4 +1,6 @@
 export class Http {
+    items = 'items';
+    resultFlag = '1';
     constructor(url) {
         this.url = url;
     }
@@ -7,8 +9,20 @@ export class Http {
         return fetch(this.url);
     }
 
+    getRegFlag() {
+        return fetch(`${this.url}/resultFlag`, {
+        })
+            // .then(dataWrappedByPromise => dataWrappedByPromise.json())
+            // .then(data => {
+            //     // you can access your data here
+            //     this.resultFlag = data;
+            //     console.log(this.resultFlag)
+            // });
+    }
+
+
     save(item) {
-        return fetch(this.url, {
+        return fetch(`${this.url}/resultFlag`, {
             body: JSON.stringify(item),
             method: 'POST',
             headers: {
@@ -18,7 +32,7 @@ export class Http {
     }
 
     add (item) {
-        return fetch(`${this.url}`, {
+        return fetch(`${this.url}/resultFlag`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
