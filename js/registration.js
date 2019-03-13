@@ -4,7 +4,7 @@ const regNicknameEl = document.querySelector('#regNickname'); // поле вво
 const regPassEl = document.querySelector('#regPass'); // поле ввода pass
 const regFormEl = document.querySelector('#regForm');
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = ''; // очистка блока чтобы не было копий
