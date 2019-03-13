@@ -1,4 +1,6 @@
-import {Http} from "./http.js";
+import Http from "./http.js";
+
+
 
 const regNicknameEl = document.querySelector('#regNickname'); // поле ввода nickname
 const regPassEl = document.querySelector('#regPass'); // поле ввода pass
