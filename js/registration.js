@@ -30,18 +30,7 @@ regFormEl.addEventListener('submit', async (evt) => {
 
     //TODO: перенести валидацию по длине на сервер
 
-    if (regNickname.length < 4 || regPass.length < 7) {
-        errorEl.innerHTML = `
-        <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
-            <strong>Ой!</strong> Введенное имя пользователя или пароль должны удовлетворять условиям
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        `;
-        regFormEl.appendChild(errorEl);
-        return
-    }
+
 
     const newUser = {
         nickname: regNickname.trim(),
@@ -54,6 +43,18 @@ regFormEl.addEventListener('submit', async (evt) => {
             _resultRegFlag = data;
         }
     );
+    if (_resultRegFlag === 'Bad Request'){
+        errorEl.innerHTML = `
+        <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
+            <strong>Ой!</strong> Введенное имя пользователя или пароль должны удовлетворять условиям
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        regFormEl.appendChild(errorEl);
+        return
+    } else
     if (_resultRegFlag === 'true') {
         errorEl.innerHTML = `
         <div class="alert alert-info alert-dismissible fade show" id="errorEl" role="alert">

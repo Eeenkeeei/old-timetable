@@ -32,3 +32,8 @@ body, html {
 #errorEl {
     margin-top: 10px;
 }
+
+#usernameBar {
+    margin-left: 1rem;
+}
+

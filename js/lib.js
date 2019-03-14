@@ -1,44 +1,19 @@
 export class Link {
-    constructor(id, name, tag, link, location) {
-        this.name = name;
-        this.tag = tag.split("#");
-        this.link = link;
-        this.location = location;
-        this.id = id;
+    constructor(data) {
+       this.data = data
     }
 }
 
-export class LinkList {
+export class DataStorage {
     constructor(storage) {
         this.storage = storage;
     }
 
-    get items() {
-        return this.storage.items;
+    get getUserData() {
+        return this.storage.data;
     }
 
-    add(item) {
-        this.storage.add(item);
+    add(data) {
+        this.storage.add(data);
     }
-
-    remove(item) {
-        this.storage.remove(item);
-    }
-
-    removeAll(){
-        this.storage.removeAll();
-    }
-
-    changeLocation(item){
-        this.storage.changeLocation(item);
-    }
-
-    finder (findName){
-        this.storage.finder(findName);
-    }
-
-    editElement (item, editLinkName, editLinkTag, editLink){
-        this.storage.editElement (item, editLinkName, editLinkTag, editLink);
-    }
-
 }

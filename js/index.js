@@ -1,4 +1,7 @@
 import Http from "./http.js";
+import {DataStorage} from "./lib.js";
+import {LocalStorage} from "./storage.js";
+import {Link} from "./lib.js";
 
 const logFormEl = document.querySelector('#logForm');
 const logUsernameEl = document.querySelector('#logUsername');
@@ -9,6 +12,7 @@ const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';
 
+const storage = new DataStorage(new LocalStorage());
 
 logFormEl.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -33,7 +37,7 @@ logFormEl.addEventListener('submit', async (evt) => {
         console.log(_token.token);
         if (_token.token === undefined) {
             errorEl.innerHTML = `
-        <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Ой!</strong> Проверьте правильность введенных данных
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -43,12 +47,13 @@ logFormEl.addEventListener('submit', async (evt) => {
             return;
         } else {
             errorEl.innerHTML = `
-        <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Вы успешно авторизовались!</strong> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-        </div>`
+        </div>`;
+            document.location.href = '/account.html'
         }
         let object = await http.userAccess(_token.token);
         _token = '';
@@ -56,6 +61,8 @@ logFormEl.addEventListener('submit', async (evt) => {
         await object.json().then(async (data) => {
             _userObject = data;
             console.log(_userObject);
+            const line = new Link(_userObject);
+            storage.add(line)
         })
     });
     logFormEl.appendChild(errorEl)
