@@ -4,7 +4,7 @@ const logFormEl = document.querySelector('#logForm');
 const logUsernameEl = document.querySelector('#logUsername');
 const logPasswordEl = document.querySelector('#logPassword');
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';
@@ -33,7 +33,7 @@ logFormEl.addEventListener('submit', async (evt) => {
         console.log(_token.token);
         if (_token.token === undefined) {
             errorEl.innerHTML = `
-        <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Ой!</strong> Проверьте правильность введенных данных
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -43,7 +43,7 @@ logFormEl.addEventListener('submit', async (evt) => {
             return;
         } else {
             errorEl.innerHTML = `
-        <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Вы успешно авторизовались!</strong> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
