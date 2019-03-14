@@ -9,11 +9,26 @@ const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';
 
+regFormEl.addEventListener('submit', evt => {
+    evt.preventDefault();
+    errorEl.innerHTML = `
+    <div class="spinner-border text-info" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    `;
+});
+
 regFormEl.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-
+    errorEl.innerHTML = `
+    <div class="spinner-border text-info" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    `;
     const regPass = regPassEl.value;
     const regNickname = regNicknameEl.value;
+
+    //TODO: перенести валидацию по длине на сервер
 
     if (regNickname.length < 4 || regPass.length < 7) {
         errorEl.innerHTML = `
@@ -32,11 +47,7 @@ regFormEl.addEventListener('submit', async (evt) => {
         nickname: regNickname.trim(),
         password: regPass.trim()
     };
-    errorEl.innerHTML = `
-    <div class="spinner-border text-info" role="status">
-    <span class="sr-only">Loading...</span>
-    </div>
-    `;
+
     let _resultRegFlag = ''; // ОТВЕЧАЕТ ЗА ФЛАГ РЕГИСТРАЦИИ, false если ник занят, true если нет
     let getRegFlag = await http.add(newUser);
     await getRegFlag.json().then(async (data) => {

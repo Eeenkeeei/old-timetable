@@ -3,7 +3,7 @@ export default class Http {
         this.url = url;
     }
 
-    add (item) {
+    add(item) {
         return fetch(`${this.url}/resultFlag`, {
             method: 'POST',
             headers: {
@@ -13,13 +13,34 @@ export default class Http {
         });
     }
 
+    userAccess(token) {
+        return fetch(`${this.url}/user`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+
+        });
+    }
+
+    auth(user) {
+        return fetch(`${this.url}/auth`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+    }
+
     removeById(id) {
         return fetch(`${this.url}/${id}`, {
             method: 'DELETE'
         });
     }
 
-    changeLink(item){
+    changeLink(item) {
         return fetch(`${this.url}/${item}`, {
             method: 'POST',
             headers: {
@@ -29,7 +50,7 @@ export default class Http {
         });
     }
 
-    deleteAll(){
+    deleteAll() {
         return fetch(`${this.url}`, {
             method: 'DELETE'
         });
