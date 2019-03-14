@@ -1,14 +1,18 @@
 import Http from "./http.js";
+import {DataStorage} from "./lib.js";
+import {LocalStorage} from "./storage.js";
+import {Link} from "./lib.js";
 
 const logFormEl = document.querySelector('#logForm');
 const logUsernameEl = document.querySelector('#logUsername');
 const logPasswordEl = document.querySelector('#logPassword');
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';
 
+const storage = new DataStorage(new LocalStorage());
 
 logFormEl.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -48,7 +52,8 @@ logFormEl.addEventListener('submit', async (evt) => {
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
-        </div>`
+        </div>`;
+            document.location.href = '/account.html'
         }
         let object = await http.userAccess(_token.token);
         _token = '';
@@ -56,6 +61,8 @@ logFormEl.addEventListener('submit', async (evt) => {
         await object.json().then(async (data) => {
             _userObject = data;
             console.log(_userObject);
+            const line = new Link(_userObject);
+            storage.add(line)
         })
     });
     logFormEl.appendChild(errorEl)
