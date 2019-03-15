@@ -9,15 +9,25 @@ const logPasswordEl = document.querySelector('#logPassword');
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 
-const errorEl = document.createElement('div'); // создание блока ошибок
-errorEl.innerHTML = '';
+const textBoxEl = document.createElement('div'); // создание блока ошибок
+textBoxEl.innerHTML = '';
 
 const storage = new DataStorage(new LocalStorage());
+
+logFormEl.addEventListener('click', (evt)=>{
+    evt.preventDefault();
+    textBoxEl.innerHTML = `
+    <div class="spinner-border text-info" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    `;
+    logFormEl.appendChild(textBoxEl)
+});
 
 logFormEl.addEventListener('submit', async (evt) => {
     evt.preventDefault();
 
-    errorEl.innerHTML = `
+    textBoxEl.innerHTML = `
     <div class="spinner-border text-info" role="status">
     <span class="sr-only">Loading...</span>
     </div>
@@ -36,7 +46,7 @@ logFormEl.addEventListener('submit', async (evt) => {
         _token = data;
         console.log(_token.token);
         if (_token.token === undefined) {
-            errorEl.innerHTML = `
+            textBoxEl.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Ой!</strong> Проверьте правильность введенных данных
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -46,7 +56,7 @@ logFormEl.addEventListener('submit', async (evt) => {
         `;
             return;
         } else {
-            errorEl.innerHTML = `
+            textBoxEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Вы успешно авторизовались!</strong> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,5 +75,5 @@ logFormEl.addEventListener('submit', async (evt) => {
             storage.add(line)
         })
     });
-    logFormEl.appendChild(errorEl)
+    logFormEl.appendChild(textBoxEl)
 });
