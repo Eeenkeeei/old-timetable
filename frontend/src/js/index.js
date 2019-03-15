@@ -63,7 +63,7 @@ logFormEl.addEventListener('submit', async (evt) => {
             <span aria-hidden="true">&times;</span>
             </button>
         </div>`;
-            document.location.href = 'timetable/account.html'
+            document.location.href = 'account.html'
         }
         let object = await http.userAccess(_token.token);
         _token = '';
