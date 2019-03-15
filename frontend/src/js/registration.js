@@ -3,8 +3,9 @@ import Http from "./http.js";
 const regNicknameEl = document.querySelector('#regNickname'); // поле ввода nickname
 const regPassEl = document.querySelector('#regPass'); // поле ввода pass
 const regFormEl = document.querySelector('#regForm');
+const regPassConfirmEl = document.querySelector('#confirmRegPass');
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';
@@ -28,14 +29,12 @@ regFormEl.addEventListener('submit', async (evt) => {
     `;
     const regPass = regPassEl.value;
     const regNickname = regNicknameEl.value;
-
-    //TODO: перенести валидацию по длине на сервер
-
-
+    const regPassConfirm = regPassConfirmEl.value;
 
     const newUser = {
         nickname: regNickname.trim(),
-        password: regPass.trim()
+        password: regPass.trim(),
+        passwordConfirm: regPassConfirm.trim()
     };
 
     let _resultRegFlag = ''; // ОТВЕЧАЕТ ЗА ФЛАГ РЕГИСТРАЦИИ, false если ник занят, true если нет
@@ -44,6 +43,19 @@ regFormEl.addEventListener('submit', async (evt) => {
             _resultRegFlag = data;
         }
     );
+
+    if (_resultRegFlag === 'Bad Password'){
+        errorEl.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
+            <strong>Ой!</strong> Пароли не совпадают
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        regFormEl.appendChild(errorEl);
+        return;
+    }
     if (_resultRegFlag === 'Bad Request'){
         errorEl.innerHTML = `
         <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
@@ -54,7 +66,7 @@ regFormEl.addEventListener('submit', async (evt) => {
         </div>
         `;
         regFormEl.appendChild(errorEl);
-        return
+        return;
     } else
     if (_resultRegFlag === 'true') {
         errorEl.innerHTML = `

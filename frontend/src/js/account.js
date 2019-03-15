@@ -12,3 +12,5 @@ const user = storage.getUserData.data;
 
 usernameBarEl.textContent = user.username;
 console.log(user);
+
+console.log(user.timetable[0]);
