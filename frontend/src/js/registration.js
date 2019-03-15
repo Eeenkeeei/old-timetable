@@ -16,6 +16,7 @@ regFormEl.addEventListener('submit', evt => {
     <span class="sr-only">Loading...</span>
     </div>
     `;
+    regFormEl.appendChild(errorEl);
 });
 
 regFormEl.addEventListener('submit', async (evt) => {
