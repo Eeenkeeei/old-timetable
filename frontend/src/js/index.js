@@ -72,7 +72,7 @@ logFormEl.addEventListener('submit', async (evt) => {
             _userObject = data;
             console.log(_userObject);
             const line = new Link(_userObject);
-            storage.add(line)
+            await storage.add(line)
         })
     });
     logFormEl.appendChild(textBoxEl)
