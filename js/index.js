@@ -14,7 +14,7 @@ textBoxEl.innerHTML = '';
 
 const storage = new DataStorage(new LocalStorage());
 
-logFormEl.addEventListener('click', (evt)=>{
+logFormEl.addEventListener('submit', (evt)=>{
     evt.preventDefault();
     textBoxEl.innerHTML = `
     <div class="spinner-border text-info" role="status">
