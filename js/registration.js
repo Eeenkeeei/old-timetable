@@ -1,8 +1,18 @@
 import Http from "./http.js";
+import {DataStorage} from "./lib.js";
+import {LocalStorage} from "./storage.js";
+import {Link} from "./lib.js";
+
+// если в хранилище есть данные юзера, редирект на страницу аккаунта
+const storage = new DataStorage(new LocalStorage());
+if (storage.getUserData !== null) {
+    document.location.href = 'account.html'
+}
 
 const regNicknameEl = document.querySelector('#regNickname'); // поле ввода nickname
 const regPassEl = document.querySelector('#regPass'); // поле ввода pass
 const regFormEl = document.querySelector('#regForm');
+const regPassConfirmEl = document.querySelector('#confirmRegPass');
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 
@@ -11,6 +21,9 @@ errorEl.innerHTML = '';
 
 regFormEl.addEventListener('submit', evt => {
     evt.preventDefault();
+
+// todo: проверка на язык ввода, запрещенные символы
+
     errorEl.innerHTML = `
     <div class="spinner-border text-info" role="status">
     <span class="sr-only">Loading...</span>
@@ -28,14 +41,12 @@ regFormEl.addEventListener('submit', async (evt) => {
     `;
     const regPass = regPassEl.value;
     const regNickname = regNicknameEl.value;
-
-    //TODO: перенести валидацию по длине на сервер
-
-
+    const regPassConfirm = regPassConfirmEl.value;
 
     const newUser = {
         nickname: regNickname.trim(),
-        password: regPass.trim()
+        password: regPass.trim(),
+        passwordConfirm: regPassConfirm.trim()
     };
 
     let _resultRegFlag = ''; // ОТВЕЧАЕТ ЗА ФЛАГ РЕГИСТРАЦИИ, false если ник занят, true если нет
@@ -44,6 +55,19 @@ regFormEl.addEventListener('submit', async (evt) => {
             _resultRegFlag = data;
         }
     );
+
+    if (_resultRegFlag === 'Bad Password'){
+        errorEl.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
+            <strong>Ой!</strong> Пароли не совпадают
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        regFormEl.appendChild(errorEl);
+        return;
+    }
     if (_resultRegFlag === 'Bad Request'){
         errorEl.innerHTML = `
         <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
@@ -54,7 +78,7 @@ regFormEl.addEventListener('submit', async (evt) => {
         </div>
         `;
         regFormEl.appendChild(errorEl);
-        return
+        return;
     } else
     if (_resultRegFlag === 'true') {
         errorEl.innerHTML = `

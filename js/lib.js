@@ -16,4 +16,9 @@ export class DataStorage {
     add(data) {
         this.storage.add(data);
     }
+
+    unlogin (){
+        this.storage.unlogin();
+    }
+
 }
