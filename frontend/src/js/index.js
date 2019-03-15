@@ -3,6 +3,13 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
+// если в хранилище есть данные юзера, редирект на страницу аккаунта
+const storage = new DataStorage(new LocalStorage());
+if (storage.getUserData !== null) {
+    document.location.href = 'account.html'
+}
+
+
 const logFormEl = document.querySelector('#logForm');
 const logUsernameEl = document.querySelector('#logUsername');
 const logPasswordEl = document.querySelector('#logPassword');
@@ -11,8 +18,6 @@ const http = new Http('http://localhost:7777');
 
 const textBoxEl = document.createElement('div'); // создание блока ошибок
 textBoxEl.innerHTML = '';
-
-const storage = new DataStorage(new LocalStorage());
 
 logFormEl.addEventListener('submit', (evt)=>{
     evt.preventDefault();

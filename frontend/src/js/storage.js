@@ -9,6 +9,10 @@ export class LocalStorage {
         this.save();
     }
 
+    unlogin() {
+        localStorage.removeItem('data');
+    }
+
     save() {
         localStorage.setItem('data', JSON.stringify(this.data)); // stringify - преобразование объекта в строку
     }
