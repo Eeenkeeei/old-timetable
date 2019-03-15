@@ -63,7 +63,7 @@ logFormEl.addEventListener('submit', async (evt) => {
             <span aria-hidden="true">&times;</span>
             </button>
         </div>`;
-            document.location.href = 'account.html'
+
         }
         let object = await http.userAccess(_token.token);
         _token = '';
@@ -72,7 +72,9 @@ logFormEl.addEventListener('submit', async (evt) => {
             _userObject = data;
             console.log(_userObject);
             const line = new Link(_userObject);
-            await storage.add(line)
+            await storage.add(line);
+            document.location.href = 'account.html'
+
         })
     });
     logFormEl.appendChild(textBoxEl)
