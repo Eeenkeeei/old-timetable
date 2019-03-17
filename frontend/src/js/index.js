@@ -6,7 +6,7 @@ import {Link} from "./lib.js";
 // если в хранилище есть данные юзера, редирект на страницу аккаунта
 const storage = new DataStorage(new LocalStorage());
 if (storage.getUserData !== null) {
-    document.location.href = 'account.html'
+    window.location.href = 'account.html'
 }
 
 
@@ -78,8 +78,7 @@ logFormEl.addEventListener('submit', async (evt) => {
             console.log(_userObject);
             const line = new Link(_userObject);
             await storage.add(line);
-            document.location.href = 'account.html'
-
+            window.location.href = 'account.html'
         })
     });
     logFormEl.appendChild(textBoxEl)
