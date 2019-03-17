@@ -6,7 +6,7 @@ import {Link} from "./lib.js";
 // если в хранилище есть данные юзера, редирект на страницу аккаунта
 const storage = new DataStorage(new LocalStorage());
 if (storage.getUserData !== null) {
-    document.location.href = 'account.html'
+    window.location.href = 'account.html'
 }
 
 const regNicknameEl = document.querySelector('#regNickname'); // поле ввода nickname

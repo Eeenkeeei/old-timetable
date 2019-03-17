@@ -22,7 +22,6 @@ body, html {
 
 .container {
     margin-top: 20px;
-
 }
 
 .mb-3 {
@@ -41,3 +40,29 @@ body, html {
     margin-left: 1rem;
 }
 
+.container-fluid {
+    border: 1px;
+    padding: 0px;
+}
+
+.showAnim {
+    opacity:0; /*Элемент полностью прозрачный (невидимый)*/
+    transition: 1.3s; /*Скорость перехода состояния элемента*/
+
+    animation: show 1.3s 1; /* Указываем название анимации, её время и количество повторов*/
+    animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
+    /*animation-delay: 1s; !* Задержка перед началом *!*/
+}
+@keyframes show{
+    0%{
+        opacity:0;
+    }
+
+    100% {
+        opacity:1;
+    }
+}
+
+.img {
+    width: 4rem;
+}
