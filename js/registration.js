@@ -15,6 +15,8 @@ const regFormEl = document.querySelector('#regForm');
 const regPassConfirmEl = document.querySelector('#confirmRegPass');
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+// https://timetable-eeenkeeei.herokuapp.com
+
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';
