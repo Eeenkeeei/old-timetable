@@ -34,26 +34,15 @@ export default class Http {
         });
     }
 
-    removeById(id) {
-        return fetch(`${this.url}/${id}`, {
-            method: 'DELETE'
-        });
-    }
-
-    changeLink(item) {
-        return fetch(`${this.url}/${item}`, {
+    updateData(user) {
+        return fetch(`${this.url}/updateData`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(item)
+            body: JSON.stringify(user)
         });
     }
 
-    deleteAll() {
-        return fetch(`${this.url}`, {
-            method: 'DELETE'
-        });
-    }
 
 }

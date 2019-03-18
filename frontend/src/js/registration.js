@@ -14,7 +14,9 @@ const regPassEl = document.querySelector('#regPass'); // поле ввода pas
 const regFormEl = document.querySelector('#regForm');
 const regPassConfirmEl = document.querySelector('#confirmRegPass');
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
+// https://timetable-eeenkeeei.herokuapp.com
+
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';

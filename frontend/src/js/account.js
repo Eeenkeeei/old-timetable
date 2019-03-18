@@ -3,7 +3,8 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
-
+const http = new Http('http://localhost:7777');
+// https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
 
@@ -19,7 +20,6 @@ if (storage.getUserData === null) {
 }
 
 usernameBarEl.textContent = user.username;
-console.log(user);
 
 const exitButtonEl = document.querySelector('#exitButton');
 exitButtonEl.addEventListener('click', (evt)=>{
@@ -58,15 +58,28 @@ Array.from(document.querySelectorAll('[name=gridRadios]'))
     });
 
 
+// todo:
+// (function() {
+//     console.log("Opening connection");
+//     const exampleSocket = new WebSocket("ws:/localhost:8080/websocket/attach");
+//     exampleSocket.onopen = function (event) {
+//         console.log("Opened socket!");
+//         exampleSocket.send("Here's some text that the server is urgently awaiting!");
+//     };
+//     exampleSocket.onmessage = function (event) {
+//         console.log("return:", event.data);
+//         exampleSocket.close();
+//     }
+// })();
+
 const accountChangeFormEl = document.querySelector('#accountChangeForm');
 accountChangeFormEl.addEventListener('submit', evt => {
     evt.preventDefault();
     user.email = accountEmailEl.value;
     user.age = accountAgeEl.value;
     user.gender = gender;
-    console.log(user);
     const line = new Link(user);
     storage.add(line);
-
+    http.updateData(user)
 
 });
