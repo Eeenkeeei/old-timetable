@@ -3,7 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -36,8 +36,10 @@ accountEmailEl.value = user.email;
 const accountAgeEl = document.querySelector('#accountAge');
 accountAgeEl.value = user.age;
 
+
+// TODO: поле универа
 const accountUniversityEl = document.querySelector('#accountUniversity');
-// TODO:
+
 
 const accountGenderMenEl = document.querySelector('#genderMen');
 const accountGenderWomenEl = document.querySelector('#genderWomen');
@@ -50,7 +52,7 @@ if (user.gender === 'Мужской') {
 
 let gender;
 
-Array.from(document.querySelectorAll('[name=gridRadios]'))
+Array.from(document.querySelectorAll('[name=genderRadios]'))
     .forEach((value) => {
         value.addEventListener('change', ()=>{
             gender = value.value;

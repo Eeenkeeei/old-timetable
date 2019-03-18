@@ -14,7 +14,7 @@ const logFormEl = document.querySelector('#logForm');
 const logUsernameEl = document.querySelector('#logUsername');
 const logPasswordEl = document.querySelector('#logPassword');
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 
