@@ -96,21 +96,31 @@ accountChangeFormEl.addEventListener('submit', async evt => {
     user.age = accountAgeEl.value;
     user.gender = gender;
     user.edu = accountUniversityEl.value;
-    console.log(user.gender);
-    const line = new Link(user);
-    storage.add(line);
+    const data = new Link(user);
+    storage.add(data);
     let updateData = await http.updateData(user);
-    let message;
+    let _resultUpdateFlag = '';
     await updateData.json().then(async (data) => {
-        message = data;
-        await console.log(message);
+         _resultUpdateFlag = data;
+        await console.log(data);
     });
 
-    if (message === 'Data updated'){
+    if (_resultUpdateFlag === 'Data updated'){
         msgEl.innerHTML = '';
         msgEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Данные обновлены</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        accountChangeFormEl.appendChild(msgEl);
+    }
+    if (_resultUpdateFlag === 'Bad Request(age)') {
+        msgEl.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
+            Введите число в поле ввода возраста
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
