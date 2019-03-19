@@ -101,7 +101,7 @@ accountChangeFormEl.addEventListener('submit', async evt => {
     let message;
     await updateData1.json().then(async (data) => {
         message = data;
-        console.log(message);
+        await console.log(message);
     });
 
     if (message === 'Data updated'){
