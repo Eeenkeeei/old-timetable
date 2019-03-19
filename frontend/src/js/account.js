@@ -3,7 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -45,7 +45,7 @@ const accountGenderMenEl = document.querySelector('#genderMen');
 const accountGenderWomenEl = document.querySelector('#genderWomen');
 
 
-let gender;
+let gender = '';
 
 Array.from(document.querySelectorAll('[name=genderRadios]'))
     .forEach((value) => {

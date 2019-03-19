@@ -13,6 +13,10 @@ const regNicknameEl = document.querySelector('#regNickname'); // поле вво
 const regPassEl = document.querySelector('#regPass'); // поле ввода pass
 const regFormEl = document.querySelector('#regForm');
 const regPassConfirmEl = document.querySelector('#confirmRegPass');
+const regAgeEl = document.querySelector('#regAge');
+const regEmailEl = document.querySelector('#regEmail');
+const regEduEl = document.querySelector('#regEdu');
+
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
@@ -34,6 +38,15 @@ regFormEl.addEventListener('submit', evt => {
     regFormEl.appendChild(errorEl);
 });
 
+let regGender = '';
+Array.from(document.querySelectorAll('[name=genderRadios]'))
+    .forEach((value) => {
+        value.addEventListener('change', () => {
+            regGender = value.value;
+            console.log(regGender)
+        });
+    });
+
 regFormEl.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     errorEl.innerHTML = `
@@ -44,21 +57,28 @@ regFormEl.addEventListener('submit', async (evt) => {
     const regPass = regPassEl.value;
     const regNickname = regNicknameEl.value;
     const regPassConfirm = regPassConfirmEl.value;
+    const regEdu = regEduEl.value;
+    const regEmail = regEmailEl.value;
+    const regAge = regAgeEl.value;
 
     const newUser = {
         nickname: regNickname.trim(),
         password: regPass.trim(),
-        passwordConfirm: regPassConfirm.trim()
+        passwordConfirm: regPassConfirm.trim(),
+        edu: regEdu.trim(),
+        email: regEmail.trim(),
+        gender: regGender,
+        age: regAge.trim()
     };
 
-    let _resultRegFlag = ''; // ОТВЕЧАЕТ ЗА ФЛАГ РЕГИСТРАЦИИ, false если ник занят, true если нет
+    let _resultRegFlag = '';
     let getRegFlag = await http.add(newUser);
     await getRegFlag.json().then(async (data) => {
             _resultRegFlag = data;
         }
     );
 
-    if (_resultRegFlag === 'Bad Password'){
+    if (_resultRegFlag === 'Bad Password') {
         errorEl.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Ой!</strong> Пароли не совпадают
@@ -70,7 +90,7 @@ regFormEl.addEventListener('submit', async (evt) => {
         regFormEl.appendChild(errorEl);
         return;
     }
-    if (_resultRegFlag === 'Bad Request'){
+    if (_resultRegFlag === 'Bad Request') {
         errorEl.innerHTML = `
         <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Ой!</strong> Введенное имя пользователя или пароль должны удовлетворять условиям
@@ -81,8 +101,7 @@ regFormEl.addEventListener('submit', async (evt) => {
         `;
         regFormEl.appendChild(errorEl);
         return;
-    } else
-    if (_resultRegFlag === 'true') {
+    } else if (_resultRegFlag === 'true') {
         errorEl.innerHTML = `
         <div class="alert alert-info alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Отлично!</strong> Вы успешно зарегистрировались!
