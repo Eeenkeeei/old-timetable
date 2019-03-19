@@ -39,6 +39,7 @@ accountAgeEl.value = user.age;
 
 // TODO: поле универа
 const accountUniversityEl = document.querySelector('#accountUniversity');
+accountUniversityEl.value = user.edu;
 
 
 const accountGenderMenEl = document.querySelector('#genderMen');
@@ -94,17 +95,19 @@ accountChangeFormEl.addEventListener('submit', async evt => {
     user.email = accountEmailEl.value;
     user.age = accountAgeEl.value;
     user.gender = gender;
+    user.edu = accountUniversityEl.value;
     console.log(user.gender);
     const line = new Link(user);
     storage.add(line);
-    let updateData1 = await http.updateData(user);
+    let updateData = await http.updateData(user);
     let message;
-    await updateData1.json().then(async (data) => {
+    await updateData.json().then(async (data) => {
         message = data;
         await console.log(message);
     });
 
     if (message === 'Data updated'){
+        msgEl.innerHTML = '';
         msgEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Данные обновлены</strong>

@@ -78,6 +78,19 @@ regFormEl.addEventListener('submit', async (evt) => {
         }
     );
 
+    if (_resultRegFlag === 'Bad Request(age)') {
+        errorEl.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
+            Введите число в поле ввода возраста
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        regFormEl.appendChild(errorEl);
+        return;
+    }
+
     if (_resultRegFlag === 'Bad Password') {
         errorEl.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
