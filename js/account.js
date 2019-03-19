@@ -45,7 +45,7 @@ const accountGenderMenEl = document.querySelector('#genderMen');
 const accountGenderWomenEl = document.querySelector('#genderWomen');
 
 
-let gender;
+let gender = '';
 
 Array.from(document.querySelectorAll('[name=genderRadios]'))
     .forEach((value) => {
@@ -56,8 +56,10 @@ Array.from(document.querySelectorAll('[name=genderRadios]'))
 
 if (user.gender === 'Мужской') {
     accountGenderMenEl.checked = true;
+    gender = 'Мужской'
 } else if (user.gender === 'Женский') {
     accountGenderWomenEl.checked = true;
+    gender = 'Женский'
 }
 
 // todo:
@@ -99,7 +101,7 @@ accountChangeFormEl.addEventListener('submit', async evt => {
     let message;
     await updateData1.json().then(async (data) => {
         message = data;
-        console.log(message);
+        await console.log(message);
     });
 
     if (message === 'Data updated'){

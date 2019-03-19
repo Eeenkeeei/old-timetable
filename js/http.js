@@ -4,7 +4,7 @@ export default class Http {
     }
 
     add(item) {
-        return fetch(`${this.url}/resultFlag`, {
+        return fetch(`${this.url}/registration`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
