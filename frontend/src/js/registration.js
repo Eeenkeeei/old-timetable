@@ -18,7 +18,7 @@ const regEmailEl = document.querySelector('#regEmail');
 const regEduEl = document.querySelector('#regEdu');
 
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 // https://timetable-eeenkeeei.herokuapp.com
 
 
@@ -77,6 +77,19 @@ regFormEl.addEventListener('submit', async (evt) => {
             _resultRegFlag = data;
         }
     );
+
+    if (_resultRegFlag === 'Bad Request(age)') {
+        errorEl.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
+            Введите число в поле ввода возраста
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        regFormEl.appendChild(errorEl);
+        return;
+    }
 
     if (_resultRegFlag === 'Bad Password') {
         errorEl.innerHTML = `

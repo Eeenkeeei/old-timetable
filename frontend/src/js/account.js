@@ -3,7 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
