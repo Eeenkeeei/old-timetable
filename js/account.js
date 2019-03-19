@@ -44,11 +44,6 @@ const accountUniversityEl = document.querySelector('#accountUniversity');
 const accountGenderMenEl = document.querySelector('#genderMen');
 const accountGenderWomenEl = document.querySelector('#genderWomen');
 
-if (user.gender === 'Мужской') {
-    accountGenderMenEl.checked = true;
-} else if (user.gender === 'Женский') {
-    accountGenderWomenEl.checked = true;
-}
 
 let gender;
 
@@ -59,6 +54,11 @@ Array.from(document.querySelectorAll('[name=genderRadios]'))
         });
     });
 
+if (user.gender === 'Мужской') {
+    accountGenderMenEl.checked = true;
+} else if (user.gender === 'Женский') {
+    accountGenderWomenEl.checked = true;
+}
 
 // todo:
 //
@@ -92,6 +92,7 @@ accountChangeFormEl.addEventListener('submit', async evt => {
     user.email = accountEmailEl.value;
     user.age = accountAgeEl.value;
     user.gender = gender;
+    console.log(user.gender);
     const line = new Link(user);
     storage.add(line);
     let updateData1 = await http.updateData(user);
