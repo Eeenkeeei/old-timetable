@@ -87,6 +87,8 @@ accountChangeFormEl.addEventListener('submit', async evt => {
     <span class="sr-only">Loading...</span>
     </div>
     `;
+    accountChangeFormEl.appendChild(msgEl);
+
     user.email = accountEmailEl.value;
     user.age = accountAgeEl.value;
     user.gender = gender;
