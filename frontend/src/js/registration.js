@@ -75,8 +75,7 @@ regFormEl.addEventListener('submit', async (evt) => {
     let getRegFlag = await http.add(newUser);
     await getRegFlag.json().then(async (data) => {
             _resultRegFlag = data;
-        }
-    );
+        });
 
     if (_resultRegFlag === 'Bad Request(age)') {
         errorEl.innerHTML = `
