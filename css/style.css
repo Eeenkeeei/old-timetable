@@ -12,12 +12,16 @@ body, html {
     padding-right: 20px;
 }
 
+.navbar-li-index {
+    padding-right: 5px !important;
+}
+
 .nav-link {
     font-size: 1.1em !important;
 }
 
 .navbar {
-    background-color: #5C84AD !important;
+    background-color: #3782ad !important;
 }
 
 .container {
@@ -25,7 +29,7 @@ body, html {
 }
 
 .mb-3 {
-    color: #5C84AD;
+    color: #3782ad;
 }
 
 #errorEl {

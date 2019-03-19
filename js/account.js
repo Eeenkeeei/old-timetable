@@ -61,9 +61,10 @@ Array.from(document.querySelectorAll('[name=genderRadios]'))
 
 
 // todo:
+//
 // (function() {
 //     console.log("Opening connection");
-//     const exampleSocket = new WebSocket("ws:/localhost:8080/websocket/attach");
+//     const exampleSocket = new WebSocket("ws://localhost:7777/websocket/attach");
 //     exampleSocket.onopen = function (event) {
 //         console.log("Opened socket!");
 //         exampleSocket.send("Here's some text that the server is urgently awaiting!");
@@ -74,14 +75,42 @@ Array.from(document.querySelectorAll('[name=genderRadios]'))
 //     }
 // })();
 
+const msgEl = document.createElement('div');
+msgEl.innerHTML = '';
+
 const accountChangeFormEl = document.querySelector('#accountChangeForm');
-accountChangeFormEl.addEventListener('submit', evt => {
+accountChangeFormEl.addEventListener('submit', async evt => {
     evt.preventDefault();
+
+    msgEl.innerHTML = `
+    <div class="spinner-border text-info" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    `;
+    accountChangeFormEl.appendChild(msgEl);
+
     user.email = accountEmailEl.value;
     user.age = accountAgeEl.value;
     user.gender = gender;
     const line = new Link(user);
     storage.add(line);
-    http.updateData(user)
+    let updateData1 = await http.updateData(user);
+    let message;
+    await updateData1.json().then(async (data) => {
+        message = data;
+        console.log(message);
+    });
+
+    if (message === 'Data updated'){
+        msgEl.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
+            <strong>Данные обновлены</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+        accountChangeFormEl.appendChild(msgEl);
+    }
 
 });
