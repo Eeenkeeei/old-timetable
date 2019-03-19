@@ -18,7 +18,7 @@ const regEmailEl = document.querySelector('#regEmail');
 const regEduEl = document.querySelector('#regEdu');
 
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 
