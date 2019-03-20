@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Timetable</title>
+    <title>Регистрация</title>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -19,10 +19,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/animate.css">
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top fadeIn wow animated">
     <div class="container-fluid">
         <a href="index.html" class="navbar-brad"><img src="img/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
@@ -44,29 +46,30 @@
     </div>
 
 </nav>
-<div class="container">
+<div class="container fadeIn wow animated">
 
     <div class="col-12 mx-auto col-md-12 order-md-12">
         <form id="regForm">
-            <h1>Регистрация</h1>
+            <h2>Регистрация</h2>
+            <h2>Поля, обязательные для ввода, обозначены <span style="color: red;">*</span> </h2>
             <div class="form-group">
-                <h4 class="form-text">Никнейм</h4>
+                <h4 class="form-text">Никнейм <span style="color: red;">*</span></h4>
                 <small class="form-text text-muted">Не менее 4 символов</small>
 
                 <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="regNickname" style="margin-bottom: 20px !important;"
                        aria-describedby="emailHelp"
-                       placeholder="Твой никнейм">
+                       placeholder="Твой никнейм" required>
             </div>
             <div class="form-group">
-                <h4 class="form-text">Пароль</h4>
+                <h4 class="form-text">Пароль <span style="color: red;">*</span></h4>
                 <small class="form-text text-muted">Не менее 8 символов</small>
 
                 <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
-                       id="regPass" placeholder="Пароль">
-                <h4 class="form-text">Повторите пароль</h4>
+                       id="regPass" placeholder="Пароль" required>
+                <h4 class="form-text">Повторите пароль <span style="color: red;">*</span></h4>
 
                 <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
-                       id="confirmRegPass" placeholder="Повторите пароль">
+                       id="confirmRegPass" placeholder="Повторите пароль" required>
                 <small class="form-text text-muted">E-mail</small>
 
                 <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;" id="regEmail"
