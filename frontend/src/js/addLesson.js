@@ -3,7 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -18,7 +18,7 @@ if (storage.getUserData === null) {
 } else {
     user = storage.getUserData.data
 }
-
+console.log(user);
 const exitButtonEl = document.querySelector('#exitButton');
 exitButtonEl.addEventListener('click', (evt) => {
     storage.unlogin();
@@ -30,16 +30,6 @@ let timetableData = user.timetable;
 
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
-
-function renderTimetable(container, timetableData) {
-    for (let i = 0; i !== timetableData.length; i++) {
-        console.log(timetableData[i].dayname);
-        console.log(timetableData[i].lessons)
-    }
-}
-
-// renderTimetable(timetableDivEl, timetableData);
-
 
 let selectLessonNumber = '1';
 let selectLessonDay = 'Понедельник';
@@ -90,10 +80,10 @@ let innerHTML = `
 </form>
 </div>
 `;
-
+let lessonObject = {};
 const addDivFormEl = document.querySelector('#addDivForm');
 const addLessonButtonEl = document.querySelector('#addLessonButton');
-addLessonButtonEl.addEventListener('click', ()=>{
+addLessonButtonEl.addEventListener('click', () => {
     addDivFormEl.innerHTML = '';
     addDivFormEl.innerHTML = innerHTML;
     const addLessonFormEl = document.querySelector('#addLessonForm');
@@ -106,20 +96,30 @@ addLessonButtonEl.addEventListener('click', ()=>{
             selectLessonDay = evt.currentTarget.value;
         });
 
-    addLessonFormEl.addEventListener('submit', (evt) =>{
+    addLessonFormEl.addEventListener('submit', async (evt) => {
         evt.preventDefault();
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
         const lessonNoteEl = document.querySelector('#lessonNote');
         let lessonNote = lessonNoteEl.value;
-        setTimeout(()=>{
+        setTimeout(() => {
             addLessonFormEl.innerHTML = '';
         }, 900);
         const animatedDivEl = document.querySelector('[data-animation=true]');
         animatedDivEl.className = 'fadeOut wow animated';
-        console.log('Название: ', lessonName, lessonNote, selectLessonNumber, selectLessonDay);
+        lessonObject = {
+            day: selectLessonDay,
+            number: selectLessonNumber,
+            name: lessonName,
+            note: lessonNote
+        };
+        user.timetable.push(lessonObject);
+        console.log(user);
+        const data = new Link(user);
+        storage.add(data);
+        await http.timetableUpdate(user);
 
-        })
+    })
 });
 
 
