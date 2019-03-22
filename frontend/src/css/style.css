@@ -70,3 +70,11 @@ body, html {
 .img {
     width: 4rem;
 }
+
+#addDivForm{
+    margin-top: 10px;
+}
+
+#addFormButton {
+    margin-top: 25px;
+}
