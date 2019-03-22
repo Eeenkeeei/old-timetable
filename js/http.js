@@ -44,5 +44,15 @@ export default class Http {
         });
     }
 
+    timetableUpdate(user) {
+        return fetch(`${this.url}/timetableUpdate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+    }
+
 
 }
