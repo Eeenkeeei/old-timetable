@@ -10,25 +10,47 @@ const usernameBarEl = document.querySelector('#usernameBar');
 
 const storage = new DataStorage(new LocalStorage());
 
-let user;
+const timetableBodyMondayEl = document.querySelector('#timetableBodyMonday'); // тело таблицы
+const timetableBodyTuesdayEl = document.querySelector('#timetableBodyTuesday'); // тело таблицы
+const timetableBodyWednesdayEl = document.querySelector('#timetableBodyWednesday'); // тело таблицы
+const timetableBodyThursdayEl = document.querySelector('#timetableBodyThursday'); // тело таблицы
+const timetableBodyFridayEl = document.querySelector('#timetableBodyFriday'); // тело таблицы
+const timetableBodySaturdayEl = document.querySelector('#timetableBodySaturday'); // тело таблицы
 
-// если в хранилище нет данных редирект на начальную
-if (storage.getUserData === null) {
-    document.location.href = 'index.html'
-} else {
-    user = storage.getUserData.data
+
+const tableEl = document.querySelector('#table');
+// let user = storage.getUserData.data;
+export default class Render {
+    constructor(user) {
+        // this.user = user  // исходный объект
+    }
+
+    renderTimetable(user) {
+        this.timetableConstructor(user, 'Понедельник', timetableBodyMondayEl);
+        this.timetableConstructor(user, 'Вторник', timetableBodyTuesdayEl);
+        this.timetableConstructor(user, 'Среда', timetableBodyWednesdayEl);
+        this.timetableConstructor(user, 'Четверг', timetableBodyThursdayEl);
+        this.timetableConstructor(user, 'Пятница', timetableBodyFridayEl);
+        this.timetableConstructor(user, 'Суббота', timetableBodySaturdayEl)
+
+    }
+
+    timetableConstructor (user, dayname, container) {
+        container.innerHTML = '';
+        user.timetable.forEach(({day, number, name, note}) => {
+            if (day === dayname) {
+                const tableItem = document.createElement('tr');
+                tableItem.innerHTML = `
+                            <td>${number}</td>
+                            <td>${name}</td>
+                            <td>${note}</td>
+            `;
+                container.appendChild(tableItem);
+                console.log(day, number, name, note)
+            }
+        });
+    }
 }
 
-const exitButtonEl = document.querySelector('#exitButton');
-exitButtonEl.addEventListener('click', (evt) => {
-    storage.unlogin();
-    document.location.href = 'index.html'
-});
-usernameBarEl.textContent = user.username;
-
-let timetableData = user.timetable;
 
 
-const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
-
-console.log(timetableData)

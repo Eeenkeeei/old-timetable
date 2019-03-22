@@ -70,3 +70,11 @@ body, html {
 .img {
     width: 4rem;
 }
+
+#addFormButton {
+    margin-top: 25px;
+}
+
+#table {
+    margin-top: 15px;
+}

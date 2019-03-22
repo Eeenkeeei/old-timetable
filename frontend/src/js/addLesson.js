@@ -2,32 +2,19 @@ import Http from "./http.js";
 import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
+import Render from "./renderTimetable.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
-const usernameBarEl = document.querySelector('#usernameBar');
-
 const storage = new DataStorage(new LocalStorage());
-
-let user;
-
-// если в хранилище нет данных редирект на начальную
-if (storage.getUserData === null) {
-    document.location.href = 'index.html'
-} else {
-    user = storage.getUserData.data
-}
-console.log(user);
-const exitButtonEl = document.querySelector('#exitButton');
-exitButtonEl.addEventListener('click', (evt) => {
-    storage.unlogin();
-    document.location.href = 'index.html'
-});
-usernameBarEl.textContent = user.username;
-
+const renderClass = new Render();
+let user = storage.getUserData.data;
 let timetableData = user.timetable;
 
+// timetableData.forEach(({day,number,name,note}) => {
+//     console.log(day, number, name, note)
+// });
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
 
@@ -60,7 +47,7 @@ let innerHTML = `
          </select>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
-    <label >День</label>
+    <label>День</label>
                             <select class="form-control form-control-sm shadow-sm" id="selectLessonDay">
                                 <option value="Понедельник">Понедельник</option>
                                 <option value="Вторник">Вторник</option>
@@ -80,6 +67,8 @@ let innerHTML = `
 </form>
 </div>
 `;
+renderClass.renderTimetable(user);
+
 let lessonObject = {};
 const addDivFormEl = document.querySelector('#addDivForm');
 const addLessonButtonEl = document.querySelector('#addLessonButton');
@@ -114,13 +103,15 @@ addLessonButtonEl.addEventListener('click', () => {
             note: lessonNote
         };
         user.timetable.push(lessonObject);
-        console.log(user);
+        // console.log(user);
         const data = new Link(user);
         storage.add(data);
         await http.timetableUpdate(user);
+        renderClass.renderTimetable(user);
 
     })
 });
+
 
 
 
