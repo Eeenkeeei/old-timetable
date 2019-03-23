@@ -20,18 +20,19 @@ const timetableDivEl = document.querySelector('#timetableDiv'); // корнев�
 
 let selectLessonNumber = '1';
 let selectLessonDay = 'Понедельник';
+let selectLessonType = 'Лекция';
 
 let innerHTML = `
 <div class="fadeIn wow animated" data-animation="true">
 <form id="addLessonForm"> 
 <div class="container">
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
        
     <label for="selectDay">Название</label>
     <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия">
 </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
         <label for="selectDay">Заметка</label>
         <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Заметка">
     </div>
@@ -44,6 +45,13 @@ let innerHTML = `
                                 <option value="5">5</option>
                                 <option value="6">6</option>
                                 <option value="7">7</option>
+         </select>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Тип занятия</label>
+         <select class="form-control form-control-sm shadow-sm" id="selectLessonType">
+                                <option value="Лекция">Лекция</option>
+                                <option value="Практика">Практика</option>
+                                <option value="Лабораторная работа">Лабораторная работа</option>
          </select>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
@@ -69,6 +77,10 @@ let innerHTML = `
 `;
 renderClass.renderTimetable(user);
 
+const msgEl = document.createElement('div');
+msgEl.innerHTML = '';
+const msgDivEl = document.querySelector('#msgEl');
+
 let lessonObject = {};
 const addDivFormEl = document.querySelector('#addDivForm');
 const addLessonButtonEl = document.querySelector('#addLessonButton');
@@ -84,9 +96,20 @@ addLessonButtonEl.addEventListener('click', () => {
         .addEventListener('input', (evt) => {
             selectLessonDay = evt.currentTarget.value;
         });
+    document.querySelector('#selectLessonType')
+        .addEventListener('input', (evt) => {
+            selectLessonType = evt.currentTarget.value;
+        });
 
     addLessonFormEl.addEventListener('submit', async (evt) => {
         evt.preventDefault();
+
+        msgEl.innerHTML = `
+    <div class="spinner-border text-info" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+    `;
+        addLessonFormEl.appendChild(msgEl)
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
         const lessonNoteEl = document.querySelector('#lessonNote');
@@ -100,15 +123,33 @@ addLessonButtonEl.addEventListener('click', () => {
             day: selectLessonDay,
             number: selectLessonNumber,
             name: lessonName,
-            note: lessonNote
+            note: lessonNote,
+            type: selectLessonType
         };
         user.timetable.push(lessonObject);
         // console.log(user);
         const data = new Link(user);
         storage.add(data);
-        await http.timetableUpdate(user);
+        let timetableUpdate = await http.timetableUpdate(user);
         renderClass.renderTimetable(user);
 
+        let _resultUpdateFlag = '';
+        await timetableUpdate.json().then(async (data) => {
+            _resultUpdateFlag = data;
+            await console.log(data);
+        });
+        if (_resultUpdateFlag === 'Timetable Updated'){
+            msgEl.innerHTML = '';
+            msgEl.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
+            <strong>Данные обновлены</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        `;
+            msgDivEl.appendChild(msgEl);
+        }
     })
 });
 

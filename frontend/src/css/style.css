@@ -21,7 +21,7 @@ body, html {
 }
 
 .navbar {
-    background-color: #3782ad !important;
+    background-color: #3988ad !important;
 }
 
 .container {
@@ -77,4 +77,14 @@ body, html {
 
 #table {
     margin-top: 15px;
+}
+
+.tableText {
+    color: black; width: 14rem !important;
+}
+
+.tableHeader {
+    border-radius: 0px;
+    border-bottom: 3px solid green;
+    border-top: 3px solid green
 }
