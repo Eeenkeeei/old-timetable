@@ -16,13 +16,12 @@ const timetableBodyWednesdayEl = document.querySelector('#timetableBodyWednesday
 const timetableBodyThursdayEl = document.querySelector('#timetableBodyThursday'); // тело таблицы
 const timetableBodyFridayEl = document.querySelector('#timetableBodyFriday'); // тело таблицы
 const timetableBodySaturdayEl = document.querySelector('#timetableBodySaturday'); // тело таблицы
-
-
 const tableEl = document.querySelector('#table');
-// let user = storage.getUserData.data;
+
+
 export default class Render {
     constructor(user) {
-        // this.user = user  // исходный объект
+
     }
 
     renderTimetable(user) {
@@ -37,16 +36,27 @@ export default class Render {
 
     timetableConstructor (user, dayname, container) {
         container.innerHTML = '';
-        user.timetable.forEach(({day, number, name, note}) => {
+        user.timetable.forEach(({day, number, name, note, type}) => {
+
             if (day === dayname) {
                 const tableItem = document.createElement('tr');
+
                 tableItem.innerHTML = `
-                            <td>${number}</td>
+                            <td>${number} пара
+                            <p><small class="text-muted h6">${type}</small></p> 
+                            </td>
                             <td>${name}</td>
                             <td>${note}</td>
             `;
+                const typeTextEl = document.querySelector('#type');
+                tableItem.addEventListener('click', ()=>{
+                    console.log('click')
+                    tableItem.removeEventListener('click', ()=>{
+                        console.log('click')
+
+                    })
+                });
                 container.appendChild(tableItem);
-                console.log(day, number, name, note)
             }
         });
     }
