@@ -47,11 +47,10 @@ logFormEl.addEventListener('submit', async (evt) => {
         "password": password
     };
 
-    let _token = ''; // ОТВЕЧАЕТ ЗА ФЛАГ РЕГИСТРАЦИИ, false если ник занят, true если нет
+    let _token = '';
     let getRegFlag = await http.auth(user);
     await getRegFlag.json().then(async (data) => {
         _token = data;
-        console.log(_token.token);
         if (_token.token === undefined) {
             textBoxEl.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
@@ -77,7 +76,6 @@ logFormEl.addEventListener('submit', async (evt) => {
         let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
         await object.json().then(async (data) => {
             _userObject = data;
-            console.log(_userObject);
             const line = new Link(_userObject);
             await storage.add(line);
             window.location.href = 'account.html'
