@@ -43,7 +43,6 @@ Array.from(document.querySelectorAll('[name=genderRadios]'))
     .forEach((value) => {
         value.addEventListener('change', () => {
             regGender = value.value;
-            console.log(regGender)
         });
     });
 
@@ -114,15 +113,28 @@ regFormEl.addEventListener('submit', async (evt) => {
         regFormEl.appendChild(errorEl);
         return;
     } else if (_resultRegFlag === 'true') {
-        errorEl.innerHTML = `
-        <div class="alert alert-info alert-dismissible fade show" id="errorEl" role="alert">
-            <strong>Отлично!</strong> Вы успешно зарегистрировались!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        `;
-        regFormEl.appendChild(errorEl);
+
+        const userForAuth = {
+            "username": regNickname.trim(),
+            "password": regPass.trim()
+        };
+
+        let _token;
+        let getAuthFlag = await http.auth(userForAuth);
+
+        await getAuthFlag.json().then(async (data) => {
+            _token = data;
+            let object = await http.userAccess(_token.token);
+            _token = '';
+            let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
+            await object.json().then(async (data) => {
+                _userObject = data;
+                const line = new Link(_userObject);
+                await storage.add(line);
+                window.location.href = 'account.html'
+            })
+        });
+
     } else {
         errorEl.innerHTML = `
         <div class="alert alert-warning alert-dismissible fade show" id="errorEl" role="alert">
