@@ -16,6 +16,7 @@ const regPassConfirmEl = document.querySelector('#confirmRegPass');
 const regAgeEl = document.querySelector('#regAge');
 const regEmailEl = document.querySelector('#regEmail');
 const regEduEl = document.querySelector('#regEdu');
+const msgBoxEl = document.querySelector('#msgBox'); // бокс с сообщениями
 
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
@@ -85,7 +86,7 @@ regFormEl.addEventListener('submit', async (evt) => {
             </button>
         </div>
         `;
-        regFormEl.appendChild(errorEl);
+        msgBoxEl.appendChild(errorEl);
         return;
     }
 
@@ -98,7 +99,7 @@ regFormEl.addEventListener('submit', async (evt) => {
             </button>
         </div>
         `;
-        regFormEl.appendChild(errorEl);
+        msgBoxEl.appendChild(errorEl);
         return;
     }
     if (_resultRegFlag === 'Bad Request') {
@@ -110,7 +111,7 @@ regFormEl.addEventListener('submit', async (evt) => {
             </button>
         </div>
         `;
-        regFormEl.appendChild(errorEl);
+        msgBoxEl.appendChild(errorEl);
         return;
     } else if (_resultRegFlag === 'true') {
 
@@ -144,6 +145,6 @@ regFormEl.addEventListener('submit', async (evt) => {
             </button>
         </div>
         `;
-        regFormEl.appendChild(errorEl);
+        msgBoxEl.appendChild(errorEl);
     }
 });
