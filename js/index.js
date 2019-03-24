@@ -61,15 +61,6 @@ logFormEl.addEventListener('submit', async (evt) => {
         </div>
         `;
             return;
-        } else {
-            textBoxEl.innerHTML = `
-        <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
-            <strong>Вы успешно авторизовались!</strong> 
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>`;
-
         }
         let object = await http.userAccess(_token.token);
         _token = '';
