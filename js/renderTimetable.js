@@ -83,9 +83,10 @@ export default class Render {
                                 <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonName" placeholder="Название занятия" value="${name}">
                             </td>
                             <td>
-                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonNote" placeholder="Заметка" value="${note}">
+                                <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12" id="lessonNote" placeholder="Заметка" rows="2" style="margin-right: 0px !important;">${note}</textarea>
 
-                                <button type="submit" class="btn btn-primary" id="editLesson">Submit</button>
+                                <button type="submit" class="btn-sm btn-info" id="editLesson" style="margin-top: 10px;">Сохранить</button>
+                                <button type="submit" class="btn-sm btn-danger" id="editLesson" style="margin-top: 10px;">Удалить</button>
                             </td>
                             
                             </form>
@@ -130,7 +131,6 @@ export default class Render {
                         if (lessonNumber === "7"){
                             lessonNumberSeven.selected = true;
                         }
-
                         const editLessonButton = document.querySelector('#editLesson');
                         editLessonButton.addEventListener('click', (evt) => {
                             //todo: добавление в юзер.дата
