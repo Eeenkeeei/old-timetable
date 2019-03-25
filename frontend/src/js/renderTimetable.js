@@ -21,7 +21,7 @@ const tableEl = document.querySelector('#table');
 
 export default class Render {
     constructor(user) {
-
+        let editLessonFlag = false;
     }
 
     renderTimetable(user) {
@@ -33,7 +33,7 @@ export default class Render {
         this.timetableConstructor(user, 'Суббота', timetableBodySaturdayEl)
 
     }
-    editLessonFlag = false;
+
     timetableConstructor(user, dayname, container) {
         container.innerHTML = '';
         user.timetable.forEach(({day, number, name, note, type}) => {
@@ -61,7 +61,7 @@ export default class Render {
                         tableItem.removeEventListener('click', listener);
                         console.log(day, number, name, note, type);
                         tableItem.innerHTML = `
-<form>
+                <form id="editLessonForm">
                     <td><select class="form-control form-control-sm shadow-sm col-md-5" id="selectLessonNumber">
                                 <option value="1" id="lessonNumberOne">1</option>
                                 <option value="2" id="lessonNumberTwo">2</option>
@@ -83,13 +83,13 @@ export default class Render {
                                 <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonName" placeholder="Название занятия" value="${name}">
                             </td>
                             <td>
-                                <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12" id="lessonNote" placeholder="Заметка" rows="2" style="margin-right: 0px !important;">${note}</textarea>
+                                <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12" id="lessonNote" placeholder="Заметка" rows="2">${note}</textarea>
 
                                 <button type="submit" class="btn-sm btn-info" id="editLesson" style="margin-top: 10px;">Сохранить</button>
-                                <button type="submit" class="btn-sm btn-danger" id="editLesson" style="margin-top: 10px;">Удалить</button>
+                                <button type="button" class="btn-sm btn-danger" id="deleteLesson" style="margin-top: 10px;">Удалить</button>
                             </td>
                             
-                            </form>
+                </form>
                     `;
                         const lessonTypeLectionEl = document.querySelector('#lessonTypeLection');
                         const lessonTypePracticalEl = document.querySelector('#lessonTypePractical');
@@ -131,15 +131,24 @@ export default class Render {
                         if (lessonNumber === "7"){
                             lessonNumberSeven.selected = true;
                         }
-                        const editLessonButton = document.querySelector('#editLesson');
-                        editLessonButton.addEventListener('click', (evt) => {
+                        const editLessonForm = document.querySelector('#editLessonForm');
+                        editLessonForm.addEventListener('submit', (evt) => {
                             //todo: добавление в юзер.дата
-                            evt.preventDefault();
+
+                            // evt.preventDefault();
                             this.renderTimetable(user);
-                            console.log('submit');
+                            console.log(user.timetable);
+                            this.editLessonFlag = false;
+                        });
+
+                        const deleteLessonButton = document.querySelector('#deleteLesson');
+                        deleteLessonButton.addEventListener('click', (evt)=>{
+                            //todo: добавление в юзер.дата
+                            this.renderTimetable(user);
+                            console.log('delete');
                             this.editLessonFlag = false;
                         })
-                        // this.renderTimetable(user)
+
                     }
                 };
                 tableItem.addEventListener('click', listener);
