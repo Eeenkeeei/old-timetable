@@ -3,7 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -63,13 +63,13 @@ export default class Render {
                         tableItem.innerHTML = `
 <form>
                     <td><select class="form-control form-control-sm shadow-sm col-md-5" id="selectLessonNumber">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
+                                <option value="1" id="lessonNumberOne">1</option>
+                                <option value="2" id="lessonNumberTwo">2</option>
+                                <option value="3" id="lessonNumberThree">3</option>
+                                <option value="4" id="lessonNumberFour">4</option>
+                                <option value="5" id="lessonNumberFive">5</option>
+                                <option value="6" id="lessonNumberSix">6</option>
+                                <option value="7" id="lessonNumberSeven">7</option>
                     </select> пара
                             <p><small class="text-muted h6">
                             <select class="form-control form-control-sm shadow-sm col-md-5" id="selectLessonType">
@@ -80,10 +80,10 @@ export default class Render {
                             </small></p> 
                             </td>
                             <td>   
-                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonName" placeholder="Название занятия">
+                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonName" placeholder="Название занятия" value="${name}">
                             </td>
                             <td>
-                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonNote" placeholder="Заметка">
+                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonNote" placeholder="Заметка" value="${note}">
 
                                 <button type="submit" class="btn btn-primary" id="editLesson">Submit</button>
                             </td>
@@ -102,6 +102,35 @@ export default class Render {
                         if (lessonType === "Лабораторная работа") {
                             lessonTypeLaboratoryWorkEl.selected = true;
                         }
+                        const lessonNumberOneEl = document.querySelector('#lessonNumberOne');
+                        const lessonNumberTwoEl = document.querySelector('#lessonNumberTwo');
+                        const lessonNumberThree = document.querySelector('#lessonNumberThree');
+                        const lessonNumberFour = document.querySelector('#lessonNumberFour');
+                        const lessonNumberFive = document.querySelector('#lessonNumberFive');
+                        const lessonNumberSix = document.querySelector('#lessonNumberSix');
+                        const lessonNumberSeven = document.querySelector('#lessonNumberSeven');
+                        if (lessonNumber === "1"){
+                            lessonNumberOneEl.selected = true;
+                        }
+                        if (lessonNumber === "2"){
+                            lessonNumberTwoEl.selected = true;
+                        }
+                        if (lessonNumber === "3"){
+                            lessonNumberThree.selected = true;
+                        }
+                        if (lessonNumber === "4"){
+                            lessonNumberFour.selected = true;
+                        }
+                        if (lessonNumber === "5"){
+                            lessonNumberFive.selected = true;
+                        }
+                        if (lessonNumber === "6"){
+                            lessonNumberSix.selected = true;
+                        }
+                        if (lessonNumber === "7"){
+                            lessonNumberSeven.selected = true;
+                        }
+
                         const editLessonButton = document.querySelector('#editLesson');
                         editLessonButton.addEventListener('click', (evt) => {
                             //todo: добавление в юзер.дата
