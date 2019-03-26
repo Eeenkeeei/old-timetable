@@ -75,6 +75,10 @@ body, html {
     margin-top: 25px;
 }
 
+#cancelAddButton {
+    margin-top: 25px;
+}
+
 #table {
     margin-top: 15px;
 }

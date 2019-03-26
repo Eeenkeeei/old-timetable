@@ -30,7 +30,7 @@ let innerHTML = `
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
        
     <label for="selectDay">Название</label>
-    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
+    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus" >
 </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
         <label for="selectDay">Заметка</label>
@@ -68,6 +68,7 @@ let innerHTML = `
       <div class="col">
           <label></label>
           <button type="submit" class="btn btn-success shadow" id="addFormButton"><strong>+</strong></button>
+          <button type="button" class="btn btn-danger shadow" id="cancelAddButton"><strong>Отмена</strong></button>
       </div>
     
   </div>
@@ -101,6 +102,15 @@ addLessonButtonEl.addEventListener('click', () => {
         .addEventListener('input', (evt) => {
             selectLessonType = evt.currentTarget.value;
         });
+
+    const cancelAddButton = document.querySelector('#cancelAddButton');
+    cancelAddButton.addEventListener('click', () =>{
+        const animatedDivEl = document.querySelector('[data-animation=true]');
+        animatedDivEl.className = 'fadeOut wow animated';
+        setTimeout(() => {
+            addLessonFormEl.innerHTML = '';
+        }, 900);
+    });
 
     addLessonFormEl.addEventListener('submit', async (evt) => {
         evt.preventDefault();
@@ -143,7 +153,7 @@ addLessonButtonEl.addEventListener('click', () => {
         if (_resultUpdateFlag === 'Timetable Updated'){
             msgEl.innerHTML = '';
             msgEl.innerHTML = `
-        <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
             <strong>Данные обновлены</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
