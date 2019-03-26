@@ -2,24 +2,26 @@ import Http from "./http.js";
 import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
+import {ConnectAccount} from "./connectAccount.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
-
+const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
 
 let user;
+
+connectAccount.auth();
 
 // если в хранилище нет данных редирект на начальную
 if (storage.getUserData === null) {
     document.location.href = 'index.html'
 } else {
-    user = storage.getUserData.data
+    user = storage.getUserData.data;
+    connectAccount.auth()
 }
-
-usernameBarEl.textContent = user.username;
 
 const exitButtonEl = document.querySelector('#exitButton');
 exitButtonEl.addEventListener('click', (evt)=>{
@@ -42,18 +44,13 @@ accountDataUniversityEl.textContent = user.edu;
 const accountDataGenderEl = document.querySelector('[data-id=accountGender]');
 accountDataGenderEl.textContent = user.gender;
 
-
-
-
 let gender = '';
 
-
-
-// todo:
+// //todo:
 //
 // (function() {
 //     console.log("Opening connection");
-//     const exampleSocket = new WebSocket("ws://localhost:7777/websocket/attach");
+//     const exampleSocket = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/websocket/attach");
 //     exampleSocket.onopen = function (event) {
 //         console.log("Opened socket!");
 //         exampleSocket.send("Here's some text that the server is urgently awaiting!");
