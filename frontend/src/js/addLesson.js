@@ -85,6 +85,7 @@ let lessonObject = {};
 const addDivFormEl = document.querySelector('#addDivForm');
 const addLessonButtonEl = document.querySelector('#addLessonButton');
 addLessonButtonEl.addEventListener('click', () => {
+    renderClass.renderTimetable(user);
     addDivFormEl.innerHTML = '';
     addDivFormEl.innerHTML = innerHTML;
     const addLessonFormEl = document.querySelector('#addLessonForm');
@@ -109,7 +110,7 @@ addLessonButtonEl.addEventListener('click', () => {
     <span class="sr-only">Loading...</span>
     </div>
     `;
-        addLessonFormEl.appendChild(msgEl)
+        addLessonFormEl.appendChild(msgEl);
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
         const lessonNoteEl = document.querySelector('#lessonNote');
@@ -138,6 +139,7 @@ addLessonButtonEl.addEventListener('click', () => {
             _resultUpdateFlag = data;
             await console.log(data);
         });
+
         if (_resultUpdateFlag === 'Timetable Updated'){
             msgEl.innerHTML = '';
             msgEl.innerHTML = `
