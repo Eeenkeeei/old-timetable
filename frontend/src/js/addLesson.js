@@ -12,9 +12,7 @@ const renderClass = new Render();
 let user = storage.getUserData.data;
 let timetableData = user.timetable;
 
-// timetableData.forEach(({day,number,name,note}) => {
-//     console.log(day, number, name, note)
-// });
+
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
 
