@@ -31,7 +31,6 @@ export default class Render {
         this.timetableConstructor(user, 'Четверг', timetableBodyThursdayEl);
         this.timetableConstructor(user, 'Пятница', timetableBodyFridayEl);
         this.timetableConstructor(user, 'Суббота', timetableBodySaturdayEl)
-
     }
 
     timetableConstructor(user, dayname, container) {
@@ -48,9 +47,9 @@ export default class Render {
                             <td>${name}</td>
                             <td>${note}</td>
             `;
-                const typeTextEl = document.querySelector('#type');
 
-                const listener = (evt) => {
+
+                const tableItemListener = (evt) => {
 
                     if (this.editLessonFlag === true) {
                         return
@@ -58,11 +57,12 @@ export default class Render {
                         this.editLessonFlag = true;
                         let lessonNumber = number;
                         let lessonType = type;
-                        tableItem.removeEventListener('click', listener);
+                        tableItem.removeEventListener('click', tableItemListener);
                         console.log(day, number, name, note, type);
                         tableItem.innerHTML = `
-                <form id="editLessonForm">
-                    <td><select class="form-control form-control-sm shadow-sm col-md-5" id="selectLessonNumber">
+                
+                    <td>
+                    <select class="form-control form-control-sm shadow-sm col-md-5 fadeIn wow animated" id="selectLessonNumber" >
                                 <option value="1" id="lessonNumberOne">1</option>
                                 <option value="2" id="lessonNumberTwo">2</option>
                                 <option value="3" id="lessonNumberThree">3</option>
@@ -71,26 +71,27 @@ export default class Render {
                                 <option value="6" id="lessonNumberSix">6</option>
                                 <option value="7" id="lessonNumberSeven">7</option>
                     </select> пара
-                            <p><small class="text-muted h6">
-                            <select class="form-control form-control-sm shadow-sm col-md-5" id="selectLessonType">
+                            <p>
+                            <small class="text-muted h6">
+                            <select class="form-control form-control-sm shadow-sm col-md-5 fadeIn wow animated" id="selectLessonType" >
                                 <option value="Лекция" id="lessonTypeLection">Лекция</option>
                                 <option value="Практика" id="lessonTypePractical">Практика</option>
                                 <option value="Лабораторная работа" id="lessonTypeLaboratoryWork">Лабораторная работа</option>
                             </select>
-                            </small></p> 
+                            </small>
+                            </p> 
                             </td>
                             <td>   
-                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7" id="lessonName" placeholder="Название занятия" value="${name}">
+                                <input type="text"  class="form-control form-control-sm shadow-sm col-md-7 fadeIn wow animated" id="lessonName" placeholder="Название занятия" value="${name}">
                             </td>
                             <td>
-                                <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12" id="lessonNote" placeholder="Заметка" rows="2">${note}</textarea>
-
-                                <button type="submit" class="btn-sm btn-info" id="editLesson" style="margin-top: 10px;">Сохранить</button>
-                                <button type="button" class="btn-sm btn-danger" id="deleteLesson" style="margin-top: 10px;">Удалить</button>
+                                <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12 fadeIn wow animated" id="lessonNote" placeholder="Заметка" rows="2">${note}</textarea>
+                               
+                                <button type="submit" class="btn-sm btn-info"  style="margin-top: 10px;">Сохранить</button>
+                                <button type="button" class="btn-sm btn-danger" id="deleteLesson" style="margin-top: 10px;">Удалить</button>        
                             </td>
-                            
-                </form>
                     `;
+
                         const lessonTypeLectionEl = document.querySelector('#lessonTypeLection');
                         const lessonTypePracticalEl = document.querySelector('#lessonTypePractical');
                         const lessonTypeLaboratoryWorkEl = document.querySelector('#lessonTypeLaboratoryWork');
@@ -131,29 +132,99 @@ export default class Render {
                         if (lessonNumber === "7"){
                             lessonNumberSeven.selected = true;
                         }
-                        const editLessonForm = document.querySelector('#editLessonForm');
-                        editLessonForm.addEventListener('submit', (evt) => {
+                        let selectLessonNumber = number;
+                        let selectLessonType = type;
+                        document.querySelector('#selectLessonNumber')
+                            .addEventListener('input', (evt) => {
+                                selectLessonNumber = evt.currentTarget.value;
+                                console.log(evt.currentTarget.value)
+                            });
+                        document.querySelector('#selectLessonType')
+                            .addEventListener('input', (evt) => {
+                                selectLessonType = evt.currentTarget.value;
+                            });
+                        const editLessonForm = document.querySelector('#editLesson');
+                        const editFormListener = (evt) => {
+                            evt.preventDefault();
+                            const lessonNameEl = document.querySelector('#lessonName');
+                            let lessonName = lessonNameEl.value;
+                            const lessonNoteEl = document.querySelector('#lessonNote');
+                            let lessonNote = lessonNoteEl.value;
+                            let lessonObject = {
+                                day: day,
+                                number: selectLessonNumber,
+                                name: lessonName,
+                                note: lessonNote,
+                                type: selectLessonType
+                            };
                             //todo: добавление в юзер.дата
-
-                            // evt.preventDefault();
+                            editLessonForm.removeEventListener('submit', editFormListener);
                             this.renderTimetable(user);
-                            console.log(user.timetable);
+                            console.log(lessonObject);
+
                             this.editLessonFlag = false;
-                        });
+                        };
+                        editLessonForm.addEventListener('submit', editFormListener);
+
+
+
+                        const deleteLessonListener = async (evt) =>{
+                            const msgEl = document.createElement('div');
+                            const msgDivEl = document.querySelector('#msgEl');
+                            msgDivEl.innerHTML = '';
+                            msgEl.innerHTML = '';
+                            msgEl.innerHTML = `
+                                <div class="spinner-border text-info fadeIn wow animated" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                            `;
+                            msgDivEl.appendChild(msgEl);
+                            //todo: добавление в юзер.дата
+                            const deletedLesson = {
+                                day: day,
+                                number: number,
+                                name: name,
+                                note: note,
+                                type: type
+                            };
+                            for (const timetableElement of user.timetable) {
+                                if (timetableElement.day === deletedLesson.day && timetableElement.number === deletedLesson.number && timetableElement.name === deletedLesson.name
+                                    && timetableElement.note === deletedLesson.note && timetableElement.type === deletedLesson.type)
+                                {
+                                    user.timetable.splice(user.timetable.indexOf(timetableElement), 1);
+                                }
+                            }
+                            console.log(deletedLesson);
+
+                            const data = new Link(user);
+                            storage.add(data);
+                            let timetableUpdate = await http.timetableUpdate(user);
+
+                            let _resultUpdateFlag = '';
+                            await timetableUpdate.json().then(async (data) => {
+                                _resultUpdateFlag = data;
+                                await console.log(data);
+                            });
+
+                            msgEl.innerHTML = `
+                            <div class="alert alert-danger alert-dismissible fade show fadeIn wow animated" id="errorEl" role="alert">
+                                <strong>Запись удалена</strong>
+                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                            </div>
+                            `;
+                            msgDivEl.appendChild(msgEl);
+                            await this.renderTimetable(user);
+                            this.editLessonFlag = false;
+                            deleteLessonButton.removeEventListener('click', deleteLessonButton);
+                        };
 
                         const deleteLessonButton = document.querySelector('#deleteLesson');
-                        deleteLessonButton.addEventListener('click', (evt)=>{
-                            //todo: добавление в юзер.дата
-                            this.renderTimetable(user);
-                            console.log('delete');
-                            this.editLessonFlag = false;
-                        })
-
+                        deleteLessonButton.addEventListener('click', deleteLessonListener)
                     }
                 };
-                tableItem.addEventListener('click', listener);
-
-
+                tableItem.addEventListener('click', tableItemListener);
                 container.appendChild(tableItem);
             }
         });
