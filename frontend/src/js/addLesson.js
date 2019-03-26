@@ -30,7 +30,7 @@ let innerHTML = `
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
        
     <label for="selectDay">Название</label>
-    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия">
+    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
 </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
         <label for="selectDay">Заметка</label>
