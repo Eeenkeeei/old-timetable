@@ -82,7 +82,7 @@ export default class Render {
                             </p> 
                             </td>
                             <td>   
-                                <input type="text"  class="form-control form-control-sm shadow-sm col-md-7 fadeIn wow animated" id="lessonName" placeholder="Название занятия" value="${name}" autofocus="autofocus">
+                                <input type="text" class="form-control form-control-sm shadow-sm col-md-7 fadeIn wow animated" id="lessonName" placeholder="Название занятия" value="${name}" autofocus="autofocus">
                             </td>
                             <td>
                                 <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12 fadeIn wow animated" id="lessonNote" placeholder="Заметка" rows="2">${note}</textarea>
@@ -207,7 +207,7 @@ export default class Render {
                             });
 
                             msgEl.innerHTML = `
-                            <div class="alert alert-danger alert-dismissible fade show fadeIn wow animated" id="errorEl" role="alert">
+                            <div class="alert alert-danger alert-dismissible fade show fadeIn wow animated shadow-sm" id="errorEl" role="alert">
                                 <strong>Запись удалена</strong>
                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                  <span aria-hidden="true">&times;</span>
