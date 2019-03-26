@@ -82,7 +82,7 @@ export default class Render {
                             </p> 
                             </td>
                             <td>   
-                                <input type="text"  class="form-control form-control-sm shadow-sm col-md-7 fadeIn wow animated" id="lessonName" placeholder="Название занятия" value="${name}">
+                                <input type="text"  class="form-control form-control-sm shadow-sm col-md-7 fadeIn wow animated" id="lessonName" placeholder="Название занятия" value="${name}" autofocus="autofocus">
                             </td>
                             <td>
                                 <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12 fadeIn wow animated" id="lessonNote" placeholder="Заметка" rows="2">${note}</textarea>
