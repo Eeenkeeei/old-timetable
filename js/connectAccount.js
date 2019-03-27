@@ -36,7 +36,7 @@ export class ConnectAccount {
         });
     }
 
-    auth(){
+    updateData(){
         if (storage.getUserData === null) {
             document.location.href = 'index.html'
         } else {

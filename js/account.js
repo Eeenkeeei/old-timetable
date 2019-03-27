@@ -13,14 +13,14 @@ const storage = new DataStorage(new LocalStorage());
 
 let user;
 
-connectAccount.auth();
+connectAccount.updateData();
 
 // если в хранилище нет данных редирект на начальную
 if (storage.getUserData === null) {
     document.location.href = 'index.html'
 } else {
     user = storage.getUserData.data;
-    connectAccount.auth()
+    connectAccount.updateData()
 }
 
 const exitButtonEl = document.querySelector('#exitButton');

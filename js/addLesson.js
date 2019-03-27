@@ -3,6 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import Render from "./renderTimetable.js";
+import {ConnectAccount} from "./connectAccount.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
@@ -10,9 +11,9 @@ const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 const storage = new DataStorage(new LocalStorage());
 const renderClass = new Render();
 let user = storage.getUserData.data;
-let timetableData = user.timetable;
 
-
+const connectAccount = new ConnectAccount();
+connectAccount.updateData();
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
 
