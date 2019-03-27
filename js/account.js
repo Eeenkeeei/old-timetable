@@ -56,7 +56,7 @@ let gender = '';
 //         exampleSocket.send("Here's some text that the server is urgently awaiting!");
 //     };
 //     exampleSocket.onmessage = function (event) {
-//         console.log("return:", event.data);
+//         console.log(event.data);
 //         exampleSocket.close();
 //     }
 // })();
