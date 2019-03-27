@@ -42,12 +42,22 @@ export default class Render {
 
                 tableItem.innerHTML = `
                             <td>${number} пара
-                            <p><small class="text-muted h6">${type}</small></p> 
+                            <p><small class="h6 badge badge-pill badge-info"  id="lessonTypeArea">${type}</small></p> 
                             </td>
                             <td>${name}</td>
                             <td>${note}</td>
             `;
+                const lessonTypeAreaEl = document.querySelector('#lessonTypeArea');
 
+                if (type === "Лекция") {
+                    lessonTypeAreaEl.className = "h6 badge badge-pill badge-info";
+                }
+                if (type === "Лабораторная работа") {
+                    lessonTypeAreaEl.className = "h6 badge badge-pill badge-light";
+                }
+                if (type === "Практика") {
+                    lessonTypeAreaEl.className = "h6 badge badge-pill badge-success";
+                }
 
                 const tableItemListener = (evt) => {
 
