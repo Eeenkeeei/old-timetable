@@ -58,11 +58,7 @@ export default class Render {
                             <td>${note}</td>
             `;
 
-
-
-
                 const tableItemListener = (evt) => {
-
                     if (this.editLessonFlag === true) {
                         return
                     } else {

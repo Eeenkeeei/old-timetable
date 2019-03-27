@@ -39,7 +39,7 @@ let innerHTML = `
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
        
     <label for="selectDay">Название</label>
-    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus" >
+    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
 </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
         <label for="selectDay">Заметка</label>
@@ -146,6 +146,12 @@ addLessonButtonEl.addEventListener('click', () => {
         addLessonFormEl.appendChild(msgEl);
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
+        if (lessonName.length < 2){
+            msgEl.innerHTML = `
+            <p class="text-muted" style="margin-top: 5px">Введите название. Не менее 2 символов </p>
+            `;
+            return
+        }
         const lessonNoteEl = document.querySelector('#lessonNote');
         let lessonNote = lessonNoteEl.value;
         setTimeout(() => {
