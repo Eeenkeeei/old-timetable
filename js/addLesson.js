@@ -6,11 +6,21 @@ import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const authForSync = new WebSocket("ws://localhost:7777/updateData");
+const syncWithServer = new WebSocket("ws://localhost:7777/sync");
+
+
 // https://timetable-eeenkeeei.herokuapp.com
 
 const storage = new DataStorage(new LocalStorage());
 const renderClass = new Render();
+if (storage.getUserData === null) {
+    document.location.href = 'index.html'
+}
 let user = storage.getUserData.data;
+
+const usernameBarEl = document.querySelector('#usernameBar');
+usernameBarEl.textContent = storage.getUserData.data.username;
 
 const connectAccount = new ConnectAccount();
 connectAccount.updateData();
@@ -29,7 +39,7 @@ let innerHTML = `
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
        
     <label for="selectDay">Название</label>
-    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus" >
+    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
 </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
         <label for="selectDay">Заметка</label>
@@ -75,6 +85,20 @@ let innerHTML = `
 </form>
 </div>
 `;
+
+
+authForSync.onopen = function (event) {
+    console.log("Opened socket!");
+    authForSync.send(user.username);
+};
+
+syncWithServer.onmessage = function (event) {
+    if ((JSON.parse(event.data)).username === user.username) {
+        console.log((JSON.parse(event.data)).username);
+    }
+    syncWithServer.close();
+};
+
 renderClass.renderTimetable(user);
 
 const msgEl = document.createElement('div');
@@ -103,7 +127,7 @@ addLessonButtonEl.addEventListener('click', () => {
         });
 
     const cancelAddButton = document.querySelector('#cancelAddButton');
-    cancelAddButton.addEventListener('click', () =>{
+    cancelAddButton.addEventListener('click', () => {
         const animatedDivEl = document.querySelector('[data-animation=true]');
         animatedDivEl.className = 'fadeOut wow animated';
         setTimeout(() => {
@@ -122,6 +146,12 @@ addLessonButtonEl.addEventListener('click', () => {
         addLessonFormEl.appendChild(msgEl);
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
+        if (lessonName.length < 2){
+            msgEl.innerHTML = `
+            <p class="text-muted" style="margin-top: 5px">Введите название. Не менее 2 символов </p>
+            `;
+            return
+        }
         const lessonNoteEl = document.querySelector('#lessonNote');
         let lessonNote = lessonNoteEl.value;
         setTimeout(() => {
@@ -149,7 +179,7 @@ addLessonButtonEl.addEventListener('click', () => {
             await console.log(data);
         });
 
-        if (_resultUpdateFlag === 'Timetable Updated'){
+        if (_resultUpdateFlag === 'Timetable Updated') {
             msgEl.innerHTML = '';
             msgEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
