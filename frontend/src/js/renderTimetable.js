@@ -34,30 +34,32 @@ export default class Render {
     }
 
     timetableConstructor(user, dayname, container) {
+
         container.innerHTML = '';
         user.timetable.forEach(({day, number, name, note, type}) => {
-
+            const lessonTypeAreaEl = document.querySelector('#lessonTypeArea');
             if (day === dayname) {
                 const tableItem = document.createElement('tr');
-
+                let typeClass;
+                if (type === "Лекция") {
+                    typeClass = "h3 badge badge-pill badge-info";
+                }
+                if (type === "Лабораторная работа") {
+                    typeClass = "h3 badge badge-pill badge-warning";
+                }
+                if (type === "Практика") {
+                    typeClass = "h3 badge badge-pill badge-success";
+                }
                 tableItem.innerHTML = `
                             <td>${number} пара
-                            <p><small class="h6 badge badge-pill badge-info"  id="lessonTypeArea">${type}</small></p> 
+                            <p><h5><div class="${typeClass}"  id="lessonTypeArea">${type}</div></h5></p> 
                             </td>
                             <td>${name}</td>
                             <td>${note}</td>
             `;
-                const lessonTypeAreaEl = document.querySelector('#lessonTypeArea');
 
-                if (type === "Лекция") {
-                    lessonTypeAreaEl.className = "h6 badge badge-pill badge-info";
-                }
-                if (type === "Лабораторная работа") {
-                    lessonTypeAreaEl.className = "h6 badge badge-pill badge-light";
-                }
-                if (type === "Практика") {
-                    lessonTypeAreaEl.className = "h6 badge badge-pill badge-success";
-                }
+
+
 
                 const tableItemListener = (evt) => {
 
