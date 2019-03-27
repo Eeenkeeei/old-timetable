@@ -12,10 +12,7 @@ const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
 
 let user;
-if (storage.getUserData === null) {
-    document.location.href = 'index.html'
-}
-usernameBarEl.textContent = storage.getUserData.data.username;
+
 connectAccount.updateData();
 
 // если в хранилище нет данных редирект на начальную
@@ -51,7 +48,18 @@ let gender = '';
 
 // //todo:
 //
-
+// (function() {
+//     console.log("Opening connection");
+//     const exampleSocket = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/websocket/attach");
+//     exampleSocket.onopen = function (event) {
+//         console.log("Opened socket!");
+//         exampleSocket.send("Here's some text that the server is urgently awaiting!");
+//     };
+//     exampleSocket.onmessage = function (event) {
+//         console.log(event.data);
+//         exampleSocket.close();
+//     }
+// })();
 
 const accountWindowEl = document.querySelector('#accountWindow'); // Jumbotron - в нем данные об аккаунте / форма изменения
 const changeDataButtonEl = document.querySelector('#changeDataButton');

@@ -55,4 +55,4 @@ exitButtonEl.addEventListener('click', (evt) => {
     storage.unlogin();
     document.location.href = 'index.html'
 });
-
+usernameBarEl.textContent = storage.getUserData.data.username;
