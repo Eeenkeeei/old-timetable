@@ -58,11 +58,7 @@ export default class Render {
                             <td>${note}</td>
             `;
 
-
-
-
                 const tableItemListener = (evt) => {
-
                     if (this.editLessonFlag === true) {
                         return
                     } else {
@@ -70,7 +66,6 @@ export default class Render {
                         let lessonNumber = number;
                         let lessonType = type;
                         tableItem.removeEventListener('click', tableItemListener);
-                        console.log(day, number, name, note, type);
                         tableItem.innerHTML = `
                 
                     <td>
@@ -156,8 +151,18 @@ export default class Render {
                                 selectLessonType = evt.currentTarget.value;
                             });
                         const editLessonForm = document.querySelector('#editLesson');
-                        const editFormListener = (evt) => {
+                        const editFormListener = async (evt) => {
                             evt.preventDefault();
+                            const msgEl = document.createElement('div');
+                            const msgDivEl = document.querySelector('#msgEl');
+                            msgDivEl.innerHTML = '';
+                            msgEl.innerHTML = '';
+                            msgEl.innerHTML = `
+                                <div class="spinner-border text-info fadeIn wow animated" role="status">
+                                <span class="sr-only">Loading...</span>
+                                </div>
+                            `;
+                            msgDivEl.appendChild(msgEl);
                             const lessonNameEl = document.querySelector('#lessonName');
                             let lessonName = lessonNameEl.value;
                             const lessonNoteEl = document.querySelector('#lessonNote');
@@ -169,11 +174,42 @@ export default class Render {
                                 note: lessonNote,
                                 type: selectLessonType
                             };
-                            //todo: добавление в юзер.дата
+                            const oldLesson = {
+                                day: day,
+                                number: number,
+                                name: name,
+                                note: note,
+                                type: type
+                            };
+
+                            for (const timetableElement of user.timetable) {
+                                if (timetableElement.day === oldLesson.day && timetableElement.number === oldLesson.number && timetableElement.name === oldLesson.name
+                                    && timetableElement.note === oldLesson.note && timetableElement.type === oldLesson.type)
+                                {
+                                    user.timetable[user.timetable.indexOf(timetableElement)] = lessonObject;
+                                }
+                            }
+                            const data = new Link(user);
+                            storage.add(data);
+                            let timetableUpdate = await http.timetableUpdate(user);
+
+                            let _resultUpdateFlag = '';
+                            await timetableUpdate.json().then(async (data) => {
+                                _resultUpdateFlag = data;
+                                await console.log(data);
+                            });
+
+                            msgEl.innerHTML = `
+                            <div class="alert alert-warning alert-dismissible fade show fadeIn wow animated shadow-sm" id="errorEl" role="alert">
+                                <strong>Запись отредактирована</strong>
+                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                                 </button>
+                            </div>
+                            `;
+                            msgDivEl.appendChild(msgEl);
                             editLessonForm.removeEventListener('submit', editFormListener);
                             this.renderTimetable(user);
-                            console.log(lessonObject);
-
                             this.editLessonFlag = false;
                         };
                         editLessonForm.addEventListener('submit', editFormListener);
@@ -206,7 +242,6 @@ export default class Render {
                                     user.timetable.splice(user.timetable.indexOf(timetableElement), 1);
                                 }
                             }
-                            console.log(deletedLesson);
 
                             const data = new Link(user);
                             storage.add(data);
