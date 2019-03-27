@@ -5,7 +5,6 @@ import {Link} from "./lib.js";
 import {ConnectAccount} from "./connectAccount.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
-const exampleSocket = new WebSocket("ws://localhost:7777/websocket/attach");
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
