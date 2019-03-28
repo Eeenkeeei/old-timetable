@@ -96,3 +96,7 @@ body, html {
 .account-span {
     font-size: 1.1rem;
 }
+
+td {
+    height: 1rem !important;
+}
