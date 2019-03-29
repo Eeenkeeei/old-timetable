@@ -69,7 +69,7 @@ logFormEl.addEventListener('submit', async (evt) => {
             _userObject = data;
             const line = new Link(_userObject);
             await storage.add(line);
-            window.location.href = 'account.html'
+            window.location.href = _userObject.startPage
         })
     });
     logFormEl.appendChild(textBoxEl)

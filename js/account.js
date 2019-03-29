@@ -10,11 +10,13 @@ const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 const usernameBarEl = document.querySelector('#usernameBar');
 const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
-
+let selectStartPage = 'index.html';
 let user;
+
 if (storage.getUserData === null) {
     document.location.href = 'index.html'
 }
+
 usernameBarEl.textContent = storage.getUserData.data.username;
 connectAccount.updateData();
 
@@ -32,32 +34,107 @@ exitButtonEl.addEventListener('click', (evt)=>{
     document.location.href = 'index.html'
 });
 
-const accountDataNameEl = document.querySelector('[data-id=accountName]');
-accountDataNameEl.textContent = user.username;
+const rootDivEl = document.querySelector('#accountWindow');
+rootDivEl.innerHTML = '';
+function renderAccount (container) {
+    container.innerHTML = `
+    <div class="row" id="accountData">
+                            <label class="col-sm-5 h4 text-muted account-label">Учетная запись</label>
+                            <div class="col-sm-4" >
+                                <label  class="account-label h6 ">ИМЯ ПОЛЬЗОВАТЕЛЯ</label>
+                                <p><label data-id="accountName" class="h5"></label></p>
+                            </div>
+                
+                            <label class="col-sm-5 account-label"><h4></h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">EMAIL</label>
+                                <p><label data-id="accountEmail" class="h5"></label></p>
+                            </div>
+                            <label class="col-sm-5 account-label"><h4></h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">ВОЗРАСТ</label>
+                                <p><label data-id="accountAge" class="h5"></label></p>
+                            </div>
 
-const accountDataEmailEl = document.querySelector('[data-id=accountEmail]');
-accountDataEmailEl.textContent = user.email;
+                            <label class="col-sm-5 account-label"><h4></h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">МЕСТО УЧЕБЫ</label>
+                                <p><label data-id="accountUniversity" class="h5"></label></p>
+                            </div>
 
-const accountDataAgeEl = document.querySelector('[data-id=accountAge]');
-accountDataAgeEl.textContent = user.age;
+                            <label class="col-sm-5 account-label"><h4></h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">ПОЛ</label>
+                                <p><label data-id="accountGender" class="h5"></label></p>
+                            </div>
+                            <div class="col-sm-12">
+                            <hr>
+                            </div>
+                            <label class="col-sm-5 text-muted account-label" ><h4>Сервисы</h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">СТАРТОВАЯ СТРАНИЦА</label>
+                                <p><label data-id="accountStartPage" class="h5"></label></p>
+                            </div>
 
-const accountDataUniversityEl = document.querySelector('[data-id=accountUniversity]');
-accountDataUniversityEl.textContent = user.edu;
+                            <label class="col-sm-5 account-label"><h4></h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">РАСПИСАНИЕ ЗАНЯТИЙ</label>
+                                <p><label data-id="accountLessonsTimetable" class="h5"></label></p>
+                            </div>
+                             <div class="col-sm-12">
+                            <hr>
+                            </div>
+                            <label class="col-sm-5 text-muted account-label"><h4>Безопасность</h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">Изменить пароль</label>
+                                <p><label data-id="accountStartPage" class="h5"></label></p>
+                            </div>
+                        </div>
+                        
+    `;
+    const accountDataNameEl = document.querySelector('[data-id=accountName]');
+    accountDataNameEl.textContent = user.username;
 
-const accountDataGenderEl = document.querySelector('[data-id=accountGender]');
-accountDataGenderEl.textContent = user.gender;
+    const accountDataEmailEl = document.querySelector('[data-id=accountEmail]');
+    accountDataEmailEl.textContent = user.email;
+
+    const accountDataAgeEl = document.querySelector('[data-id=accountAge]');
+    accountDataAgeEl.textContent = user.age;
+
+    const accountDataUniversityEl = document.querySelector('[data-id=accountUniversity]');
+    accountDataUniversityEl.textContent = user.edu;
+
+    const accountDataGenderEl = document.querySelector('[data-id=accountGender]');
+    accountDataGenderEl.textContent = user.gender;
+
+    const accountDataStartPageEl = document.querySelector('[data-id=accountStartPage]');
+
+    if (user.startPage === "account.html"){
+        accountDataStartPageEl.textContent = "Аккаунт";
+    }
+
+    if (user.startPage === "readlater.html"){
+        accountDataStartPageEl.textContent = "Список для чтения";
+    }
+
+    if (user.startPage === "tasktracker.html"){
+        accountDataStartPageEl.textContent = "Менеджер задач";
+    }
+
+    if (user.startPage === "timetable.html"){
+        accountDataStartPageEl.textContent = "Расписание";
+    }
+}
+
+renderAccount(rootDivEl);
 
 let gender = '';
 
-// //todo:
-//
-
-
-const accountWindowEl = document.querySelector('#accountWindow'); // Jumbotron - в нем данные об аккаунте / форма изменения
 const changeDataButtonEl = document.querySelector('#changeDataButton');
-changeDataButtonEl.addEventListener('click', (evt) => {
+
+const editAccountListener = (evt) => {
     changeDataButtonEl.className = 'btn btn-outline-dark invisible';
-    accountWindowEl.innerHTML = `
+    rootDivEl.innerHTML = `
     <form id="accountChangeForm">
                         <h3>Изменение информации об аккаунте</h3>
                         <div class="form-group row">
@@ -109,6 +186,18 @@ changeDataButtonEl.addEventListener('click', (evt) => {
                             </div>
                         </fieldset>
                         <div class="form-group row">
+                            <label for="accountAge" class="col-sm-3 col-form-label"><h5>Стартовая страница</h5></label>
+                            <div class="col-sm-9">
+                                <select class="form-control form-control-sm shadow-sm" id="accountStartPage">
+                                <option value="account.html" id="accountStartPage">Аккаунт</option>
+                                <option value="timetable.html" id="timetableStartPage">Расписание</option>
+                                <option value="readlater.html" id="readlaterStartPage">Список для чтения</option>
+                                <option value="tasktracker.html" id="tasktrackerStartPage">Менеджер задач</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success" id="accountInfoChange">Сохранить
                                     изменения
@@ -123,6 +212,11 @@ changeDataButtonEl.addEventListener('click', (evt) => {
     const accountUniversityEl = document.querySelector('#accountUniversity');
     const accountGenderMenEl = document.querySelector('#genderMen');
     const accountGenderWomenEl = document.querySelector('#genderWomen');
+    const accountStartPageEl = document.querySelector('#accountStartPage');
+    const timetableStartPageEl = document.querySelector('#timetableStartPage');
+    const readlaterStartPageEl = document.querySelector('#readlaterStartPage');
+    const tasktrackerStartPageEl = document.querySelector('#tasktrackerStartPage');
+
     accountNameEl.placeholder = user.username;
     accountEmailEl.value = user.email;
     accountAgeEl.value = user.age;
@@ -141,6 +235,24 @@ changeDataButtonEl.addEventListener('click', (evt) => {
         accountGenderWomenEl.checked = true;
         gender = 'Женский'
     }
+
+    if (user.startPage === 'account.html') {
+        accountStartPageEl.selected = true;
+    }
+    if (user.startPage === 'timetable.html') {
+        timetableStartPageEl.selected = true;
+    }
+    if (user.startPage === 'readlater.html') {
+        readlaterStartPageEl.selected = true;
+    }
+    if (user.startPage === 'tasktracker.html') {
+        tasktrackerStartPageEl.selected = true;
+    }
+    document.querySelector('#accountStartPage')
+        .addEventListener('change', (evt) => {
+            selectStartPage = evt.currentTarget.value;
+
+        });
     const accountChangeFormEl = document.querySelector('#accountChangeForm');
     accountChangeFormEl.addEventListener('submit', async evt => {
         evt.preventDefault();
@@ -152,6 +264,7 @@ changeDataButtonEl.addEventListener('click', (evt) => {
     `;
         accountChangeFormEl.appendChild(msgEl);
 
+        user.startPage = selectStartPage;
         user.email = accountEmailEl.value;
         user.age = accountAgeEl.value;
         user.gender = gender;
@@ -188,50 +301,13 @@ changeDataButtonEl.addEventListener('click', (evt) => {
         `;
             accountChangeFormEl.appendChild(msgEl);
         }
-        accountWindowEl.innerHTML = `
-         <div class="row" id="accountData">
-                        <label class="col-sm-3"><h5>Имя пользователя</h5></label>
-                        <div class="col-sm-9">
-                            <span data-id="accountName"></span>
-                        </div>
-                        <label class="col-sm-3"><h5>Email</h5></label>
-                        <div class="col-sm-9">
-                            <span data-id="accountEmail"></span>
-                        </div>
-                        <label class="col-sm-3"><h5>Возраст</h5></label>
-                        <div class="col-sm-9">
-                            <span data-id="accountAge"></span>
-                        </div>
-                        <label class="col-sm-3"><h5>Место работы/учебы</h5></label>
-                        <div class="col-sm-9">
-                            <span data-id="accountUniversity"></span>
-                        </div>
-                        <label class="col-sm-3"><h5>Пол</h5></label>
-                        <div class="col-sm-9">
-                            <span data-id="accountGender"></span>
-                        </div>
-                    </div>
-
-        `;
-        const accountDataNameEl = document.querySelector('[data-id=accountName]');
-        accountDataNameEl.textContent = user.username;
-
-        const accountDataEmailEl = document.querySelector('[data-id=accountEmail]');
-        accountDataEmailEl.textContent = user.email;
-
-        const accountDataAgeEl = document.querySelector('[data-id=accountAge]');
-        accountDataAgeEl.textContent = user.age;
-
-        const accountDataUniversityEl = document.querySelector('[data-id=accountUniversity]');
-        accountDataUniversityEl.textContent = user.edu;
-
-        const accountDataGenderEl = document.querySelector('[data-id=accountGender]');
-        accountDataGenderEl.textContent = user.gender;
-
+        renderAccount(rootDivEl);
         changeDataButtonEl.className = 'btn btn-outline-dark';
 
     });
-});
+};
+
+changeDataButtonEl.addEventListener('click', editAccountListener);
 
 
 const msgEl = document.createElement('div');
