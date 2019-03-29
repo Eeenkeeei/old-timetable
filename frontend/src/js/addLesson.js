@@ -45,7 +45,7 @@ let innerHTML = `
         <label for="selectDay">Заметка</label>
         <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Заметка">
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Номер</label>
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Номер занятия</label>
          <select class="form-control form-control-sm shadow-sm" id="selectLessonNumber">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
