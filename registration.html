@@ -55,11 +55,11 @@
             <div class="form-group">
                 <div id="msgBox"></div>
                 <h4 class="form-text">Никнейм <span style="color: red;">*</span></h4>
-                <small class="form-text text-muted">От 4 до 10 символов. Только латинские буквы</small>
+                <small class="form-text text-muted">От 4 до 15 символов. Только латинские буквы</small>
 
                 <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="regNickname" style="margin-bottom: 20px !important;"
                        placeholder="Твой никнейм" required autofocus="autofocus"
-                pattern="[A-Za-z]{4,10}">
+                pattern="[a-zA-Z]{4,15}">
             </div>
             <div class="form-group">
                 <h4 class="form-text">Пароль <span style="color: red;">*</span></h4>
@@ -70,7 +70,7 @@
                 <h4 class="form-text">Повторите пароль <span style="color: red;">*</span></h4>
 
                 <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
-                       id="confirmRegPass" placeholder="Повторите пароль"  required>
+                       id="confirmRegPass" placeholder="Повторите пароль" required>
                 <small class="form-text text-muted">E-mail</small>
 
                 <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;" id="regEmail"
