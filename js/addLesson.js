@@ -6,8 +6,8 @@ import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
-const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
-const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
+// const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
+// const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
 
 // https://timetable-eeenkeeei.herokuapp.com
@@ -86,18 +86,18 @@ let innerHTML = `
 </div>
 `;
 
-
-authForSync.onopen = function (event) {
-    console.log("Opened socket!");
-    authForSync.send(user.username);
-};
-
-syncWithServer.onmessage = function (event) {
-    if ((JSON.parse(event.data)).username === user.username) {
-        console.log((JSON.parse(event.data)).username);
-    }
-    syncWithServer.close();
-};
+//
+// authForSync.onopen = function (event) {
+//     console.log("Opened socket!");
+//     authForSync.send(user.username);
+// };
+//
+// syncWithServer.onmessage = function (event) {
+//     if ((JSON.parse(event.data)).username === user.username) {
+//         console.log((JSON.parse(event.data)).username);
+//     }
+//     syncWithServer.close();
+// };
 
 renderClass.renderTimetable(user);
 
