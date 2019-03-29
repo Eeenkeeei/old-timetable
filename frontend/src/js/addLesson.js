@@ -6,8 +6,8 @@ import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
-const authForSync = new WebSocket("ws://https://timetable-eeenkeeei.herokuapp.com/updateData");
-const syncWithServer = new WebSocket("ws://https://timetable-eeenkeeei.herokuapp.com/sync");
+const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
+const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
 
 // https://timetable-eeenkeeei.herokuapp.com
