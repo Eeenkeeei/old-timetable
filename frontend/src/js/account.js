@@ -4,7 +4,7 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import {ConnectAccount} from "./connectAccount.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -44,7 +44,7 @@ function renderAccount (container) {
                                 <label  class="account-label h6 ">ИМЯ ПОЛЬЗОВАТЕЛЯ</label>
                                 <p><label data-id="accountName" class="h5"></label></p>
                             </div>
-
+                
                             <label class="col-sm-5 account-label"><h4></h4></label>
                             <div class="col-sm-4">
                                 <label class="account-label h6">EMAIL</label>
@@ -67,7 +67,9 @@ function renderAccount (container) {
                                 <label class="account-label h6">ПОЛ</label>
                                 <p><label data-id="accountGender" class="h5"></label></p>
                             </div>
-
+                            <div class="col-sm-12">
+                            <hr>
+                            </div>
                             <label class="col-sm-5 text-muted account-label" ><h4>Сервисы</h4></label>
                             <div class="col-sm-4">
                                 <label class="account-label h6">СТАРТОВАЯ СТРАНИЦА</label>
@@ -78,6 +80,14 @@ function renderAccount (container) {
                             <div class="col-sm-4">
                                 <label class="account-label h6">РАСПИСАНИЕ ЗАНЯТИЙ</label>
                                 <p><label data-id="accountLessonsTimetable" class="h5"></label></p>
+                            </div>
+                             <div class="col-sm-12">
+                            <hr>
+                            </div>
+                            <label class="col-sm-5 text-muted account-label"><h4>Безопасность</h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6">Изменить пароль</label>
+                                <p><label data-id="accountStartPage" class="h5"></label></p>
                             </div>
                         </div>
                         
