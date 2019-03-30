@@ -85,7 +85,7 @@ function renderAccount (container) {
                              <div class="col-sm-12">
                             <hr>
                             </div>
-                            <label class="col-sm-5 text-muted account-label"><h4>Безопасность</h4></label>
+                            <label class="col-sm-5 text-muted account-label" id="securityLabel"><h4>Безопасность</h4></label>
                             <div class="col-sm-4">
                                 <label class="account-label h6" style="cursor: pointer" id="changePassword">Изменить пароль</label>
                                 <p><label data-id="accountStartPage" class="h5"></label></p>
