@@ -3,6 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import {ConnectAccount} from "./connectAccount.js";
+import {PasswordChanger} from "./passwordChanger.js";
 
 const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
@@ -10,7 +11,7 @@ const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 const usernameBarEl = document.querySelector('#usernameBar');
 const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
-let selectStartPage = 'index.html';
+const passwordChanger = new PasswordChanger();
 let user;
 
 if (storage.getUserData === null) {
@@ -84,9 +85,9 @@ function renderAccount (container) {
                              <div class="col-sm-12">
                             <hr>
                             </div>
-                            <label class="col-sm-5 text-muted account-label"><h4>Безопасность</h4></label>
+                            <label class="col-sm-5 text-muted account-label" id="securityLabel"><h4>Безопасность</h4></label>
                             <div class="col-sm-4">
-                                <label class="account-label h6">Изменить пароль</label>
+                                <label class="account-label h6" style="cursor: pointer" id="changePassword">Изменить пароль</label>
                                 <p><label data-id="accountStartPage" class="h5"></label></p>
                             </div>
                         </div>
@@ -124,12 +125,13 @@ function renderAccount (container) {
     if (user.startPage === "timetable.html"){
         accountDataStartPageEl.textContent = "Расписание";
     }
+    passwordChanger.changePassword();
 }
 
 renderAccount(rootDivEl);
 
 let gender = '';
-
+let startPage = 'index.html';
 const changeDataButtonEl = document.querySelector('#changeDataButton');
 
 const editAccountListener = (evt) => {
@@ -238,19 +240,23 @@ const editAccountListener = (evt) => {
 
     if (user.startPage === 'account.html') {
         accountStartPageEl.selected = true;
+        startPage = 'account.html'
     }
     if (user.startPage === 'timetable.html') {
         timetableStartPageEl.selected = true;
+        startPage = 'timetable.html';
     }
     if (user.startPage === 'readlater.html') {
         readlaterStartPageEl.selected = true;
+        startPage = 'readlater.html';
     }
     if (user.startPage === 'tasktracker.html') {
         tasktrackerStartPageEl.selected = true;
+        startPage = 'tasktracker.html';
     }
     document.querySelector('#accountStartPage')
         .addEventListener('change', (evt) => {
-            selectStartPage = evt.currentTarget.value;
+            startPage = evt.currentTarget.value;
 
         });
     const accountChangeFormEl = document.querySelector('#accountChangeForm');
@@ -264,7 +270,7 @@ const editAccountListener = (evt) => {
     `;
         accountChangeFormEl.appendChild(msgEl);
 
-        user.startPage = selectStartPage;
+        user.startPage = startPage;
         user.email = accountEmailEl.value;
         user.age = accountAgeEl.value;
         user.gender = gender;

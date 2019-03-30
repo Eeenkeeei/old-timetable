@@ -54,5 +54,15 @@ export default class Http {
         });
     }
 
+    changePassword(user) {
+        return fetch(`${this.url}/changePassword`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+    }
+
 
 }
