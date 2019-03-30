@@ -4,7 +4,7 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
 const storage = new DataStorage(new LocalStorage());
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 export class PasswordChanger {
 
@@ -14,22 +14,20 @@ export class PasswordChanger {
         const changePasswordTextEl = document.querySelector('#changePassword');
         const changePasswordTextElListener = (evt) => {
             changePasswordTextEl.removeEventListener('click', changePasswordTextElListener);
-            //todo: pattern="(?=.*\d)(?=.*[a-z]).{8,}" required
             changePasswordTextEl.innerHTML = `
-
     <form id="changePasswordForm" class="fadeIn wow animated">
   <div class="form-group fadeIn wow animated">
     <label>Старый пароль</label>
-    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="oldPassword" >
+    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="oldPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
   </div>
 
   <div class="form-group fadeIn wow animated">
     <label>Новый пароль</label>
-    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="newPassword" >
+    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="newPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
   </div>
   <div class="form-group fadeIn wow animated">
     <label>Повторите новый пароль</label>
-    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="confirmNewPassword" >
+    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="confirmNewPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
   </div>
     <label class="form-text text-muted">Не менее 8 символов. Только латинские буквы и цифры</label>
 
@@ -56,6 +54,7 @@ export class PasswordChanger {
 
                 let changeRequest = await http.changePassword(newPasswordObject);
                 await changeRequest.json().then((data)=>{
+
                     console.log(data);
                     const securityLabelEl = document.querySelector('#securityLabel');
                     if (data === 'Updated') {
@@ -66,10 +65,14 @@ export class PasswordChanger {
                         changePasswordTextEl.innerHTML = `
                         Изменить пароль
                         `;
-                        setTimeout (()=>{
+
+                        let _userObject = storage.getUserData.data;
+                        _userObject.password = confirmNewPassword;
+                        const line = new Link(_userObject);
+                        storage.add(line);
+                        setTimeout(()=>{
                             securityMsgEl.className = 'text-muted account-label fadeOut wow animated'
-                            }, 4000
-                        );
+                        },4000);
                         changePasswordTextEl.addEventListener('click', changePasswordTextElListener)
                     }
                     if (data === 'Bad password length') {
