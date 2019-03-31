@@ -12,6 +12,9 @@ export class PasswordChanger {
         const securityMsgEl = document.createElement('label');
         securityMsgEl.innerHTML = '';
         const changePasswordTextEl = document.querySelector('#changePassword');
+        changePasswordTextEl.addEventListener('mouseout', ()=>{
+            changePasswordTextEl.classList.add('changeDataButtonNotFocus')
+        });
         const changePasswordTextElListener = (evt) => {
             changePasswordTextEl.removeEventListener('click', changePasswordTextElListener);
             changePasswordTextEl.innerHTML = `
