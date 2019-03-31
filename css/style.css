@@ -106,4 +106,23 @@ td {
     margin-left: 0.8rem;
 }
 
+#changeDataButton:hover {
+    transition-duration: 0.7s;
+    font-size: 1.02rem;
+}
+
+#changePassword:hover {
+    transition-duration: 0.7s;
+    font-size: 1.02rem;
+}
+
+.changeDataButtonNotFocus {
+    transition-duration: 0.7s;
+    font-size: 1rem;
+}
+
+
+
+
+
 
