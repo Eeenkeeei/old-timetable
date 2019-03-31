@@ -94,8 +94,8 @@ export default class Render {
                             <td>
                                 <textarea type="text" class="form-control form-control-sm shadow-sm col-md-12 fadeIn wow animated" id="lessonNote" placeholder="Заметка" rows="2">${note}</textarea>
                                
-                                <button type="submit" class="btn-sm btn-info"  style="margin-top: 10px;">Сохранить</button>
-                                <button type="button" class="btn-sm btn-danger" id="deleteLesson" style="margin-top: 10px;">Удалить</button>        
+                                <button type="submit" class="btn btn-sm btn-info"  style="margin-top: 10px;">Сохранить</button>
+                                <button type="button" class="btn btn-sm btn-danger" id="deleteLesson" style="margin-top: 10px;">Удалить</button>        
                             </td>
                     `;
 

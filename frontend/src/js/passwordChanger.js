@@ -61,6 +61,7 @@ export class PasswordChanger {
                         securityLabelEl.appendChild(securityMsgEl);
                         securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeIn wow animated"><h6>Пароль сохранен</h6></label>
+                         <label class="text-muted account-label fadeIn wow animated"><h6>Внимание! После обновления пароля необходимо перезайти в аккаунт на других устройствах.</h6></label>
                     `;
                         changePasswordTextEl.innerHTML = `
                         Изменить пароль
