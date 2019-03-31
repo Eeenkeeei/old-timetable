@@ -38,7 +38,7 @@ let innerHTML = `
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
        
-    <label for="selectDay">Название</label>
+    <label for="selectDay" id="inputNameLabel">Название</label>
     <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
 </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
@@ -101,15 +101,16 @@ let innerHTML = `
 
 renderClass.renderTimetable(user);
 
-const msgEl = document.createElement('div');
+const msgEl = document.querySelector('#msgEl');
 msgEl.innerHTML = '';
-const msgDivEl = document.querySelector('#msgEl');
+
 
 let lessonObject = {};
 const addDivFormEl = document.querySelector('#addDivForm');
 const addLessonButtonEl = document.querySelector('#addLessonButton');
 addLessonButtonEl.addEventListener('click', () => {
     renderClass.renderTimetable(user);
+    renderClass.editLessonFlag = false;
     addDivFormEl.innerHTML = '';
     addDivFormEl.innerHTML = innerHTML;
     const addLessonFormEl = document.querySelector('#addLessonForm');
@@ -143,13 +144,11 @@ addLessonButtonEl.addEventListener('click', () => {
     <span class="sr-only">Loading...</span>
     </div>
     `;
-        addLessonFormEl.appendChild(msgEl);
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
         if (lessonName.length < 2){
-            msgEl.innerHTML = `
-            <p class="text-muted" style="margin-top: 5px">Введите название. Не менее 2 символов </p>
-            `;
+            msgEl.innerHTML = '';
+            lessonNameEl.className = 'form-control form-control-sm shadow-sm is-invalid';
             return
         }
         const lessonNoteEl = document.querySelector('#lessonNote');
@@ -189,7 +188,7 @@ addLessonButtonEl.addEventListener('click', () => {
             </button>
         </div>
         `;
-            msgDivEl.appendChild(msgEl);
+
         }
     })
 });

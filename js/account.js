@@ -90,6 +90,14 @@ function renderAccount (container) {
                                 <label class="account-label h6" style="cursor: pointer" id="changePassword">Изменить пароль</label>
                                 <p><label data-id="accountStartPage" class="h5"></label></p>
                             </div>
+                            <div class="col-sm-12">
+                            <hr>
+                            </div>
+                            <label class="col-sm-5 text-muted account-label" id=""><h4>Поддержка</h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6" style="cursor: pointer">Задать вопрос в поддержку</label>
+                              
+                            </div>
                         </div>
                         
     `;
