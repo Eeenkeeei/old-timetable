@@ -35,8 +35,10 @@ export default class Render {
 
     timetableConstructor(user, dayname, container) {
 
+
         container.innerHTML = '';
         user.timetable.forEach(({day, number, name, note, type}) => {
+
             const lessonTypeAreaEl = document.querySelector('#lessonTypeArea');
             if (day === dayname) {
                 const tableItem = document.createElement('tr');
@@ -153,16 +155,15 @@ export default class Render {
                         const editLessonForm = document.querySelector('#editLesson');
                         const editFormListener = async (evt) => {
                             evt.preventDefault();
-                            const msgEl = document.createElement('div');
-                            const msgDivEl = document.querySelector('#msgEl');
-                            msgDivEl.innerHTML = '';
+                            const msgEl = document.querySelector('#msgEl');
                             msgEl.innerHTML = '';
+
                             msgEl.innerHTML = `
                                 <div class="spinner-border text-info fadeIn wow animated" role="status">
                                 <span class="sr-only">Loading...</span>
                                 </div>
                             `;
-                            msgDivEl.appendChild(msgEl);
+
                             const lessonNameEl = document.querySelector('#lessonName');
                             let lessonName = lessonNameEl.value;
                             const lessonNoteEl = document.querySelector('#lessonNote');
@@ -207,7 +208,6 @@ export default class Render {
                                  </button>
                             </div>
                             `;
-                            msgDivEl.appendChild(msgEl);
                             editLessonForm.removeEventListener('submit', editFormListener);
                             this.renderTimetable(user);
                             this.editLessonFlag = false;
@@ -217,16 +217,13 @@ export default class Render {
 
 
                         const deleteLessonListener = async (evt) =>{
-                            const msgEl = document.createElement('div');
-                            const msgDivEl = document.querySelector('#msgEl');
-                            msgDivEl.innerHTML = '';
+                            const msgEl = document.querySelector('#msgEl');
                             msgEl.innerHTML = '';
                             msgEl.innerHTML = `
                                 <div class="spinner-border text-info fadeIn wow animated" role="status">
                                 <span class="sr-only">Loading...</span>
                                 </div>
                             `;
-                            msgDivEl.appendChild(msgEl);
                             //todo: добавление в юзер.дата
                             const deletedLesson = {
                                 day: day,
@@ -261,7 +258,6 @@ export default class Render {
                                  </button>
                             </div>
                             `;
-                            msgDivEl.appendChild(msgEl);
                             await this.renderTimetable(user);
                             this.editLessonFlag = false;
                             deleteLessonButton.removeEventListener('click', deleteLessonButton);
