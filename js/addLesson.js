@@ -182,7 +182,7 @@ addLessonButtonEl.addEventListener('click', () => {
             msgEl.innerHTML = '';
             msgEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
-            <strong>Данные обновлены</strong>
+            <strong>Занятие добавлено</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
