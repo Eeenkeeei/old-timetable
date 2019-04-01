@@ -12,9 +12,6 @@ export class PasswordChanger {
         const securityMsgEl = document.createElement('label');
         securityMsgEl.innerHTML = '';
         const changePasswordTextEl = document.querySelector('#changePassword');
-        changePasswordTextEl.addEventListener('mouseout', ()=>{
-            changePasswordTextEl.classList.add('changeDataButtonNotFocus')
-        });
         const changePasswordTextElListener = (evt) => {
             changePasswordTextEl.removeEventListener('click', changePasswordTextElListener);
             changePasswordTextEl.innerHTML = `
@@ -35,9 +32,14 @@ export class PasswordChanger {
     <label class="form-text text-muted">Не менее 8 символов. Только латинские буквы и цифры</label>
 
   <button type="submit" class="btn btn-outline-dark btn-sm">Подтвердить</button>
+  <button type="button" class="btn btn-outline-dark btn-sm" id="cancelChangeButton">Отменить</button>
+
 </form>
     `;
-
+            const cancelChangeButtonEl = document.querySelector('#cancelChangeButton');
+            cancelChangeButtonEl.addEventListener('click', ()=>{
+                console.log(1)
+            });
             const changePasswordFormEl = document.querySelector('#changePasswordForm');
             const changePasswordFormListener = async (evt) => {
                 evt.preventDefault();
@@ -66,7 +68,7 @@ export class PasswordChanger {
                          <label class="text-muted account-label fadeIn wow animated"><h6>Пароль сохранен</h6></label>
                     `;
                         changePasswordTextEl.innerHTML = `
-                        Изменить пароль
+                        ИЗМЕНИТЬ ПАРОЛЬ
                         `;
 
                         let _userObject = storage.getUserData.data;
@@ -74,8 +76,11 @@ export class PasswordChanger {
                         const line = new Link(_userObject);
                         storage.add(line);
                         setTimeout(()=>{
-                            securityMsgEl.className = 'text-muted account-label fadeOut wow animated'
+                            securityMsgEl.innerHTML = `
+                         <label class="text-muted account-label fadeOut wow animated"><h6>Пароль сохранен</h6></label>
+                    `;
                         },4000);
+
                         changePasswordTextEl.addEventListener('click', changePasswordTextElListener)
                     }
                     if (data === 'Bad password length') {
