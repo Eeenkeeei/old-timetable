@@ -274,6 +274,7 @@ function renderAccount (container) {
                             <div class="col-sm-4">
                                 <label class="account-label h6 text-muted" style="cursor: pointer" id="changePassword">ИЗМЕНИТЬ ПАРОЛЬ</label>
                                 <p><label data-id="accountStartPage" class="h5"></label></p>
+                                <label class="account-label h6 text-muted" style="cursor: pointer" id="changePasswordInner"></label>
                             </div>
                             <div class="col-sm-12">
                             <hr>
