@@ -4,7 +4,7 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
 const storage = new DataStorage(new LocalStorage());
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 // https://timetable-eeenkeeei.herokuapp.com
 export class PasswordChanger {
 
@@ -12,9 +12,10 @@ export class PasswordChanger {
         const securityMsgEl = document.createElement('label');
         securityMsgEl.innerHTML = '';
         const changePasswordTextEl = document.querySelector('#changePassword');
+        const changePasswordInnerEl = document.querySelector('#changePasswordInner');
         const changePasswordTextElListener = (evt) => {
             changePasswordTextEl.removeEventListener('click', changePasswordTextElListener);
-            changePasswordTextEl.innerHTML = `
+            changePasswordInnerEl.innerHTML = `
     <form id="changePasswordForm" class="fadeIn wow animated">
   <div class="form-group fadeIn wow animated">
     <label>Старый пароль</label>
@@ -38,7 +39,11 @@ export class PasswordChanger {
     `;
             const cancelChangeButtonEl = document.querySelector('#cancelChangeButton');
             cancelChangeButtonEl.addEventListener('click', ()=>{
-                console.log(1)
+                changePasswordInnerEl.innerHTML = `
+                        
+                        `;
+                changePasswordTextEl.addEventListener('click', changePasswordTextElListener);
+
             });
             const changePasswordFormEl = document.querySelector('#changePasswordForm');
             const changePasswordFormListener = async (evt) => {
@@ -67,8 +72,8 @@ export class PasswordChanger {
                         securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeIn wow animated"><h6>Пароль сохранен</h6></label>
                     `;
-                        changePasswordTextEl.innerHTML = `
-                        ИЗМЕНИТЬ ПАРОЛЬ
+                        changePasswordInnerEl.innerHTML = `
+                        
                         `;
 
                         let _userObject = storage.getUserData.data;
@@ -109,8 +114,6 @@ export class PasswordChanger {
                     }
 
                 });
-                console.log(newPasswordObject);
-
             };
             changePasswordFormEl.addEventListener('submit', changePasswordFormListener)
         };
