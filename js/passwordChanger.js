@@ -4,7 +4,7 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
 const storage = new DataStorage(new LocalStorage());
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 export class PasswordChanger {
 
