@@ -13,6 +13,8 @@ export class LessonsTime {
 
 
     renderLessonsTime(user) {
+        const serviceMsgEl = document.createElement('label');
+        serviceMsgEl.innerHTML = '';
         const lessonsTimetableInnerEl = document.querySelector('#lessonsTimetableInner');
         let timetable = user.lessonsTimetable;
         lessonsTimetableInnerEl.innerHTML = '';
@@ -20,13 +22,13 @@ export class LessonsTime {
             const timeItem = document.createElement('div');
             timeItem.innerHTML = `
             <div class="row">
-                                        <div class="col-2 col-sm-2 col-md-2" style="padding: 0px !important;">
+                                        <div class="col-2 col-sm-2 col-md-2 h6" style="padding: 0px !important; cursor: pointer">
                                             ${start}
                                         </div>
-                                        <div class="col-1 col-sm-1 col-md-1" style="padding: 0px !important;">
+                                        <div class="col-1 col-sm-1 col-md-1 h6" style="padding: 0px !important;">
                                         -
                                         </div>
-                                        <div class="col-2 col-sm-2 col-md-2" style="padding: 0px !important;">
+                                        <div class="col-2 col-sm-2 col-md-2 h6" style="padding: 0px !important; cursor: pointer">
                                             ${end}
                                         </div>
                                     </div>  
@@ -70,23 +72,31 @@ export class LessonsTime {
                         const lessonNumber = number;
                         for (const timetableElement of timetable) {
                             if (timetableElement.number === lessonNumber){
-                                console.log('old', timetableElement);
-                                console.log(timetable.indexOf(timetableElement));
                                 user.lessonsTimetable[timetable.indexOf(timetableElement)].start = startTime;
                                 user.lessonsTimetable[timetable.indexOf(timetableElement)].end = endTime;
-                                console.log('new', user.lessonsTimetable[timetable.indexOf(timetableElement)]);
                                 const data = new Link(user);
                                 storage.add(data);
                                 let updateData = await http.updateData(user);
                                 let _resultUpdateFlag = '';
+                                const timetableLabelEl = document.querySelector('#timetableLabel');
+                                timetableLabelEl.innerHTML = '';
+                                timetableLabelEl.appendChild(serviceMsgEl);
+                                serviceMsgEl.innerHTML = `
+                                        <label class="text-muted account-label fadeIn wow animated"><h6>Данные обновлены</h6></label>
+                                        `;
                                 await updateData.json().then(async (data) => {
+
+
+                                    setTimeout(()=>{
+                                        serviceMsgEl.innerHTML = `
+                                        <label class="text-muted account-label fadeOut wow animated"><h6>Данные обновлены</h6></label>
+                                    `;
+                                    },4000);
                                     _resultUpdateFlag = data;
                                     await console.log(data);
                                 });
                             }
                         }
-
-
 
                         this.renderLessonsTime(user);
                         this.editTimeFlag = false;
