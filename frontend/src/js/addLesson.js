@@ -5,7 +5,7 @@ import {Link} from "./lib.js";
 import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
 // const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
@@ -47,13 +47,12 @@ let innerHTML = `
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Номер занятия</label>
          <select class="form-control form-control-sm shadow-sm" id="selectLessonNumber">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
+                                <option value="1">1 пара ${user.lessonsTimetable[0].start} -  ${user.lessonsTimetable[0].end}</option>
+                                <option value="2">2 пара ${user.lessonsTimetable[1].start} -  ${user.lessonsTimetable[1].end}</option>
+                                <option value="3">3 пара ${user.lessonsTimetable[2].start} -  ${user.lessonsTimetable[2].end}</option>
+                                <option value="4">4 пара ${user.lessonsTimetable[3].start} -  ${user.lessonsTimetable[3].end}</option>
+                                <option value="5">5 пара ${user.lessonsTimetable[4].start} -  ${user.lessonsTimetable[4].end}</option>
+                                <option value="6">6 пара ${user.lessonsTimetable[5].start} -  ${user.lessonsTimetable[5].end}</option>
          </select>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Тип занятия</label>
@@ -79,8 +78,7 @@ let innerHTML = `
           <button type="submit" class="btn btn-success shadow" id="addFormButton"><strong>+</strong></button>
           <button type="button" class="btn btn-danger shadow" id="cancelAddButton"><strong>Отмена</strong></button>
       </div>
-    
-  </div>
+    </div>
 </div>
 </form>
 </div>

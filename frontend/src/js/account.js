@@ -6,7 +6,7 @@ import {ConnectAccount} from "./connectAccount.js";
 import {PasswordChanger} from "./passwordChanger.js";
 import {LessonsTime} from "./lessonsTime.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -269,7 +269,7 @@ function renderAccount (container) {
                                 <div class="container" style="margin-top: 0.5rem" id="lessonsTimetableInner">
                                    <!--INNER ДЛЯ ВРЕМЕНИ ЗАНЯТИЙ-->
                                 </div>
-                                <label class="account-label h6 text-muted" style="cursor: pointer">ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ВРЕМЯ</label>
+                                <label class="account-label h6 text-muted" style="cursor: pointer; padding-top: 2rem">ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ВРЕМЯ</label>
                             </div>
                             
                              <div class="col-sm-12">
