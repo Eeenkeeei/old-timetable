@@ -5,6 +5,12 @@ body, html {
     font-family: SF Pro Text,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif !important;
 }
 
+footer {
+    background-color: #3988ad;
+    margin-top: 6.95rem;
+    color: white;
+}
+
 .navbar-brad img {
     width: 50px;
 }

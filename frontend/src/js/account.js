@@ -4,14 +4,16 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import {ConnectAccount} from "./connectAccount.js";
 import {PasswordChanger} from "./passwordChanger.js";
+import {LessonsTime} from "./lessonsTime.js";
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
+const http = new Http('http://localhost:7777');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
 const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
 const passwordChanger = new PasswordChanger();
+const lessonsTime = new LessonsTime();
 let user;
 
 if (storage.getUserData === null) {
@@ -264,7 +266,10 @@ function renderAccount (container) {
                             <label class="col-sm-5 account-label"><h4></h4></label>
                             <div class="col-sm-4">
                                 <label class="account-label h6">РАСПИСАНИЕ ЗАНЯТИЙ</label>
-                                <p><label data-id="accountLessonsTimetable" class="h5"></label></p>
+                                <div class="container" style="margin-top: 0.5rem" id="lessonsTimetableInner">
+                                   <!--INNER ДЛЯ ВРЕМЕНИ ЗАНЯТИЙ-->
+                                </div>
+                                <label class="account-label h6 text-muted" style="cursor: pointer">Для изменения кликните на время</label>
                             </div>
                             
                              <div class="col-sm-12">
@@ -326,6 +331,7 @@ function renderAccount (container) {
         accountDataStartPageEl.textContent = "Расписание";
     }
     passwordChanger.changePassword();
+    lessonsTime.renderLessonsTime(user);
 }
 
 renderAccount(rootDivEl);
