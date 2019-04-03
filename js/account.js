@@ -6,7 +6,7 @@ import {ConnectAccount} from "./connectAccount.js";
 import {PasswordChanger} from "./passwordChanger.js";
 import {LessonsTime} from "./lessonsTime.js";
 
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 
 const usernameBarEl = document.querySelector('#usernameBar');
@@ -257,19 +257,19 @@ function renderAccount (container) {
                             <div class="col-sm-12">
                             <hr>
                             </div>
-                            <label class="col-sm-5 text-muted account-label" ><h4>Сервисы</h4></label>
+                            <label class="col-sm-5 text-muted account-label"><h4>Сервисы</h4></label>
                             <div class="col-sm-4">
                                 <label class="account-label h6">СТАРТОВАЯ СТРАНИЦА</label>
                                 <p><label data-id="accountStartPage" class="h5"></label></p>
                             </div>
 
-                            <label class="col-sm-5 account-label"><h4></h4></label>
-                            <div class="col-sm-4">
+                            <label class="col-sm-5 account-label" id="timetableLabel"><h4></h4></label>
+                            <div class="col-sm-5">
                                 <label class="account-label h6">РАСПИСАНИЕ ЗАНЯТИЙ</label>
                                 <div class="container" style="margin-top: 0.5rem" id="lessonsTimetableInner">
                                    <!--INNER ДЛЯ ВРЕМЕНИ ЗАНЯТИЙ-->
                                 </div>
-                                <label class="account-label h6 text-muted" style="cursor: pointer">Для изменения кликните на время</label>
+                                <label class="account-label h6 text-muted" style="cursor: pointer; padding-top: 2rem">ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ВРЕМЯ</label>
                             </div>
                             
                              <div class="col-sm-12">
@@ -335,10 +335,6 @@ function renderAccount (container) {
 }
 
 renderAccount(rootDivEl);
-
-
-
-
 
 const msgEl = document.createElement('div');
 msgEl.innerHTML = '';

@@ -4,7 +4,7 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 
 const storage = new DataStorage(new LocalStorage());
-const http = new Http('http://localhost:7777');
+const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
 // https://timetable-eeenkeeei.herokuapp.com
 export class PasswordChanger {
 
@@ -75,7 +75,6 @@ export class PasswordChanger {
                         changePasswordInnerEl.innerHTML = `
                         
                         `;
-
                         let _userObject = storage.getUserData.data;
                         _userObject.password = confirmNewPassword;
                         const line = new Link(_userObject);
@@ -112,7 +111,6 @@ export class PasswordChanger {
                          <label class="text-muted account-label fadeIn wow animated"><h6>Старый пароль не совпадает </h6></label>
                     `;
                     }
-
                 });
             };
             changePasswordFormEl.addEventListener('submit', changePasswordFormListener)

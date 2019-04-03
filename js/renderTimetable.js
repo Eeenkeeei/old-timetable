@@ -52,12 +52,69 @@ export default class Render {
                 if (type === "Практика") {
                     typeClass = "h3 badge badge-pill badge-success";
                 }
+                let time = '';
+                if (number === '1'){
+                    user.lessonsTimetable.forEach(({start, end, number})=>{
+                       if (number === 'first'){
+                           time = `
+                           <label class="text-muted h6">${start} - ${end}</label>
+                           `
+                       }
+                    });
+                }
+                if (number === '2'){
+                    user.lessonsTimetable.forEach(({start, end, number})=>{
+                        if (number === 'second'){
+                            time = `
+                           <label class="text-muted h6">${start} - ${end}</label>
+                           `
+                        }
+                    });
+                }
+                if (number === '3'){
+                    user.lessonsTimetable.forEach(({start, end, number})=>{
+                        if (number === 'third'){
+                            time = `
+                           <label class="text-muted h6">${start} - ${end}</label>
+                           `
+                        }
+                    });
+                }
+                if (number === '4'){
+                    user.lessonsTimetable.forEach(({start, end, number})=>{
+                        if (number === 'fourth'){
+                            time = `
+                           <label class="text-muted h6">${start} - ${end}</label>
+                           `
+                        }
+                    });
+                }
+                if (number === '5'){
+                    user.lessonsTimetable.forEach(({start, end, number})=>{
+                        if (number === 'fifth'){
+                            time = `
+                           <label class="text-muted h6">${start} - ${end}</label>
+                           `
+                        }
+                    });
+                }
+                if (number === '6'){
+                    user.lessonsTimetable.forEach(({start, end, number})=>{
+                        if (number === 'sixth'){
+                            time = `
+                           <label class="text-muted h6">${start} - ${end}</label>
+                           `
+                        }
+                    });
+                }
+
                 tableItem.innerHTML = `
-                            <td>${number} пара
+                            <td style="padding: 0px; padding-top: 5px"><label class="h5">${number} пара </label>
+                            <p>${time}</p>
                             <p><h5><div class="${typeClass}"  id="lessonTypeArea">${type}</div></h5></p> 
                             </td>
-                            <td>${name}</td>
-                            <td>${note}</td>
+                            <td><label class="h6">${name}</label></td>
+                            <td><label class="h6">${note}</label></td>
             `;
 
                 const tableItemListener = (evt) => {
@@ -78,7 +135,7 @@ export default class Render {
                                 <option value="4" id="lessonNumberFour">4</option>
                                 <option value="5" id="lessonNumberFive">5</option>
                                 <option value="6" id="lessonNumberSix">6</option>
-                                <option value="7" id="lessonNumberSeven">7</option>
+                                
                     </select> пара
                             <p>
                             <small class="text-muted h6">
