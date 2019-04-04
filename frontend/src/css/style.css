@@ -3,12 +3,22 @@ body, html {
     height: 100%;
     background: #FCFCFC;
     font-family: SF Pro Text,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif !important;
+
 }
 
 footer {
-    background-color: #3988ad;
-    margin-top: 6.95rem;
-    color: white;
+    background-color: #f5f5f5;
+    margin-top: 4rem !important;
+}
+
+ul.footer-links {
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 4px; /* Значение полей */
+}
+ul.footer-links li {
+    display: inline; /* Отображать как строчный элемент */
+    margin-right: 1.4rem; /* Отступ слева */
+    color: black
 }
 
 .navbar-brad img {
@@ -123,7 +133,10 @@ td {
     font-size: 1rem;
 }
 
-
+.href {
+    text-decoration: none;
+    color: black;
+}
 
 
 
