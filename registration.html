@@ -51,39 +51,45 @@
     <div class="col-12 mx-auto col-md-12 order-md-12">
         <form id="regForm">
             <h2>Регистрация</h2>
-            <h2>Поля, обязательные для ввода, обозначены <span style="color: red;">*</span> </h2>
+            <h2>Поля, обязательные для ввода, обозначены <span style="color: red;">*</span></h2>
             <div class="form-group">
                 <div id="msgBox"></div>
                 <h4 class="form-text">Никнейм <span style="color: red;">*</span></h4>
                 <small class="form-text text-muted">От 4 до 15 символов. Только латинские буквы</small>
 
-                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="regNickname" style="margin-bottom: 20px !important;"
+                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" id="regNickname"
+                       style="margin-bottom: 20px !important;"
                        placeholder="Твой никнейм" required autofocus="autofocus"
-                pattern="[a-zA-Z]{4,15}">
+                       pattern="[a-zA-Z]{4,15}">
             </div>
             <div class="form-group">
                 <h4 class="form-text">Пароль <span style="color: red;">*</span></h4>
                 <small class="form-text text-muted">Не менее 8 символов. Только латинские буквы и цифры</small>
 
-                <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
+                <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded"
+                       style="margin-bottom: 20px !important;"
                        id="regPass" placeholder="Пароль" required pattern="(?=.*\d)(?=.*[a-z]).{8,}">
                 <h4 class="form-text">Повторите пароль <span style="color: red;">*</span></h4>
 
-                <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
+                <input type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded"
+                       style="margin-bottom: 20px !important;"
                        id="confirmRegPass" placeholder="Повторите пароль" required>
                 <small class="form-text text-muted">E-mail</small>
 
-                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;" id="regEmail"
+                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
+                       id="regEmail"
                        aria-describedby="emailHelp"
                        placeholder="E-mail" type="email">
                 <small class="form-text text-muted">Укажите Ваше место работы/учебы</small>
 
-                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;" id="regEdu"
+                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
+                       id="regEdu"
                        aria-describedby="emailHelp"
                        placeholder="Место работы/учебы">
                 <small class="form-text text-muted">Ваш возраст</small>
 
-                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;" id="regAge"
+                <input class="form-control shadow-sm p-3 mb-5 bg-white rounded" style="margin-bottom: 20px !important;"
+                       id="regAge"
                        aria-describedby="emailHelp"
                        placeholder="Ваш возраст">
 
@@ -109,7 +115,22 @@
         </form>
     </div>
 </div>
-</div>
+
+<footer class="footer py-3" style="padding: 0px !important;">
+    <div class="container">
+        <ul class="footer-links" style="padding: 0rem !important;">
+            <li>
+                <a href="help.html" class="href"><label class="h6">Поддержка</label></a>
+            </li>
+            <li>
+                <a href="faq.html" class="href"><label class="h6">Помощь</label></a>
+            </li>
+        </ul>
+        <label class="text-muted h6">Timetable project</label>
+        <label class="text-muted h6">Copyright Roman Ilichev 2019</label>
+
+    </div>
+</footer>
 <script src="js/registration.js" type="module"></script>
 </body>
 </html>
