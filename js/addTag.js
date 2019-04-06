@@ -139,7 +139,7 @@ export class AddTag {
                         addNewTagInner.innerHTML = '';
                         addNewTagInner.className = 'account-label h6';
                     }, 800);
-                    renderTagList.renderTagList(user);
+                    renderTagList.renderTagsForAccount(user);
                 });
             };
             addTagFormEl.addEventListener('submit', addTagFormListener);
@@ -152,7 +152,7 @@ export class AddTag {
                     addNewTagInner.innerHTML = '';
                     addNewTagInner.className = 'account-label h6';
                 }, 800);
-                renderTagList.renderTagList(user);
+                renderTagList.renderTagsForAccount(user);
             };
             hideAddTagFormButton.addEventListener('click', hideAddTagFormListener);
         };
