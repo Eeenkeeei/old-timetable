@@ -35,14 +35,12 @@ export class AddTag {
 
     <label id="colorIndicatorLabel">Выберите цвет тега</label> 
     <p>
-    <span class="badge badge-primary tagsSize" id="primaryColor">Синий</span>
-<span class="badge badge-secondary tagsSize" id="secondaryColor">Серый</span>
-<span class="badge badge-success tagsSize" id="successColor">Зеленый</span>
-<span class="badge badge-danger tagsSize" id="dangerColor">Красный</span>
-<span class="badge badge-warning tagsSize" id="warningColor">Оранжевый</span>
-<span class="badge badge-info tagsSize" id="infoColor">Бирюзовый</span>
-<span class="badge badge-light tagsSize" id="lightColor">Белый</span>
-<span class="badge badge-dark tagsSize" id="darkColor">Черный</span>
+    <span class="badge badge-primary tagsSize col-3 badge-height" id="primaryColor"> </span>
+    <span class="badge badge-warning tagsSize col-3 badge-height" id="warningColor"> </span>
+<span class="badge badge-success tagsSize col-3 badge-height" id="successColor"> </span>
+<span class="badge badge-danger tagsSize col-3 badge-height" id="dangerColor"> </span>
+<span class="badge badge-info tagsSize col-3 badge-height" id="infoColor"> </span>
+<span class="badge badge-dark tagsSize col-3 badge-height" id="darkColor"> </span>
     </p>
   </div>
   
@@ -55,12 +53,6 @@ export class AddTag {
             primaryColorEl.addEventListener('click', ()=>{
                 selectedColor = 'primary';
                 selectedColorIndicator = 'badge badge-primary tagsSize';
-                colorIndicatorEl.className = selectedColorIndicator;
-            });
-            const secondaryColorEl = document.querySelector('#secondaryColor');
-            secondaryColorEl.addEventListener('click', ()=>{
-                selectedColor = 'secondary';
-                selectedColorIndicator = 'badge badge-secondary tagsSize';
                 colorIndicatorEl.className = selectedColorIndicator;
             });
             const successColorEl = document.querySelector('#successColor');
@@ -85,12 +77,6 @@ export class AddTag {
             infoColorEl.addEventListener('click', ()=>{
                 selectedColor = 'info';
                 selectedColorIndicator = 'badge badge-info tagsSize';
-                colorIndicatorEl.className = selectedColorIndicator;
-            });
-            const lightColorEl = document.querySelector('#lightColor');
-            lightColorEl.addEventListener('click', ()=>{
-                selectedColor = 'light';
-                selectedColorIndicator = 'badge badge-light tagsSize';
                 colorIndicatorEl.className = selectedColorIndicator;
             });
             const darkColorEl = document.querySelector('#darkColor');

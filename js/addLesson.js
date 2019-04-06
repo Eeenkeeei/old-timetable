@@ -15,13 +15,14 @@ const renderClass = new Render();
 if (storage.getUserData === null) {
     document.location.href = 'index.html'
 }
-let user = storage.getUserData.data;
 
-const usernameBarEl = document.querySelector('#usernameBar');
-usernameBarEl.textContent = storage.getUserData.data.username;
 
 const connectAccount = new ConnectAccount();
 connectAccount.updateData();
+let user = storage.getUserData.data;
+renderClass.renderTimetable(user);
+const usernameBarEl = document.querySelector('#usernameBar');
+usernameBarEl.textContent = storage.getUserData.data.username;
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
 
@@ -95,7 +96,7 @@ let innerHTML = `
 //     syncWithServer.close();
 // };
 
-renderClass.renderTimetable(user);
+
 
 const msgEl = document.querySelector('#msgEl');
 msgEl.innerHTML = '';

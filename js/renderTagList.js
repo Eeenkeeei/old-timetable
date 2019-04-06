@@ -70,15 +70,8 @@ export class RenderTags {
                     }
                 }
                 console.log(tags)
-
-
             };
             removeTagEl.addEventListener('click', removeTagListener)
-
         });
-
     }
-
-
-
 }
