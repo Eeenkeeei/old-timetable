@@ -358,7 +358,7 @@ function renderAccount (container) {
     passwordChanger.changePassword();
     addNewTag.renderAddTagForm(user);
     lessonsTime.renderLessonsTime(user);
-    renderTags.renderTagList(user);
+    renderTags.renderTagsForAccount(user);
 }
 
 renderAccount(rootDivEl);

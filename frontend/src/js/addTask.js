@@ -6,9 +6,10 @@ import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 
 import {ServerLink} from "./serverLink.js";
+import {RenderTags} from "./renderTagList.js";
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
-
+const renderTagList = new RenderTags();
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
 // const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
@@ -48,13 +49,10 @@ let innerHTML = `
                                            placeholder="Примечание">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                    <label id="inputNameLabel">Теги</label>
+                                    <label id="inputNameLabel" class="h6">Добавить теги:</label>
                                     <p>
-                                        <span class="badge badge-danger tagsSize">Важно</span>
-                                        <span class="badge badge-success tagsSize">Не срочно</span>
-                                        <span class="badge badge-info tagsSize">Не срочно</span>
-                                        <span class="badge badge-light tagsSize">Не срочно</span>
-                                        <span class="badge badge-warning tagsSize">Средне</span>
+                                       <div class="account-label h6" style="cursor: pointer" id="tagsInner"></div>
+                                       <!--INNER ДЛЯ ФОРМЫ ДОБАВЛЕНИЯ ТЕГА-->
                                     </p>
                                 </div>
 
@@ -72,33 +70,22 @@ let innerHTML = `
                 </div>
 `;
 
-//
-// authForSync.onopen = function (event) {
-//     console.log("Opened socket!");
-//     authForSync.send(user.username);
-// };
-//
-// syncWithServer.onmessage = function (event) {
-//     if ((JSON.parse(event.data)).username === user.username) {
-//         console.log((JSON.parse(event.data)).username);
-//     }
-//     syncWithServer.close();
-// };
-
-// renderClass.renderTimetable(user);
-
 const msgEl = document.querySelector('#msgEl');
 msgEl.innerHTML = '';
 
 
-let lessonObject = {};
+
 const addDivFormEl = document.querySelector('#addDivForm');
 const addTaskButtonEl = document.querySelector('#addTaskButton');
 addTaskButtonEl.addEventListener('click', () => {
-    // renderClass.renderTimetable(user);
+    const addNewTagInner = document.querySelector('#addNewTagInner');
+    const serviceMsgEl = document.createElement('label');
+    serviceMsgEl.innerHTML = '';
+    const tagsInnerEl = document.querySelector('#tagsInner');
     renderClass.editLessonFlag = false;
     addDivFormEl.innerHTML = '';
     addDivFormEl.innerHTML = innerHTML;
+    renderTagList.renderTagsForTracker(user);
     const addLessonFormEl = document.querySelector('#addLessonForm');
 
 
@@ -119,51 +106,37 @@ addTaskButtonEl.addEventListener('click', () => {
     <span class="sr-only">Loading...</span>
     </div>
     `;
-        const lessonNameEl = document.querySelector('#lessonName');
-        let lessonName = lessonNameEl.value;
-        if (lessonName.length < 2){
-            msgEl.innerHTML = '';
-            lessonNameEl.className = 'form-control form-control-sm shadow-sm is-invalid';
-            return
-        }
-        const lessonNoteEl = document.querySelector('#lessonNote');
-        let lessonNote = lessonNoteEl.value;
-        setTimeout(() => {
-            addLessonFormEl.innerHTML = '';
-        }, 900);
-        const animatedDivEl = document.querySelector('[data-animation=true]');
-        animatedDivEl.className = 'fadeOut wow animated';
-        lessonObject = {
-            day: selectLessonDay,
-            number: selectLessonNumber,
-            name: lessonName,
-            note: lessonNote,
-            type: selectLessonType
-        };
-        user.timetable.push(lessonObject);
-        const data = new Link(user);
-        storage.add(data);
-        let timetableUpdate = await http.timetableUpdate(user);
-        // renderClass.renderTimetable(user);
 
-        let _resultUpdateFlag = '';
-        await timetableUpdate.json().then(async (data) => {
-            _resultUpdateFlag = data;
-            await console.log(data);
-        });
 
-        if (_resultUpdateFlag === 'Timetable Updated') {
-            msgEl.innerHTML = '';
-            msgEl.innerHTML = `
-        <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
-            <strong>Занятие добавлено</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        `;
 
-        }
+
+
+
+
+
+
+        // const data = new Link(user);
+        // storage.add(data);
+        // let timetableUpdate = await http.timetableUpdate(user);
+        //
+        // let _resultUpdateFlag = '';
+        // await timetableUpdate.json().then(async (data) => {
+        //     _resultUpdateFlag = data;
+        //     await console.log(data);
+        // });
+        //
+        // if (_resultUpdateFlag === 'Timetable Updated') {
+        //     msgEl.innerHTML = '';
+        //     msgEl.innerHTML = `
+        // <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
+        //     <strong>Занятие добавлено</strong>
+        //     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //     <span aria-hidden="true">&times;</span>
+        //     </button>
+        // </div>
+        // `;
+        //
+        // }
     })
 });
 

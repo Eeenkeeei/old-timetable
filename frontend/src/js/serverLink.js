@@ -1,6 +1,7 @@
 export class ServerLink{
     constructor() {
-        this.link = 'https://timetable-eeenkeeei.herokuapp.com'
+        this.link = 'http://localhost:7777'
         // https://timetable-eeenkeeei.herokuapp.com
+        // http://localhost:7777
     }
 }
