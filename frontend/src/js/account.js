@@ -5,15 +5,20 @@ import {Link} from "./lib.js";
 import {ConnectAccount} from "./connectAccount.js";
 import {PasswordChanger} from "./passwordChanger.js";
 import {LessonsTime} from "./lessonsTime.js";
+import {RenderTags} from "./renderTagList.js";
 
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
-// https://timetable-eeenkeeei.herokuapp.com
+import {ServerLink} from "./serverLink.js";
+import {AddTag} from "./addTag.js";
+const serverLink = new ServerLink();
+const http = new Http(serverLink.link);
 
 const usernameBarEl = document.querySelector('#usernameBar');
 const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
 const passwordChanger = new PasswordChanger();
 const lessonsTime = new LessonsTime();
+const renderTags = new RenderTags();
+const addNewTag = new AddTag();
 let user;
 
 if (storage.getUserData === null) {
@@ -21,7 +26,7 @@ if (storage.getUserData === null) {
 }
 
 usernameBarEl.textContent = storage.getUserData.data.username;
-connectAccount.updateData();
+
 
 if (storage.getUserData === null) {
     document.location.href = 'index.html'
@@ -41,6 +46,8 @@ rootDivEl.innerHTML = '';
 
 let gender = '';
 let startPage = 'index.html';
+const msgEl = document.createElement('div');
+msgEl.innerHTML = '';
 
 const editAccountListener = (evt) => {
     rootDivEl.innerHTML = `
@@ -264,15 +271,33 @@ function renderAccount (container) {
                             </div>
 
                             <label class="col-sm-5 account-label" id="timetableLabel"><h4></h4></label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                 <label class="account-label h6">РАСПИСАНИЕ ЗАНЯТИЙ</label>
+                                <p><label class="account-label h6 text-muted" style="font-size: 0.9rem" >ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ВРЕМЯ</label></p>
                                 <div class="container" style="margin-top: 0.5rem" id="lessonsTimetableInner">
                                    <!--INNER ДЛЯ ВРЕМЕНИ ЗАНЯТИЙ-->
                                 </div>
-                                <label class="account-label h6 text-muted" style="cursor: pointer; padding-top: 2rem">ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ВРЕМЯ</label>
+                                
+                            </div>
+                            <label class="col-sm-5 text-muted account-label"><h4></h4></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6"></label>
+                             
+                            </div>
+
+                            <label class="col-sm-5 text-muted account-label" id="tagsLabel"><h4>Список тегов</h4></label>
+                            <div class="col-sm-7">
+                                <div class="account-label h6" style="" id="tagsInner"></div>
+                                <!--INNER ДЛЯ СПИСКА ТЕГОВ-->
                             </div>
                             
-                             <div class="col-sm-12">
+                            <label class="col-sm-5 text-muted account-label h6" style="font-size: 0.9rem" id="tagMsgLabel"><!--ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ТЕГ--></label>
+                            <div class="col-sm-4">
+                                <label class="account-label h6 text-muted" style="cursor: pointer" id="addNewTag">ДОБАВИТЬ ТЕГ</label>
+                                <div class="account-label h6" style="cursor: pointer" id="addNewTagInner"></div>
+                                <!--INNER ДЛЯ ФОРМЫ ДОБАВЛЕНИЯ ТЕГА-->
+                            </div>
+                            <div class="col-sm-12">
                             <hr>
                             </div>
                             <label class="col-sm-5 text-muted account-label" id="securityLabel"><h4>Безопасность</h4></label>
@@ -331,12 +356,12 @@ function renderAccount (container) {
         accountDataStartPageEl.textContent = "Расписание";
     }
     passwordChanger.changePassword();
+    addNewTag.renderAddTagForm(user);
     lessonsTime.renderLessonsTime(user);
+    renderTags.renderTagList(user);
 }
 
 renderAccount(rootDivEl);
 
-const msgEl = document.createElement('div');
-msgEl.innerHTML = '';
 
 

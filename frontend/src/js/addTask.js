@@ -4,9 +4,11 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
+
 import {ServerLink} from "./serverLink.js";
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
+
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
 // const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
@@ -31,55 +33,43 @@ let selectLessonType = 'Лекция';
 
 let innerHTML = `
 <div class="fadeIn wow animated" data-animation="true">
-<form id="addLessonForm"> 
-<div class="container">
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
-       
-    <label for="selectDay" id="inputNameLabel">Название</label>
-    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
-</div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
-        <label for="selectDay">Заметка</label>
-        <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Заметка">
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Номер занятия</label>
-         <select class="form-control form-control-sm shadow-sm" id="selectLessonNumber">
-                                <option value="1">1 пара ${user.lessonsTimetable[0].start} - ${user.lessonsTimetable[0].end}</option>
-                                <option value="2">2 пара ${user.lessonsTimetable[1].start} - ${user.lessonsTimetable[1].end}</option>
-                                <option value="3">3 пара ${user.lessonsTimetable[2].start} - ${user.lessonsTimetable[2].end}</option>
-                                <option value="4">4 пара ${user.lessonsTimetable[3].start} - ${user.lessonsTimetable[3].end}</option>
-                                <option value="5">5 пара ${user.lessonsTimetable[4].start} - ${user.lessonsTimetable[4].end}</option>
-                                <option value="6">6 пара ${user.lessonsTimetable[5].start} - ${user.lessonsTimetable[5].end}</option>
-         </select>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Тип занятия</label>
-         <select class="form-control form-control-sm shadow-sm" id="selectLessonType">
-                                <option value="Лекция">Лекция</option>
-                                <option value="Практика">Практика</option>
-                                <option value="Лабораторная работа">Лабораторная работа</option>
-         </select>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
-    <label>День</label>
-                            <select class="form-control form-control-sm shadow-sm" id="selectLessonDay">
-                                <option value="Понедельник">Понедельник</option>
-                                <option value="Вторник">Вторник</option>
-                                <option value="Среда">Среда</option>
-                                <option value="Четверг">Четверг</option>
-                                <option value="Пятница">Пятница</option>
-                                <option value="Суббота">Суббота</option>
-                            </select>
-      </div>
-      <div class="col">
-          <label></label>
-          <button type="submit" class="btn btn-success shadow" id="addFormButton"><strong>+</strong></button>
-          <button type="button" class="btn btn-danger shadow" id="cancelAddButton"><strong>Отмена</strong></button>
-      </div>
-    </div>
-</div>
-</form>
-</div>
+                    <form id="addLessonForm">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+
+                                    <label id="inputNameLabel">Название заметки</label>
+                                    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName"
+                                           placeholder="Название заметки" autofocus="autofocus">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <label>Примечание</label>
+                                    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote"
+                                           placeholder="Примечание">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <label id="inputNameLabel">Теги</label>
+                                    <p>
+                                        <span class="badge badge-danger tagsSize">Важно</span>
+                                        <span class="badge badge-success tagsSize">Не срочно</span>
+                                        <span class="badge badge-info tagsSize">Не срочно</span>
+                                        <span class="badge badge-light tagsSize">Не срочно</span>
+                                        <span class="badge badge-warning tagsSize">Средне</span>
+                                    </p>
+                                </div>
+
+                            </div>
+
+
+
+                                <button type="submit" class="btn btn-success shadow" id="addTaskButton"><strong>Применить</strong>
+                                </button>
+                                <button type="button" class="btn btn-danger shadow" id="cancelAddButton"
+                                        style="margin: 0px"><strong>Отмена</strong></button>
+
+                        </div>
+                    </form>
+                </div>
 `;
 
 //
@@ -95,7 +85,7 @@ let innerHTML = `
 //     syncWithServer.close();
 // };
 
-renderClass.renderTimetable(user);
+// renderClass.renderTimetable(user);
 
 const msgEl = document.querySelector('#msgEl');
 msgEl.innerHTML = '';
@@ -103,25 +93,14 @@ msgEl.innerHTML = '';
 
 let lessonObject = {};
 const addDivFormEl = document.querySelector('#addDivForm');
-const addLessonButtonEl = document.querySelector('#addLessonButton');
-addLessonButtonEl.addEventListener('click', () => {
-    renderClass.renderTimetable(user);
+const addTaskButtonEl = document.querySelector('#addTaskButton');
+addTaskButtonEl.addEventListener('click', () => {
+    // renderClass.renderTimetable(user);
     renderClass.editLessonFlag = false;
     addDivFormEl.innerHTML = '';
     addDivFormEl.innerHTML = innerHTML;
     const addLessonFormEl = document.querySelector('#addLessonForm');
-    document.querySelector('#selectLessonNumber')
-        .addEventListener('input', (evt) => {
-            selectLessonNumber = evt.currentTarget.value;
-        });
-    document.querySelector('#selectLessonDay')
-        .addEventListener('input', (evt) => {
-            selectLessonDay = evt.currentTarget.value;
-        });
-    document.querySelector('#selectLessonType')
-        .addEventListener('input', (evt) => {
-            selectLessonType = evt.currentTarget.value;
-        });
+
 
     const cancelAddButton = document.querySelector('#cancelAddButton');
     cancelAddButton.addEventListener('click', () => {
@@ -165,7 +144,7 @@ addLessonButtonEl.addEventListener('click', () => {
         const data = new Link(user);
         storage.add(data);
         let timetableUpdate = await http.timetableUpdate(user);
-        renderClass.renderTimetable(user);
+        // renderClass.renderTimetable(user);
 
         let _resultUpdateFlag = '';
         await timetableUpdate.json().then(async (data) => {

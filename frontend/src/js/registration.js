@@ -18,10 +18,9 @@ const regEmailEl = document.querySelector('#regEmail');
 const regEduEl = document.querySelector('#regEdu');
 const msgBoxEl = document.querySelector('#msgBox'); // бокс с сообщениями
 
-
-const http = new Http('https://timetable-eeenkeeei.herokuapp.com');
-// https://timetable-eeenkeeei.herokuapp.com
-
+import {ServerLink} from "./serverLink.js";
+const serverLink = new ServerLink();
+const http = new Http(serverLink.link);
 
 const errorEl = document.createElement('div'); // создание блока ошибок
 errorEl.innerHTML = '';

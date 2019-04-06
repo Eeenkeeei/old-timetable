@@ -138,6 +138,11 @@ td {
     color: black;
 }
 
+.tagsSize {
+    font-size: 1rem;
+    margin-top: 5px;
+    cursor: pointer;
+}
 
 
 
