@@ -56,7 +56,7 @@ export class RenderTags {
                             setTimeout(()=>{
                                 serviceMsgEl.innerHTML = `
                                         <label class="text-muted account-label fadeIn wow animated"><h6></h6></label>
-                                    `;
+                                    `
                             },4000);
                             _resultUpdateFlag = data;
                             await console.log(data);
@@ -79,23 +79,6 @@ export class RenderTags {
 
     }
 
-    renderTagsForTracker(user){
-        const addNewTagInner = document.querySelector('#addNewTagInner');
-        const serviceMsgEl = document.createElement('label');
-        serviceMsgEl.innerHTML = '';
-        const tagsInnerEl = document.querySelector('#tagsInner');
-        let tags = user.noteTags;
-        tagsInnerEl.innerHTML = '';
-        tags.forEach(({tagText, tagClass}) => {
-            const tagItem = document.createElement('span');
-            tagItem.innerHTML = `
-                                        <label class="badge badge-${tagClass} text-uppercase" style=" font-size: 1rem; cursor: pointer">
-                                           ${tagText}
-                                        </label>
-                                        
-            `;
-            tagsInnerEl.appendChild(tagItem);
-        });
-    }
+
 
 }

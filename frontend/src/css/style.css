@@ -144,5 +144,8 @@ td {
     cursor: pointer;
 }
 
+.addTagFormButton {
+    margin-top: 0.8rem !important;
+}
 
 

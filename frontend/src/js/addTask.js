@@ -27,7 +27,7 @@ const connectAccount = new ConnectAccount();
 connectAccount.updateData();
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
-
+let selectedTags = []; // массив для хранения выбранных тегов, обнуляется при каждом сабмите или отмене
 let selectLessonNumber = '1';
 let selectLessonDay = 'Понедельник';
 let selectLessonType = 'Лекция';
@@ -37,6 +37,14 @@ let innerHTML = `
                     <form id="addLessonForm">
                         <div class="container">
                             <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <label id="inputNameLabel" class="h6">Выберите теги:</label>
+                                    <p>
+                                       <div class="account-label h6" style="cursor: pointer" id="tagsInner"></div>
+                                       <!--INNER ДЛЯ СПИСКА ДОСТУПНЫХ ТЕГОВ-->
+                                    </p>
+                                </div>
+                                
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
 
                                     <label id="inputNameLabel">Название заметки</label>
@@ -45,26 +53,18 @@ let innerHTML = `
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                     <label>Примечание</label>
-                                    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote"
-                                           placeholder="Примечание">
+                                    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Примечание">
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                                    <label id="inputNameLabel" class="h6">Добавить теги:</label>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <label id="inputNameLabel" class="h6">Выбранные теги: </label>
                                     <p>
-                                       <div class="account-label h6" style="cursor: pointer" id="tagsInner"></div>
-                                       <!--INNER ДЛЯ ФОРМЫ ДОБАВЛЕНИЯ ТЕГА-->
+                                       <div class="account-label h6" style="cursor: pointer" id="selectedTagsInner"></div>
+                                       <!--INNER ДЛЯ ВЫБРАННЫХ ТЕГОВ-->
                                     </p>
-                                </div>
-
                             </div>
-
-
-
-                                <button type="submit" class="btn btn-success shadow" id="addTaskButton"><strong>Применить</strong>
-                                </button>
-                                <button type="button" class="btn btn-danger shadow" id="cancelAddButton"
-                                        style="margin: 0px"><strong>Отмена</strong></button>
-
+                            </div>
+                                <button type="submit" class="btn btn-success shadow addTagFormButton" id="addTaskButton"><strong>Добавить</strong></button>
+                                <button type="button" class="btn btn-danger shadow addTagFormButton" id="cancelAddButton"><strong>Отмена</strong></button>
                         </div>
                     </form>
                 </div>
@@ -85,7 +85,7 @@ addTaskButtonEl.addEventListener('click', () => {
     renderClass.editLessonFlag = false;
     addDivFormEl.innerHTML = '';
     addDivFormEl.innerHTML = innerHTML;
-    renderTagList.renderTagsForTracker(user);
+    renderTagsForTracker(user);
     const addLessonFormEl = document.querySelector('#addLessonForm');
 
 
@@ -93,6 +93,7 @@ addTaskButtonEl.addEventListener('click', () => {
     cancelAddButton.addEventListener('click', () => {
         const animatedDivEl = document.querySelector('[data-animation=true]');
         animatedDivEl.className = 'fadeOut wow animated';
+        selectedTags = [];
         setTimeout(() => {
             addLessonFormEl.innerHTML = '';
         }, 900);
@@ -114,7 +115,7 @@ addTaskButtonEl.addEventListener('click', () => {
 
 
 
-
+        selectedTags = [];
         // const data = new Link(user);
         // storage.add(data);
         // let timetableUpdate = await http.timetableUpdate(user);
@@ -139,6 +140,77 @@ addTaskButtonEl.addEventListener('click', () => {
         // }
     })
 });
+
+function renderTagsForTracker(user) {
+    const serviceMsgEl = document.createElement('label');
+    serviceMsgEl.innerHTML = '';
+    const tagsInnerEl = document.querySelector('#tagsInner');
+    let tags = user.noteTags;
+    tagsInnerEl.innerHTML = '';
+    tags.forEach(({tagText, tagClass}) => {
+        const tagItem = document.createElement('span');
+        tagItem.innerHTML = `
+                                        <label class="badge badge-${tagClass} text-uppercase" style=" font-size: 1rem; cursor: pointer">
+                                           ${tagText}
+                                        </label>
+                                        
+            `;
+        tagsInnerEl.appendChild(tagItem);
+        const addTagListener = () =>{
+            const addedTag = {
+                tagText: tagText,
+                tagClass: tagClass
+            };
+            console.log(addedTag);
+            console.log(selectedTags);
+            for (const selectedTag of selectedTags) {
+                if (selectedTag.tagText === addedTag.tagText && selectedTag.tagClass === addedTag.tagClass){
+                    return;
+                }
+            }
+            selectedTags.push(addedTag);
+            renderAddedTags(selectedTags);
+        };
+        tagItem.addEventListener('click', addTagListener);
+
+    });
+}
+
+function renderAddedTags(addedTags) {
+    const serviceMsgEl = document.createElement('label');
+    serviceMsgEl.innerHTML = '';
+    const tagsInnerEl = document.querySelector('#selectedTagsInner');
+    let tags = addedTags;
+    tagsInnerEl.innerHTML = '';
+    tags.forEach(({tagText, tagClass}) => {
+        const tagItem = document.createElement('span');
+        tagItem.innerHTML = `
+                                        <label class="badge badge-${tagClass} text-uppercase" style=" font-size: 1rem; cursor: pointer">
+                                           ${tagText} <span aria-hidden="true" id="removeTag">&times;</span>
+                                        </label>
+                                        
+            `;
+        tagsInnerEl.appendChild(tagItem);
+        const removeTagEl = tagItem.querySelector('#removeTag');
+        const removeTagFromSelectedTags = () =>{
+            const deletableTag = {
+                tagText: tagText,
+                tagClass: tagClass
+            };
+            for (const selectedTag of selectedTags) {
+                if (selectedTag.tagText === deletableTag.tagText && selectedTag.tagClass === deletableTag.tagClass){
+                    selectedTags.splice(selectedTags.indexOf(selectedTag), 1);
+                }
+            }
+            console.log(selectedTags);
+            renderAddedTags(addedTags)
+        };
+        removeTagEl.addEventListener('click', removeTagFromSelectedTags);
+
+    });
+}
+
+
 
 
 

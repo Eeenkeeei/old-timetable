@@ -129,7 +129,7 @@ export class AddTag {
 
                     setTimeout(()=>{
                         serviceMsgEl.innerHTML = `
-                                        <label class="text-muted account-label fadeIn wow animated"><h6>ДЛЯ ИЗМЕНЕНИЯ КЛИКНИТЕ НА ВРЕМЯ</h6></label>
+                                        <label class="text-muted account-label fadeIn wow animated"><h6></h6></label>
                                     `;
                     },4000);
                     _resultUpdateFlag = data;
