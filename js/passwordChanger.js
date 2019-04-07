@@ -22,16 +22,16 @@ export class PasswordChanger {
     <form id="changePasswordForm" class="fadeIn wow animated">
   <div class="form-group fadeIn wow animated">
     <label>Старый пароль</label>
-    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="oldPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
+    <input name="input1" type="password" class="form-control form-control-sm fadeIn wow animated" id="oldPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
   </div>
 
   <div class="form-group fadeIn wow animated">
     <label>Новый пароль</label>
-    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="newPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
+    <input name="input2"  type="password" class="form-control form-control-sm fadeIn wow animated" id="newPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
   </div>
   <div class="form-group fadeIn wow animated">
     <label>Повторите новый пароль</label>
-    <input type="password" class="form-control form-control-sm fadeIn wow animated" id="confirmNewPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
+    <input name="input3"  type="password" class="form-control form-control-sm fadeIn wow animated" id="confirmNewPassword" pattern="(?=.*\\d)(?=.*[a-z]).{8,}" required>
   </div>
     <label class="form-text text-muted">Не менее 8 символов. Только латинские буквы и цифры</label>
 
