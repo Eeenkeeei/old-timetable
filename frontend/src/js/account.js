@@ -6,12 +6,11 @@ import {ConnectAccount} from "./connectAccount.js";
 import {PasswordChanger} from "./passwordChanger.js";
 import {LessonsTime} from "./lessonsTime.js";
 import {RenderTags} from "./renderTagList.js";
-
 import {ServerLink} from "./serverLink.js";
 import {AddTag} from "./addTag.js";
+
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
-
 const usernameBarEl = document.querySelector('#usernameBar');
 const connectAccount = new ConnectAccount();
 const storage = new DataStorage(new LocalStorage());
@@ -304,7 +303,7 @@ function renderAccount (container) {
                             <div class="col-sm-4">
                                 <label class="account-label h6 text-muted" style="cursor: pointer" id="changePassword">ИЗМЕНИТЬ ПАРОЛЬ</label>
                                 <p><label data-id="accountStartPage" class="h5"></label></p>
-                                <label class="account-label h6 text-muted" style="cursor: pointer" id="changePasswordInner"></label>
+                                <div class="account-label h6 text-muted" style="cursor: pointer" id="changePasswordInner"></div>
                             </div>
                             <div class="col-sm-12">
                             <hr>
