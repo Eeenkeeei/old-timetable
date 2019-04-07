@@ -55,7 +55,7 @@ export class RenderTags {
 
                             setTimeout(()=>{
                                 serviceMsgEl.innerHTML = `
-                                        <label class="text-muted account-label fadeIn wow animated"><h6></h6></label>
+                                        <label class="text-muted account-label fadeOut wow animated"><h6>Данные обновлены</h6></label>
                                     `
                             },4000);
                             _resultUpdateFlag = data;

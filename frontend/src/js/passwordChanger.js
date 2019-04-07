@@ -42,9 +42,14 @@ export class PasswordChanger {
     `;
             const cancelChangeButtonEl = document.querySelector('#cancelChangeButton');
             cancelChangeButtonEl.addEventListener('click', ()=>{
-                changePasswordInnerEl.innerHTML = `
+                changePasswordFormEl.className = 'fadeOut wow animated';
+                setTimeout(()=>{
+
+                    changePasswordInnerEl.innerHTML = `
                         
                         `;
+                }, 800);
+
                 changePasswordTextEl.addEventListener('click', changePasswordTextElListener);
 
             });
@@ -95,24 +100,44 @@ export class PasswordChanger {
                         securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeIn wow animated"><h6>Длина пароля меньше 8 символов</h6></label>
                     `;
+                        setTimeout(()=>{
+                            securityMsgEl.innerHTML = `
+                         <label class="text-muted account-label fadeOut wow animated"><h6>Длина пароля меньше 8 символов</h6></label>
+                    `;
+                        },4000);
                     }
                     if (data === 'Passwords matches') {
                         securityLabelEl.appendChild(securityMsgEl);
                         securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeIn wow animated"><h6>Старый и новый пароль совпадает</h6></label>
                     `;
+                        setTimeout(()=>{
+                            securityMsgEl.innerHTML = `
+                         <label class="text-muted account-label fadeOut wow animated"><h6>Старый и новый пароль совпадает</h6></label>
+                    `;
+                        },4000);
                     }
                     if (data === 'Bad confirm') {
                         securityLabelEl.appendChild(securityMsgEl);
                         securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeIn wow animated"><h6>Новые пароли не совпадают</h6></label>
                     `;
+                        setTimeout(()=>{
+                            securityMsgEl.innerHTML = `
+                         <label class="text-muted account-label fadeOut wow animated"><h6>Новые пароли не совпадают</h6></label>
+                    `;
+                        },4000);
                     }
                     if (data === 'Not confirmed') {
                         securityLabelEl.appendChild(securityMsgEl);
                         securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeIn wow animated"><h6>Старый пароль не совпадает </h6></label>
                     `;
+                        setTimeout(()=>{
+                            securityMsgEl.innerHTML = `
+                         <label class="text-muted account-label fadeOut wow animated"><h6>Старый пароль не совпадает </h6></label>
+                    `;
+                        },4000);
                     }
                 });
             };
