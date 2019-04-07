@@ -109,7 +109,7 @@ export default class Render {
                 }
 
                 tableItem.innerHTML = `
-                            <td style="padding: 0px; padding-top: 5px"><label class="h5">${number} пара </label>
+                            <td style="padding: 0px; padding-top: 5px;"><label class="h5">${number} пара </label>
                             <p>${time}</p>
                             <p><h5><div class="${typeClass}"  id="lessonTypeArea">${type}</div></h5></p> 
                             </td>

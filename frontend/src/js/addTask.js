@@ -39,10 +39,10 @@ let innerHTML = `
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <label id="inputNameLabel" class="h6">Выберите теги:</label>
-                                    <p>
+                                    
                                        <div class="account-label h6" style="cursor: pointer" id="tagsInner"></div>
                                        <!--INNER ДЛЯ СПИСКА ДОСТУПНЫХ ТЕГОВ-->
-                                    </p>
+                                    
                                 </div>
                                 
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
@@ -55,14 +55,12 @@ let innerHTML = `
                                     <label>Примечание</label>
                                     <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Примечание">
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top: 0.5rem">
                                     <label id="inputNameLabel" class="h6">Выбранные теги: </label>
-                                    <p>
                                        <div class="account-label h6" style="cursor: pointer" id="selectedTagsInner"></div>
                                        <!--INNER ДЛЯ ВЫБРАННЫХ ТЕГОВ-->
-                                    </p>
-                            </div>
-                            </div>
+                                        </div>
+                                </div>
                                 <button type="submit" class="btn btn-success shadow addTagFormButton" id="addTaskButton"><strong>Добавить</strong></button>
                                 <button type="button" class="btn btn-danger shadow addTagFormButton" id="cancelAddButton"><strong>Отмена</strong></button>
                         </div>
