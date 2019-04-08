@@ -18,9 +18,8 @@ const passwordChanger = new PasswordChanger();
 const lessonsTime = new LessonsTime();
 const renderTags = new RenderTags();
 const addNewTag = new AddTag();
+
 let user;
-
-
 (async function updateUser() {
     if (storage.getUserData === null) {
         document.location.href = 'index.html'
@@ -60,7 +59,7 @@ const editAccountListener = (evt) => {
                         <div class="form-group row">
                             <label for="accountEmail" class="col-sm-3 col-form-label"><h5>Email</h5></label>
                             <div class="col-sm-9">
-                                <input class="form-control" id="accountEmail" placeholder="Email">
+                                <input class="form-control" id="accountEmail" placeholder="Email" type="email">
                             </div>
                         </div>
                         <div class="form-group row">

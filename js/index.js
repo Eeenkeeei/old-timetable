@@ -53,6 +53,8 @@ logFormEl.addEventListener('submit', async (evt) => {
     await getRegFlag.json().then(async (data) => {
 
         _token = data;
+        console.log(data);
+
         if (_token.token === undefined) {
             textBoxEl.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
