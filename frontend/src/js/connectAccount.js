@@ -5,25 +5,23 @@ import {Link} from "./lib.js";
 
 const storage = new DataStorage(new LocalStorage());
 import {ServerLink} from "./serverLink.js";
+
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
 
 
-
 export class ConnectAccount {
-    constructor(){
-
-    }
 
     async getData() {
-            let object = await http.userAccess(storage.getUserData.data);
-            let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
-            await object.json().then(async (data) => {
-                this.user = data;
-
-            })
+        let object = await http.userAccess(storage.getUserData.data);
+        await object.json().then(async (data) => {
+            this.user = data;
+            if (data.code === 'Unauthorized') {
+                window.location.href = '/index.html';
+                storage.unlogin();
+            }
+        })
     }
-
 }
 
 

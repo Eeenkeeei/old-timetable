@@ -5,6 +5,7 @@ import {Link} from "./lib.js";
 import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 import {ServerLink} from "./serverLink.js";
+
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
@@ -32,16 +33,16 @@ const connectAccount = new ConnectAccount();
 <form id="addLessonForm"> 
 <div class="container">
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
        
     <label for="selectDay" id="inputNameLabel">Название</label>
     <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName" placeholder="Название занятия" autofocus="autofocus">
 </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-2">
         <label for="selectDay">Заметка</label>
         <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Заметка">
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Номер занятия</label>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-3"><label for="selectDay">Номер занятия</label>
          <select class="form-control form-control-sm shadow-sm" id="selectLessonNumber">
                                 <option value="1">1 пара ${user.lessonsTimetable[0].start} - ${user.lessonsTimetable[0].end}</option>
                                 <option value="2">2 пара ${user.lessonsTimetable[1].start} - ${user.lessonsTimetable[1].end}</option>
@@ -51,14 +52,14 @@ const connectAccount = new ConnectAccount();
                                 <option value="6">6 пара ${user.lessonsTimetable[5].start} - ${user.lessonsTimetable[5].end}</option>
          </select>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2"><label for="selectDay">Тип занятия</label>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-2"><label for="selectDay">Тип занятия</label>
          <select class="form-control form-control-sm shadow-sm" id="selectLessonType">
                                 <option value="Лекция">Лекция</option>
                                 <option value="Практика">Практика</option>
                                 <option value="Лабораторная работа">Лабораторная работа</option>
          </select>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-xl-2">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
     <label>День</label>
                             <select class="form-control form-control-sm shadow-sm" id="selectLessonDay">
                                 <option value="Понедельник">Понедельник</option>
@@ -69,10 +70,10 @@ const connectAccount = new ConnectAccount();
                                 <option value="Суббота">Суббота</option>
                             </select>
       </div>
-      <div class="col">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <label></label>
-          <button type="submit" class="btn btn-success shadow" id="addFormButton"><strong>+</strong></button>
-          <button type="button" class="btn btn-danger shadow" id="cancelAddButton"><strong>Отмена</strong></button>
+          <button type="submit" class="btn btn-outline-success shadow" id="addFormButton"><strong>Добавить</strong></button>
+          <button type="button" class="btn btn-outline-danger shadow" id="cancelAddButton"><strong>Отмена</strong></button>
       </div>
     </div>
 </div>
@@ -92,7 +93,6 @@ let selectLessonDay = 'Понедельник';
 let selectLessonType = 'Лекция';
 
 
-
 //
 // authForSync.onopen = function (event) {
 //     console.log("Opened socket!");
@@ -105,7 +105,6 @@ let selectLessonType = 'Лекция';
 //     }
 //     syncWithServer.close();
 // };
-
 
 
 const msgEl = document.querySelector('#msgEl');
@@ -153,7 +152,7 @@ addLessonButtonEl.addEventListener('click', () => {
     `;
         const lessonNameEl = document.querySelector('#lessonName');
         let lessonName = lessonNameEl.value;
-        if (lessonName.length < 2){
+        if (lessonName.length < 2) {
             msgEl.innerHTML = '';
             lessonNameEl.className = 'form-control form-control-sm shadow-sm is-invalid';
             return

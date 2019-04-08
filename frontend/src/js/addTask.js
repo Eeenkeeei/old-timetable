@@ -10,21 +10,29 @@ import {RenderTags} from "./renderTagList.js";
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
 const renderTagList = new RenderTags();
+const connectAccount = new ConnectAccount();
+
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
 // const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
 const storage = new DataStorage(new LocalStorage());
 const renderClass = new Render();
-if (storage.getUserData === null) {
-    document.location.href = 'index.html'
-}
-let user = storage.getUserData.data;
+
+let user;
+(async function updateUser() {
+    if (storage.getUserData === null) {
+        document.location.href = 'index.html'
+    } else {
+        await connectAccount.getData();
+        user = await connectAccount.user;
+
+        usernameBarEl.textContent = user.username;
+    }
+})();
 
 const usernameBarEl = document.querySelector('#usernameBar');
 usernameBarEl.textContent = storage.getUserData.data.username;
 
-const connectAccount = new ConnectAccount();
-connectAccount.updateData();
 
 const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
 let selectedTags = []; // массив для хранения выбранных тегов, обнуляется при каждом сабмите или отмене
@@ -61,8 +69,8 @@ let innerHTML = `
                                        <!--INNER ДЛЯ ВЫБРАННЫХ ТЕГОВ-->
                                         </div>
                                 </div>
-                                <button type="submit" class="btn btn-success shadow addTagFormButton" id="addTaskButton"><strong>Добавить</strong></button>
-                                <button type="button" class="btn btn-danger shadow addTagFormButton" id="cancelAddButton"><strong>Отмена</strong></button>
+                                <button type="submit" class="btn btn-outline-success shadow addTagFormButton" id="addTaskButton"><strong>Добавить</strong></button>
+                                <button type="button" class="btn btn-outline-danger shadow addTagFormButton" id="cancelAddButton">Отмена</button>
                         </div>
                     </form>
                 </div>
