@@ -51,6 +51,7 @@ logFormEl.addEventListener('submit', async (evt) => {
     let _token = '';
     let getRegFlag = await http.auth(user);
     await getRegFlag.json().then(async (data) => {
+
         _token = data;
         if (_token.token === undefined) {
             textBoxEl.innerHTML = `
@@ -64,13 +65,15 @@ logFormEl.addEventListener('submit', async (evt) => {
             return;
         }
         let object = await http.userAccess(_token.token);
-        _token = '';
+
         let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
         await object.json().then(async (data) => {
             _userObject = data;
-            const line = new Link(_userObject);
+            console.log(data);
+            const line = new Link(_token.token);
+            _token = '';
             await storage.add(line);
-            window.location.href = _userObject.startPage
+            window.location.href = _userObject.startPage;
         })
     });
     logFormEl.appendChild(textBoxEl)

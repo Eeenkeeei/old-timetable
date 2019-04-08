@@ -12,39 +12,16 @@ const http = new Http(serverLink.link);
 
 export class ConnectAccount {
     constructor(){
-        let user;
+
     }
 
     async getData() {
-        const userForAuth = {
-            "username": this.user.username,
-            "password": this.user.password
-        };
-
-        let _token;
-        let getAuthFlag = await http.auth(userForAuth);
-
-        await getAuthFlag.json().then(async (data) => {
-            _token = data;
-            let object = await http.userAccess(_token.token);
-            _token = '';
+            let object = await http.userAccess(storage.getUserData.data);
             let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
             await object.json().then(async (data) => {
-                _userObject = data;
-                const line = new Link(_userObject);
-                await storage.add(line);
-                this.user = storage.getUserData.data;
-            })
-        });
-    }
+                this.user = data;
 
-    updateData(){
-        if (storage.getUserData === null) {
-            document.location.href = 'index.html'
-        } else {
-            this.user = storage.getUserData.data;
-            this.getData();
-        }
+            })
     }
 
 }
