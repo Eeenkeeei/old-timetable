@@ -101,8 +101,6 @@ export class AddTag {
                 };
                 user.noteTags.push(newTagObject);
                 console.log(newTagObject);
-                const data = new Link(user);
-                storage.add(data);
                 let updateData = await http.updateData(user);
                 let _resultUpdateFlag = '';
                 const tagMsgLabelEl = document.querySelector('#tagMsgLabel');

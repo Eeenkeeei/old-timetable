@@ -77,8 +77,6 @@ export class LessonsTime {
                             if (timetableElement.number === lessonNumber){
                                 user.lessonsTimetable[timetable.indexOf(timetableElement)].start = startTime;
                                 user.lessonsTimetable[timetable.indexOf(timetableElement)].end = endTime;
-                                const data = new Link(user);
-                                storage.add(data);
                                 let updateData = await http.updateData(user);
                                 let _resultUpdateFlag = '';
                                 const timetableLabelEl = document.querySelector('#timetableLabel');

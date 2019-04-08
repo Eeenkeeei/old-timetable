@@ -8,7 +8,6 @@ const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
 const usernameBarEl = document.querySelector('#usernameBar');
 
-const storage = new DataStorage(new LocalStorage());
 
 const timetableBodyMondayEl = document.querySelector('#timetableBodyMonday'); // тело таблицы
 const timetableBodyTuesdayEl = document.querySelector('#timetableBodyTuesday'); // тело таблицы
@@ -247,8 +246,7 @@ export default class Render {
                                     user.timetable[user.timetable.indexOf(timetableElement)] = lessonObject;
                                 }
                             }
-                            const data = new Link(user);
-                            storage.add(data);
+
                             let timetableUpdate = await http.timetableUpdate(user);
 
                             let _resultUpdateFlag = '';
@@ -297,8 +295,7 @@ export default class Render {
                                 }
                             }
 
-                            const data = new Link(user);
-                            storage.add(data);
+
                             let timetableUpdate = await http.timetableUpdate(user);
 
                             let _resultUpdateFlag = '';

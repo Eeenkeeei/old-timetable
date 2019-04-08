@@ -16,21 +16,18 @@ if (storage.getUserData === null) {
     document.location.href = 'index.html'
 }
 
-
+let user;
+let innerHTML = ``;
 const connectAccount = new ConnectAccount();
-connectAccount.updateData();
-let user = storage.getUserData.data;
-renderClass.renderTimetable(user);
-const usernameBarEl = document.querySelector('#usernameBar');
-usernameBarEl.textContent = storage.getUserData.data.username;
-
-const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
-
-let selectLessonNumber = '1';
-let selectLessonDay = 'Понедельник';
-let selectLessonType = 'Лекция';
-
-let innerHTML = `
+(async function updateUser() {
+    if (storage.getUserData === null) {
+        document.location.href = 'index.html'
+    } else {
+        await connectAccount.getData();
+        user = await connectAccount.user;
+        renderClass.renderTimetable(user);
+        usernameBarEl.textContent = user.username;
+        innerHTML = `
 <div class="fadeIn wow animated" data-animation="true">
 <form id="addLessonForm"> 
 <div class="container">
@@ -82,6 +79,19 @@ let innerHTML = `
 </form>
 </div>
 `;
+    }
+})();
+
+const usernameBarEl = document.querySelector('#usernameBar');
+usernameBarEl.textContent = storage.getUserData.data.username;
+
+const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
+
+let selectLessonNumber = '1';
+let selectLessonDay = 'Понедельник';
+let selectLessonType = 'Лекция';
+
+
 
 //
 // authForSync.onopen = function (event) {
@@ -163,8 +173,6 @@ addLessonButtonEl.addEventListener('click', () => {
             type: selectLessonType
         };
         user.timetable.push(lessonObject);
-        const data = new Link(user);
-        storage.add(data);
         let timetableUpdate = await http.timetableUpdate(user);
         renderClass.renderTimetable(user);
 

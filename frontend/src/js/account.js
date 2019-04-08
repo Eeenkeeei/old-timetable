@@ -20,22 +20,21 @@ const renderTags = new RenderTags();
 const addNewTag = new AddTag();
 let user;
 
-if (storage.getUserData === null) {
-    document.location.href = 'index.html'
-}
 
-usernameBarEl.textContent = storage.getUserData.data.username;
+(async function updateUser() {
+    if (storage.getUserData === null) {
+        document.location.href = 'index.html'
+    } else {
+        await connectAccount.getData();
+        user = await connectAccount.user;
+        renderAccount(rootDivEl);
+        usernameBarEl.textContent = user.username;
+    }
+})();
 
-
-if (storage.getUserData === null) {
-    document.location.href = 'index.html'
-} else {
-    user = storage.getUserData.data;
-    connectAccount.updateData()
-}
 
 const exitButtonEl = document.querySelector('#exitButton');
-exitButtonEl.addEventListener('click', (evt)=>{
+exitButtonEl.addEventListener('click', (evt) => {
     storage.unlogin();
     document.location.href = 'index.html'
 });
@@ -50,7 +49,7 @@ msgEl.innerHTML = '';
 
 const editAccountListener = (evt) => {
     rootDivEl.innerHTML = `
-    <form id="accountChangeForm">
+    <form id="accountChangeForm" class="fadeIn wow animated">
                         <h3>Изменение информации об аккаунте</h3>
                         <div class="form-group row">
                             <label for="accountName" class="col-sm-3 col-form-label"><h5>Имя пользователя</h5></label>
@@ -138,7 +137,7 @@ const editAccountListener = (evt) => {
     accountUniversityEl.value = user.edu;
     Array.from(document.querySelectorAll('[name=genderRadios]'))
         .forEach((value) => {
-            value.addEventListener('change', ()=>{
+            value.addEventListener('change', () => {
                 gender = value.value;
             });
         });
@@ -188,8 +187,6 @@ const editAccountListener = (evt) => {
         user.age = accountAgeEl.value;
         user.gender = gender;
         user.edu = accountUniversityEl.value;
-        const data = new Link(user);
-        storage.add(data);
         let updateData = await http.updateData(user);
         let _resultUpdateFlag = '';
         await updateData.json().then(async (data) => {
@@ -197,7 +194,7 @@ const editAccountListener = (evt) => {
             await console.log(data);
         });
 
-        if (_resultUpdateFlag === 'Data updated'){
+        if (_resultUpdateFlag === 'Data updated') {
             msgEl.innerHTML = '';
             msgEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
@@ -225,9 +222,9 @@ const editAccountListener = (evt) => {
 };
 
 
-function renderAccount (container) {
+function renderAccount(container) {
     container.innerHTML = `
-    <div class="row" id="accountData">
+    <div class="row fadeIn wow animated" id="accountData">
                             <label class="col-sm-5 h4 text-muted account-label">Учетная запись</label>
                             <div class="col-sm-4" >
                                 <label  class="account-label h6 ">ИМЯ ПОЛЬЗОВАТЕЛЯ</label>
@@ -319,7 +316,7 @@ function renderAccount (container) {
     const changeDataButtonEl = document.querySelector('#changeDataButton');
 
     changeDataButtonEl.addEventListener('click', editAccountListener);
-    changeDataButtonEl.addEventListener('mouseout', ()=>{
+    changeDataButtonEl.addEventListener('mouseout', () => {
         changeDataButtonEl.classList.add('changeDataButtonNotFocus')
     });
     const accountDataNameEl = document.querySelector('[data-id=accountName]');
@@ -339,19 +336,19 @@ function renderAccount (container) {
 
     const accountDataStartPageEl = document.querySelector('[data-id=accountStartPage]');
 
-    if (user.startPage === "account.html"){
+    if (user.startPage === "account.html") {
         accountDataStartPageEl.textContent = "Аккаунт";
     }
 
-    if (user.startPage === "readlater.html"){
+    if (user.startPage === "readlater.html") {
         accountDataStartPageEl.textContent = "Список для чтения";
     }
 
-    if (user.startPage === "tasktracker.html"){
+    if (user.startPage === "tasktracker.html") {
         accountDataStartPageEl.textContent = "Менеджер задач";
     }
 
-    if (user.startPage === "timetable.html"){
+    if (user.startPage === "timetable.html") {
         accountDataStartPageEl.textContent = "Расписание";
     }
     passwordChanger.changePassword();
@@ -360,7 +357,9 @@ function renderAccount (container) {
     renderTags.renderTagsForAccount(user);
 }
 
-renderAccount(rootDivEl);
+
+
+
 
 
 
