@@ -119,17 +119,19 @@ regFormEl.addEventListener('submit', async (evt) => {
             "password": regPass.trim()
         };
 
-        let _token;
+        let _token = '';
         let getAuthFlag = await http.auth(userForAuth);
 
         await getAuthFlag.json().then(async (data) => {
             _token = data;
             let object = await http.userAccess(_token.token);
-            _token = '';
+
             let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
             await object.json().then(async (data) => {
                 _userObject = data;
-                const line = new Link(_userObject);
+                console.log(data);
+                const line = new Link(_token.token);
+                _token = '';
                 await storage.add(line);
                 window.location.href = _userObject.startPage;
             })
