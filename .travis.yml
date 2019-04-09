@@ -3,7 +3,7 @@ node_js:
   - 10
 after_success:
   - mkdir dist
-  - cp -R frontend/src/index.html frontend/src/registration.html frontend/src/account.html frontend/src/timetable.html frontend/src/readlater.html frontend/src/tasktracker.html frontend/src/js dist frontend/src/css dist frontend/src/img dist
+  - cp -R src/index.html src/registration.html src/account.html src/timetable.html src/readlater.html src/tasktracker.html src/js dist src/css dist src/img dist
 deploy:
   provider: pages
   skip_cleanup: true
