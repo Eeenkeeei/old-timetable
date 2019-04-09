@@ -21,7 +21,7 @@ const tableEl = document.querySelector('#table');
 export default class Render {
     constructor(user) {
         let editLessonFlag = false;
-    }
+     }
 
     renderTimetable(user) {
         this.timetableConstructor(user, 'Понедельник', timetableBodyMondayEl);
