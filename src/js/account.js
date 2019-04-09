@@ -31,7 +31,6 @@ let user;
     }
 })();
 
-
 const exitButtonEl = document.querySelector('#exitButton');
 exitButtonEl.addEventListener('click', (evt) => {
     storage.unlogin();
@@ -350,7 +349,7 @@ function renderAccount(container) {
     if (user.startPage === "timetable.html") {
         accountDataStartPageEl.textContent = "Расписание";
     }
-    passwordChanger.changePassword();
+    passwordChanger.changePassword(user);
     addNewTag.renderAddTagForm(user);
     lessonsTime.renderLessonsTime(user);
     renderTags.renderTagsForAccount(user);

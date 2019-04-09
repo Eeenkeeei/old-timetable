@@ -2,6 +2,7 @@ import Http from "./http.js";
 import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
+import {ServerLink} from "./serverLink.js";
 
 // если в хранилище есть данные юзера, редирект на страницу аккаунта
 const storage = new DataStorage(new LocalStorage());
@@ -9,15 +10,12 @@ if (storage.getUserData !== null) {
     window.location.href = 'account.html'
 }
 
-
 const logFormEl = document.querySelector('#logForm');
 const logUsernameEl = document.querySelector('#logUsername');
 const logPasswordEl = document.querySelector('#logPassword');
 
-import {ServerLink} from "./serverLink.js";
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
-
 
 const textBoxEl = document.createElement('div'); // создание блока ошибок
 textBoxEl.innerHTML = '';

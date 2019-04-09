@@ -6,12 +6,13 @@ import {Link} from "./lib.js";
 const storage = new DataStorage(new LocalStorage());
 
 import {ServerLink} from "./serverLink.js";
+import {ConnectAccount as connectAccount} from "./connectAccount.js";
 const serverLink = new ServerLink();
 const http = new Http(serverLink.link);
 
 export class PasswordChanger {
 
-    changePassword() {
+    changePassword(user) {
         const securityMsgEl = document.createElement('label');
         securityMsgEl.innerHTML = '';
         const changePasswordTextEl = document.querySelector('#changePassword');
@@ -62,7 +63,7 @@ export class PasswordChanger {
                 let oldPassword = oldPasswordEl.value;
                 let newPassword = newPasswordEl.value;
                 let confirmNewPassword = confirmNewPasswordEl.value;
-                const user = storage.getUserData.data;
+
                 const newPasswordObject = {
                     username: user.username,
                     oldPassword: oldPassword,
@@ -83,17 +84,15 @@ export class PasswordChanger {
                         changePasswordInnerEl.innerHTML = `
                         
                         `;
-                        let _userObject = storage.getUserData.data;
-                        _userObject.password = confirmNewPassword;
-                        const line = new Link(_userObject);
-                        storage.add(line);
+                        this.authAfterPasswordChange(user.username, confirmNewPassword);
+
                         setTimeout(()=>{
                             securityMsgEl.innerHTML = `
                          <label class="text-muted account-label fadeOut wow animated"><h6>Пароль сохранен</h6></label>
                     `;
                         },4000);
+                        changePasswordTextEl.addEventListener('click', changePasswordTextElListener);
 
-                        changePasswordTextEl.addEventListener('click', changePasswordTextElListener)
                     }
                     if (data === 'Bad password length') {
                         securityLabelEl.appendChild(securityMsgEl);
@@ -145,4 +144,29 @@ export class PasswordChanger {
         };
         changePasswordTextEl.addEventListener('click', changePasswordTextElListener);
     }
+
+    async authAfterPasswordChange(username, password) {
+        let userToAuth = {
+            "username": username,
+            "password": password
+        };
+
+        let _token = '';
+        let getRegFlag = await http.auth(userToAuth);
+        await getRegFlag.json().then(async (data) => {
+            _token = data;
+            console.log(data);
+            let object = await http.userAccess(_token.token);
+            let _userObject; // ОБЪЕКТ С ДАННЫМИ ЮЗЕРА
+            await object.json().then(async (data) => {
+                _userObject = data;
+                console.log(data);
+                const line = new Link(_token.token);
+                _token = '';
+                await storage.add(line);
+            })
+        });
+        const line = new Link(_userObject);
+        storage.add(line);
+    };
 }

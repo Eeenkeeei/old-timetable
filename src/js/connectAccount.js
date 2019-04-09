@@ -16,7 +16,12 @@ export class ConnectAccount {
         let object = await http.userAccess(storage.getUserData.data);
         await object.json().then(async (data) => {
             this.user = data;
+            console.log(data);
             if (data.code === 'Unauthorized') {
+                window.location.href = '/index.html';
+                storage.unlogin();
+            }
+            if (data === 'Null'){
                 window.location.href = '/index.html';
                 storage.unlogin();
             }
@@ -24,7 +29,7 @@ export class ConnectAccount {
     }
 }
 
-
+//
 const usernameBarEl = document.querySelector('#usernameBar');
 
 const exitButtonEl = document.querySelector('#exitButton');

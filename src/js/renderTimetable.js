@@ -108,12 +108,12 @@ export default class Render {
                 }
 
                 tableItem.innerHTML = `
-                            <td style="padding: 0px; padding-top: 5px;"><label class="h5">${number} пара </label>
+                            <td style="padding: 0px; padding-top: 5px; cursor: pointer"><label class="h5">${number} пара </label>
                             <p>${time}</p>
                             <p><h5><div class="${typeClass}"  id="lessonTypeArea">${type}</div></h5></p> 
                             </td>
-                            <td><label class="h6">${name}</label></td>
-                            <td><label class="h6">${note}</label></td>
+                            <td style="cursor: pointer"><label class="h6" >${name}</label></td>
+                            <td style="cursor: pointer"><label class="h6">${note}</label></td>
             `;
 
                 const tableItemListener = (evt) => {
@@ -279,7 +279,6 @@ export default class Render {
                                 <span class="sr-only">Loading...</span>
                                 </div>
                             `;
-                            //todo: добавление в юзер.дата
                             const deletedLesson = {
                                 day: day,
                                 number: number,
