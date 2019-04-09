@@ -18,11 +18,11 @@ export class ConnectAccount {
             this.user = data;
             console.log(data);
             if (data.code === 'Unauthorized') {
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
                 storage.unlogin();
             }
             if (data === 'Null'){
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
                 storage.unlogin();
             }
         })
