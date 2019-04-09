@@ -41,8 +41,6 @@ export class RenderTags {
                     if (tag.tagText === tagText && tag.tagClass === tagClass){
                         console.log(tags.indexOf(tag));
                         user.noteTags.splice(tags.indexOf(tag), 1);
-                        const data = new Link(user);
-                        storage.add(data);
                         let updateData = await http.updateData(user);
                         let _resultUpdateFlag = '';
                         const tagMsgLabelEl = document.querySelector('#tagMsgLabel');
