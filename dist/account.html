@@ -5,7 +5,6 @@
     <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css
           integrity=sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS crossorigin=anonymous>
-    <!--<link rel=stylesheet href=css/style.css>-->
     <title>Timetable</title>
     <script src=https://code.jquery.com/jquery-3.3.1.slim.min.js
             integrity=sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo
@@ -16,39 +15,41 @@
     <script src=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js
             integrity=sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM
             crossorigin=anonymous></script>
-    <!--<link rel=stylesheet href=css/animate.css>-->
+    <link href="index-5aa68f8529fe11b3fc1c.css" rel="stylesheet">
+    <link href="account-5aa68f8529fe11b3fc1c.css" rel="stylesheet">
+    <link href="timetable-5aa68f8529fe11b3fc1c.css" rel="stylesheet">
+    <link href="tasktracker-5aa68f8529fe11b3fc1c.css" rel="stylesheet">
+    <link href="registration-5aa68f8529fe11b3fc1c.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class=container-fluid><a href=account.html class=navbar-brad><img
-            src=images/logo-730f20f26b4f36f51e692bc5f9205f8b.png alt=""></a> <a class=navbar-brand href=account.html
-                                                                                id=usernameBar></a>
+            src=images/logo-730f20f26b4f36f51e692bc5f9205f8b-730f20f26b4f36f51e692bc5f9205f8b.png alt=""></a> <a
+            class=navbar-brand href=account.html id=usernameBar></a>
         <button class=navbar-toggler type=button data-toggle=collapse data-target=#navbarResponsive><span
                 class=navbar-toggler-icon></span></button>
         <div class="collapse navbar-collapse" id=navbarResponsive>
             <ul class="navbar-nav ml-auto nav-pills">
-                <li class=nav-item><a href=account.html class=nav-link>Аккаунт</a></li>
+                <li class="nav-item active"><a href=account.html class=nav-link>Аккаунт</a></li>
                 <li class=nav-item><a href=timetable.html class=nav-link>Расписание</a></li>
                 <li class=nav-item><a href=readlater.html class=nav-link>Список для чтения</a></li>
-                <li class="nav-item active"><a href=tasktracker.html class=nav-link>Менеджер задач</a></li>
+                <li class=nav-item><a href=tasktracker.html class=nav-link>Менеджер задач</a></li>
                 <li class=nav-item><a href=# class=nav-link id=exitButton>Выход</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class=container-fluid>
+<div class="container-fluid showAnim">
     <div class=container>
         <div class="row justify-content-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <button type=button class="btn btn-outline-success shadow-sm fadeIn wow animated" id=addTaskButton>
-                    <strong>Добавить задачу</strong></button>
-                <div id=msgEl></div>
-                <div id=addDivForm></div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10">
+                <div class="" style=padding-left:15px;padding-right:0;padding-top:0>
+                    <div class="fadeIn wow animated" id=accountWindow style=margin:0!important;padding:0></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--<script src=js/addTask.js type=module></script>-->
-<!--<script src=js/connectAccount.js type=module></script>-->
+<script type="text/javascript" src="account-5aa68f8529fe11b3fc1c.js"></script>
 </body>
 </html>

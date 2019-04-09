@@ -6,10 +6,15 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     mode: "production", // режим работы
-    entry: "./src/js/index.js", //  можно переопределить, вход
+    entry: {
+        index: "./src/indexEntry.js",
+        account: "./src/accountEntry.js",
+        timetable: "./src/timetableEntry.js",
+        tasktracker: "./src/taskTrackerEntry.js",
+        registration: "./src/regEntry.js"
+    }, //  можно переопределить, вход
     output: {
-        filename:"bundle-[hash].js", // [hash] - спец. маркер, вместо которого подставится хеш
-
+        filename:"[name]-[hash].js", // [hash] - спец. маркер, вместо которого подставится хеш
     },
     devServer: {
         contentBase: './dist', // откуда брать содержимое

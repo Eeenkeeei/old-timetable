@@ -4,43 +4,45 @@ import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
-
 import {ServerLink} from "./serverLink.js";
 import {RenderTags} from "./renderTagList.js";
-const serverLink = new ServerLink();
-const http = new Http(serverLink.link);
-const renderTagList = new RenderTags();
-const connectAccount = new ConnectAccount();
+
+export function addTask() {
+
+    const serverLink = new ServerLink();
+    const http = new Http(serverLink.link);
+    const renderTagList = new RenderTags();
+    const connectAccount = new ConnectAccount();
 
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
 // const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
-const storage = new DataStorage(new LocalStorage());
-const renderClass = new Render();
+    const storage = new DataStorage(new LocalStorage());
+    const renderClass = new Render();
 
-let user;
-(async function updateUser() {
-    if (storage.getUserData === null) {
-        document.location.href = 'index.html'
-    } else {
-        await connectAccount.getData();
-        user = await connectAccount.user;
+    let user;
+    (async function updateUser() {
+        if (storage.getUserData === null) {
+            document.location.href = 'index.html'
+        } else {
+            await connectAccount.getData();
+            user = await connectAccount.user;
 
-        usernameBarEl.textContent = user.username;
-    }
-})();
+            usernameBarEl.textContent = user.username;
+        }
+    })();
 
-const usernameBarEl = document.querySelector('#usernameBar');
-usernameBarEl.textContent = storage.getUserData.data.username;
+    const usernameBarEl = document.querySelector('#usernameBar');
+    usernameBarEl.textContent = storage.getUserData.data.username;
 
 
-const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
-let selectedTags = []; // массив для хранения выбранных тегов, обнуляется при каждом сабмите или отмене
-let selectLessonNumber = '1';
-let selectLessonDay = 'Понедельник';
-let selectLessonType = 'Лекция';
+    const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
+    let selectedTags = []; // массив для хранения выбранных тегов, обнуляется при каждом сабмите или отмене
+    let selectLessonNumber = '1';
+    let selectLessonDay = 'Понедельник';
+    let selectLessonType = 'Лекция';
 
-let innerHTML = `
+    let innerHTML = `
 <div class="fadeIn wow animated" data-animation="true">
                     <form id="addLessonForm">
                         <div class="container">
@@ -76,39 +78,39 @@ let innerHTML = `
                 </div>
 `;
 
-const msgEl = document.querySelector('#msgEl');
-msgEl.innerHTML = '';
+    const msgEl = document.querySelector('#msgEl');
+    msgEl.innerHTML = '';
 
 
 
-const addDivFormEl = document.querySelector('#addDivForm');
-const addTaskButtonEl = document.querySelector('#addTaskButton');
-addTaskButtonEl.addEventListener('click', () => {
-    const addNewTagInner = document.querySelector('#addNewTagInner');
-    const serviceMsgEl = document.createElement('label');
-    serviceMsgEl.innerHTML = '';
-    const tagsInnerEl = document.querySelector('#tagsInner');
-    renderClass.editLessonFlag = false;
-    addDivFormEl.innerHTML = '';
-    addDivFormEl.innerHTML = innerHTML;
-    renderTagsForTracker(user);
-    const addLessonFormEl = document.querySelector('#addLessonForm');
+    const addDivFormEl = document.querySelector('#addDivForm');
+    const addTaskButtonEl = document.querySelector('#addTaskButton');
+    addTaskButtonEl.addEventListener('click', () => {
+        const addNewTagInner = document.querySelector('#addNewTagInner');
+        const serviceMsgEl = document.createElement('label');
+        serviceMsgEl.innerHTML = '';
+        const tagsInnerEl = document.querySelector('#tagsInner');
+        renderClass.editLessonFlag = false;
+        addDivFormEl.innerHTML = '';
+        addDivFormEl.innerHTML = innerHTML;
+        renderTagsForTracker(user);
+        const addLessonFormEl = document.querySelector('#addLessonForm');
 
 
-    const cancelAddButton = document.querySelector('#cancelAddButton');
-    cancelAddButton.addEventListener('click', () => {
-        const animatedDivEl = document.querySelector('[data-animation=true]');
-        animatedDivEl.className = 'fadeOut wow animated';
-        selectedTags = [];
-        setTimeout(() => {
-            addLessonFormEl.innerHTML = '';
-        }, 900);
-    });
+        const cancelAddButton = document.querySelector('#cancelAddButton');
+        cancelAddButton.addEventListener('click', () => {
+            const animatedDivEl = document.querySelector('[data-animation=true]');
+            animatedDivEl.className = 'fadeOut wow animated';
+            selectedTags = [];
+            setTimeout(() => {
+                addLessonFormEl.innerHTML = '';
+            }, 900);
+        });
 
-    addLessonFormEl.addEventListener('submit', async (evt) => {
-        evt.preventDefault();
+        addLessonFormEl.addEventListener('submit', async (evt) => {
+            evt.preventDefault();
 
-        msgEl.innerHTML = `
+            msgEl.innerHTML = `
     <div class="spinner-border text-info" role="status">
     <span class="sr-only">Loading...</span>
     </div>
@@ -121,105 +123,98 @@ addTaskButtonEl.addEventListener('click', () => {
 
 
 
-        selectedTags = [];
-        // const data = new Link(user);
-        // storage.add(data);
-        // let timetableUpdate = await http.timetableUpdate(user);
-        //
-        // let _resultUpdateFlag = '';
-        // await timetableUpdate.json().then(async (data) => {
-        //     _resultUpdateFlag = data;
-        //     await console.log(data);
-        // });
-        //
-        // if (_resultUpdateFlag === 'Timetable Updated') {
-        //     msgEl.innerHTML = '';
-        //     msgEl.innerHTML = `
-        // <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
-        //     <strong>Занятие добавлено</strong>
-        //     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        //     <span aria-hidden="true">&times;</span>
-        //     </button>
-        // </div>
-        // `;
-        //
-        // }
-    })
-});
+            selectedTags = [];
+            // const data = new Link(user);
+            // storage.add(data);
+            // let timetableUpdate = await http.timetableUpdate(user);
+            //
+            // let _resultUpdateFlag = '';
+            // await timetableUpdate.json().then(async (data) => {
+            //     _resultUpdateFlag = data;
+            //     await console.log(data);
+            // });
+            //
+            // if (_resultUpdateFlag === 'Timetable Updated') {
+            //     msgEl.innerHTML = '';
+            //     msgEl.innerHTML = `
+            // <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
+            //     <strong>Занятие добавлено</strong>
+            //     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            //     <span aria-hidden="true">&times;</span>
+            //     </button>
+            // </div>
+            // `;
+            //
+            // }
+        })
+    });
 
-function renderTagsForTracker(user) {
-    const serviceMsgEl = document.createElement('label');
-    serviceMsgEl.innerHTML = '';
-    const tagsInnerEl = document.querySelector('#tagsInner');
-    let tags = user.noteTags;
-    tagsInnerEl.innerHTML = '';
-    tags.forEach(({tagText, tagClass}) => {
-        const tagItem = document.createElement('span');
-        tagItem.innerHTML = `
+    function renderTagsForTracker(user) {
+        const serviceMsgEl = document.createElement('label');
+        serviceMsgEl.innerHTML = '';
+        const tagsInnerEl = document.querySelector('#tagsInner');
+        let tags = user.noteTags;
+        tagsInnerEl.innerHTML = '';
+        tags.forEach(({tagText, tagClass}) => {
+            const tagItem = document.createElement('span');
+            tagItem.innerHTML = `
                                         <label class="badge badge-${tagClass} text-uppercase" style=" font-size: 1rem; cursor: pointer">
                                            ${tagText}
                                         </label>
                                         
             `;
-        tagsInnerEl.appendChild(tagItem);
-        const addTagListener = () =>{
-            const addedTag = {
-                tagText: tagText,
-                tagClass: tagClass
-            };
-            console.log(addedTag);
-            console.log(selectedTags);
-            for (const selectedTag of selectedTags) {
-                if (selectedTag.tagText === addedTag.tagText && selectedTag.tagClass === addedTag.tagClass){
-                    return;
+            tagsInnerEl.appendChild(tagItem);
+            const addTagListener = () =>{
+                const addedTag = {
+                    tagText: tagText,
+                    tagClass: tagClass
+                };
+                console.log(addedTag);
+                console.log(selectedTags);
+                for (const selectedTag of selectedTags) {
+                    if (selectedTag.tagText === addedTag.tagText && selectedTag.tagClass === addedTag.tagClass){
+                        return;
+                    }
                 }
-            }
-            selectedTags.push(addedTag);
-            renderAddedTags(selectedTags);
-        };
-        tagItem.addEventListener('click', addTagListener);
+                selectedTags.push(addedTag);
+                renderAddedTags(selectedTags);
+            };
+            tagItem.addEventListener('click', addTagListener);
 
-    });
-}
+        });
+    }
 
-function renderAddedTags(addedTags) {
-    const serviceMsgEl = document.createElement('label');
-    serviceMsgEl.innerHTML = '';
-    const tagsInnerEl = document.querySelector('#selectedTagsInner');
-    let tags = addedTags;
-    tagsInnerEl.innerHTML = '';
-    tags.forEach(({tagText, tagClass}) => {
-        const tagItem = document.createElement('span');
-        tagItem.innerHTML = `
+    function renderAddedTags(addedTags) {
+        const serviceMsgEl = document.createElement('label');
+        serviceMsgEl.innerHTML = '';
+        const tagsInnerEl = document.querySelector('#selectedTagsInner');
+        let tags = addedTags;
+        tagsInnerEl.innerHTML = '';
+        tags.forEach(({tagText, tagClass}) => {
+            const tagItem = document.createElement('span');
+            tagItem.innerHTML = `
                                         <label class="badge badge-${tagClass} text-uppercase" style=" font-size: 1rem; cursor: pointer">
                                            ${tagText} <span aria-hidden="true" id="removeTag">&times;</span>
                                         </label>
                                         
             `;
-        tagsInnerEl.appendChild(tagItem);
-        const removeTagEl = tagItem.querySelector('#removeTag');
-        const removeTagFromSelectedTags = () =>{
-            const deletableTag = {
-                tagText: tagText,
-                tagClass: tagClass
-            };
-            for (const selectedTag of selectedTags) {
-                if (selectedTag.tagText === deletableTag.tagText && selectedTag.tagClass === deletableTag.tagClass){
-                    selectedTags.splice(selectedTags.indexOf(selectedTag), 1);
+            tagsInnerEl.appendChild(tagItem);
+            const removeTagEl = tagItem.querySelector('#removeTag');
+            const removeTagFromSelectedTags = () =>{
+                const deletableTag = {
+                    tagText: tagText,
+                    tagClass: tagClass
+                };
+                for (const selectedTag of selectedTags) {
+                    if (selectedTag.tagText === deletableTag.tagText && selectedTag.tagClass === deletableTag.tagClass){
+                        selectedTags.splice(selectedTags.indexOf(selectedTag), 1);
+                    }
                 }
-            }
-            console.log(selectedTags);
-            renderAddedTags(addedTags)
-        };
-        removeTagEl.addEventListener('click', removeTagFromSelectedTags);
+                console.log(selectedTags);
+                renderAddedTags(addedTags)
+            };
+            removeTagEl.addEventListener('click', removeTagFromSelectedTags);
 
-    });
+        });
+    }
 }
-
-
-
-
-
-
-
-

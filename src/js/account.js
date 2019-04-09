@@ -9,44 +9,46 @@ import {RenderTags} from "./renderTagList.js";
 import {ServerLink} from "./serverLink.js";
 import {AddTag} from "./addTag.js";
 
-const serverLink = new ServerLink();
-const http = new Http(serverLink.link);
-const usernameBarEl = document.querySelector('#usernameBar');
-const connectAccount = new ConnectAccount();
-const storage = new DataStorage(new LocalStorage());
-const passwordChanger = new PasswordChanger();
-const lessonsTime = new LessonsTime();
-const renderTags = new RenderTags();
-const addNewTag = new AddTag();
+export function account() {
 
-let user;
-(async function updateUser() {
-    if (storage.getUserData === null) {
+    const serverLink = new ServerLink();
+    const http = new Http(serverLink.link);
+    const usernameBarEl = document.querySelector('#usernameBar');
+    const connectAccount = new ConnectAccount();
+    const storage = new DataStorage(new LocalStorage());
+    const passwordChanger = new PasswordChanger();
+    const lessonsTime = new LessonsTime();
+    const renderTags = new RenderTags();
+    const addNewTag = new AddTag();
+
+    let user;
+    (async function updateUser() {
+        if (storage.getUserData === null) {
+            document.location.href = 'index.html'
+        } else {
+            await connectAccount.getData();
+            user = await connectAccount.user;
+            renderAccount(rootDivEl);
+            usernameBarEl.textContent = user.username;
+        }
+    })();
+
+    const exitButtonEl = document.querySelector('#exitButton');
+    exitButtonEl.addEventListener('click', (evt) => {
+        storage.unlogin();
         document.location.href = 'index.html'
-    } else {
-        await connectAccount.getData();
-        user = await connectAccount.user;
-        renderAccount(rootDivEl);
-        usernameBarEl.textContent = user.username;
-    }
-})();
+    });
 
-const exitButtonEl = document.querySelector('#exitButton');
-exitButtonEl.addEventListener('click', (evt) => {
-    storage.unlogin();
-    document.location.href = 'index.html'
-});
+    const rootDivEl = document.querySelector('#accountWindow');
+    rootDivEl.innerHTML = '';
 
-const rootDivEl = document.querySelector('#accountWindow');
-rootDivEl.innerHTML = '';
+    let gender = '';
+    let startPage = 'index.html';
+    const msgEl = document.createElement('div');
+    msgEl.innerHTML = '';
 
-let gender = '';
-let startPage = 'index.html';
-const msgEl = document.createElement('div');
-msgEl.innerHTML = '';
-
-const editAccountListener = (evt) => {
-    rootDivEl.innerHTML = `
+    const editAccountListener = (evt) => {
+        rootDivEl.innerHTML = `
     <form id="accountChangeForm" class="fadeIn wow animated">
                         <h3>Изменение информации об аккаунте</h3>
                         <div class="form-group row">
@@ -118,83 +120,83 @@ const editAccountListener = (evt) => {
                         </div>
                     </form>
     `;
-    const accountNameEl = document.querySelector('#accountName');
-    const accountEmailEl = document.querySelector('#accountEmail');
-    const accountAgeEl = document.querySelector('#accountAge');
-    const accountUniversityEl = document.querySelector('#accountUniversity');
-    const accountGenderMenEl = document.querySelector('#genderMen');
-    const accountGenderWomenEl = document.querySelector('#genderWomen');
-    const accountStartPageEl = document.querySelector('#accountStartPage');
-    const timetableStartPageEl = document.querySelector('#timetableStartPage');
-    const readlaterStartPageEl = document.querySelector('#readlaterStartPage');
-    const tasktrackerStartPageEl = document.querySelector('#tasktrackerStartPage');
+        const accountNameEl = document.querySelector('#accountName');
+        const accountEmailEl = document.querySelector('#accountEmail');
+        const accountAgeEl = document.querySelector('#accountAge');
+        const accountUniversityEl = document.querySelector('#accountUniversity');
+        const accountGenderMenEl = document.querySelector('#genderMen');
+        const accountGenderWomenEl = document.querySelector('#genderWomen');
+        const accountStartPageEl = document.querySelector('#accountStartPage');
+        const timetableStartPageEl = document.querySelector('#timetableStartPage');
+        const readlaterStartPageEl = document.querySelector('#readlaterStartPage');
+        const tasktrackerStartPageEl = document.querySelector('#tasktrackerStartPage');
 
-    accountNameEl.placeholder = user.username;
-    accountEmailEl.value = user.email;
-    accountAgeEl.value = user.age;
-    accountUniversityEl.value = user.edu;
-    Array.from(document.querySelectorAll('[name=genderRadios]'))
-        .forEach((value) => {
-            value.addEventListener('change', () => {
-                gender = value.value;
+        accountNameEl.placeholder = user.username;
+        accountEmailEl.value = user.email;
+        accountAgeEl.value = user.age;
+        accountUniversityEl.value = user.edu;
+        Array.from(document.querySelectorAll('[name=genderRadios]'))
+            .forEach((value) => {
+                value.addEventListener('change', () => {
+                    gender = value.value;
+                });
             });
-        });
 
-    if (user.gender === 'Мужской') {
-        accountGenderMenEl.checked = true;
-        gender = 'Мужской'
-    } else if (user.gender === 'Женский') {
-        accountGenderWomenEl.checked = true;
-        gender = 'Женский'
-    }
+        if (user.gender === 'Мужской') {
+            accountGenderMenEl.checked = true;
+            gender = 'Мужской'
+        } else if (user.gender === 'Женский') {
+            accountGenderWomenEl.checked = true;
+            gender = 'Женский'
+        }
 
-    if (user.startPage === 'account.html') {
-        accountStartPageEl.selected = true;
-        startPage = 'account.html'
-    }
-    if (user.startPage === 'timetable.html') {
-        timetableStartPageEl.selected = true;
-        startPage = 'timetable.html';
-    }
-    if (user.startPage === 'readlater.html') {
-        readlaterStartPageEl.selected = true;
-        startPage = 'readlater.html';
-    }
-    if (user.startPage === 'tasktracker.html') {
-        tasktrackerStartPageEl.selected = true;
-        startPage = 'tasktracker.html';
-    }
-    document.querySelector('#accountStartPage')
-        .addEventListener('change', (evt) => {
-            startPage = evt.currentTarget.value;
+        if (user.startPage === 'account.html') {
+            accountStartPageEl.selected = true;
+            startPage = 'account.html'
+        }
+        if (user.startPage === 'timetable.html') {
+            timetableStartPageEl.selected = true;
+            startPage = 'timetable.html';
+        }
+        if (user.startPage === 'readlater.html') {
+            readlaterStartPageEl.selected = true;
+            startPage = 'readlater.html';
+        }
+        if (user.startPage === 'tasktracker.html') {
+            tasktrackerStartPageEl.selected = true;
+            startPage = 'tasktracker.html';
+        }
+        document.querySelector('#accountStartPage')
+            .addEventListener('change', (evt) => {
+                startPage = evt.currentTarget.value;
 
-        });
-    const accountChangeFormEl = document.querySelector('#accountChangeForm');
-    accountChangeFormEl.addEventListener('submit', async evt => {
-        evt.preventDefault();
+            });
+        const accountChangeFormEl = document.querySelector('#accountChangeForm');
+        accountChangeFormEl.addEventListener('submit', async evt => {
+            evt.preventDefault();
 
-        msgEl.innerHTML = `
+            msgEl.innerHTML = `
     <div class="spinner-border text-info" role="status">
     <span class="sr-only">Loading...</span>
     </div>
     `;
-        accountChangeFormEl.appendChild(msgEl);
+            accountChangeFormEl.appendChild(msgEl);
 
-        user.startPage = startPage;
-        user.email = accountEmailEl.value;
-        user.age = accountAgeEl.value;
-        user.gender = gender;
-        user.edu = accountUniversityEl.value;
-        let updateData = await http.updateData(user);
-        let _resultUpdateFlag = '';
-        await updateData.json().then(async (data) => {
-            _resultUpdateFlag = data;
-            await console.log(data);
-        });
+            user.startPage = startPage;
+            user.email = accountEmailEl.value;
+            user.age = accountAgeEl.value;
+            user.gender = gender;
+            user.edu = accountUniversityEl.value;
+            let updateData = await http.updateData(user);
+            let _resultUpdateFlag = '';
+            await updateData.json().then(async (data) => {
+                _resultUpdateFlag = data;
+                await console.log(data);
+            });
 
-        if (_resultUpdateFlag === 'Data updated') {
-            msgEl.innerHTML = '';
-            msgEl.innerHTML = `
+            if (_resultUpdateFlag === 'Data updated') {
+                msgEl.innerHTML = '';
+                msgEl.innerHTML = `
         <div class="alert alert-success alert-dismissible fade show" id="errorEl" role="alert">
             <strong>Данные обновлены</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -202,10 +204,10 @@ const editAccountListener = (evt) => {
             </button>
         </div>
         `;
-            accountChangeFormEl.appendChild(msgEl);
-        }
-        if (_resultUpdateFlag === 'Bad Request(age)') {
-            msgEl.innerHTML = `
+                accountChangeFormEl.appendChild(msgEl);
+            }
+            if (_resultUpdateFlag === 'Bad Request(age)') {
+                msgEl.innerHTML = `
         <div class="alert alert-danger alert-dismissible fade show" id="errorEl" role="alert">
             Введите число в поле ввода возраста
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -213,15 +215,15 @@ const editAccountListener = (evt) => {
             </button>
         </div>
         `;
-            accountChangeFormEl.appendChild(msgEl);
-        }
-        renderAccount(rootDivEl);
-    });
-};
+                accountChangeFormEl.appendChild(msgEl);
+            }
+            renderAccount(rootDivEl);
+        });
+    };
 
 
-function renderAccount(container) {
-    container.innerHTML = `
+    function renderAccount(container) {
+        container.innerHTML = `
     <div class="row fadeIn wow animated" id="accountData">
                             <label class="col-sm-5 h4 text-muted account-label">Учетная запись</label>
                             <div class="col-sm-4" >
@@ -311,53 +313,55 @@ function renderAccount(container) {
                         </div>
                         
     `;
-    const changeDataButtonEl = document.querySelector('#changeDataButton');
+        const changeDataButtonEl = document.querySelector('#changeDataButton');
 
-    changeDataButtonEl.addEventListener('click', editAccountListener);
-    changeDataButtonEl.addEventListener('mouseout', () => {
-        changeDataButtonEl.classList.add('changeDataButtonNotFocus')
-    });
-    const accountDataNameEl = document.querySelector('[data-id=accountName]');
-    accountDataNameEl.textContent = user.username;
+        changeDataButtonEl.addEventListener('click', editAccountListener);
+        changeDataButtonEl.addEventListener('mouseout', () => {
+            changeDataButtonEl.classList.add('changeDataButtonNotFocus')
+        });
+        const accountDataNameEl = document.querySelector('[data-id=accountName]');
+        accountDataNameEl.textContent = user.username;
 
-    const accountDataEmailEl = document.querySelector('[data-id=accountEmail]');
-    accountDataEmailEl.textContent = user.email;
+        const accountDataEmailEl = document.querySelector('[data-id=accountEmail]');
+        accountDataEmailEl.textContent = user.email;
 
-    const accountDataAgeEl = document.querySelector('[data-id=accountAge]');
-    accountDataAgeEl.textContent = user.age;
+        const accountDataAgeEl = document.querySelector('[data-id=accountAge]');
+        accountDataAgeEl.textContent = user.age;
 
-    const accountDataUniversityEl = document.querySelector('[data-id=accountUniversity]');
-    accountDataUniversityEl.textContent = user.edu;
+        const accountDataUniversityEl = document.querySelector('[data-id=accountUniversity]');
+        accountDataUniversityEl.textContent = user.edu;
 
-    const accountDataGenderEl = document.querySelector('[data-id=accountGender]');
-    accountDataGenderEl.textContent = user.gender;
+        const accountDataGenderEl = document.querySelector('[data-id=accountGender]');
+        accountDataGenderEl.textContent = user.gender;
 
-    const accountDataStartPageEl = document.querySelector('[data-id=accountStartPage]');
+        const accountDataStartPageEl = document.querySelector('[data-id=accountStartPage]');
 
-    if (user.startPage === "account.html") {
-        accountDataStartPageEl.textContent = "Аккаунт";
+        if (user.startPage === "account.html") {
+            accountDataStartPageEl.textContent = "Аккаунт";
+        }
+
+        if (user.startPage === "readlater.html") {
+            accountDataStartPageEl.textContent = "Список для чтения";
+        }
+
+        if (user.startPage === "tasktracker.html") {
+            accountDataStartPageEl.textContent = "Менеджер задач";
+        }
+
+        if (user.startPage === "timetable.html") {
+            accountDataStartPageEl.textContent = "Расписание";
+        }
+        passwordChanger.changePassword(user);
+        addNewTag.renderAddTagForm(user);
+        lessonsTime.renderLessonsTime(user);
+        renderTags.renderTagsForAccount(user);
     }
 
-    if (user.startPage === "readlater.html") {
-        accountDataStartPageEl.textContent = "Список для чтения";
-    }
 
-    if (user.startPage === "tasktracker.html") {
-        accountDataStartPageEl.textContent = "Менеджер задач";
-    }
 
-    if (user.startPage === "timetable.html") {
-        accountDataStartPageEl.textContent = "Расписание";
-    }
-    passwordChanger.changePassword(user);
-    addNewTag.renderAddTagForm(user);
-    lessonsTime.renderLessonsTime(user);
-    renderTags.renderTagsForAccount(user);
+
+
+
+
+
 }
-
-
-
-
-
-
-
