@@ -166,7 +166,6 @@ export class PasswordChanger {
                 await storage.add(line);
             })
         });
-        const line = new Link(_userObject);
-        storage.add(line);
+
     };
 }
