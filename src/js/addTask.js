@@ -6,14 +6,14 @@ import Render from "./renderTimetable.js";
 import {ConnectAccount} from "./connectAccount.js";
 import {ServerLink} from "./serverLink.js";
 import {RenderTags} from "./renderTagList.js";
+import {RenderTaskList} from "./renderTaskList.js";
 
 export function addTask() {
-
     const serverLink = new ServerLink();
     const http = new Http(serverLink.link);
     const renderTagList = new RenderTags();
     const connectAccount = new ConnectAccount();
-
+    const renderTaskList = new RenderTaskList();
 // const authForSync = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/updateData");
 // const syncWithServer = new WebSocket("ws://timetable-eeenkeeei.herokuapp.com/sync");
 
@@ -27,20 +27,14 @@ export function addTask() {
         } else {
             await connectAccount.getData();
             user = await connectAccount.user;
-
+            renderTaskList.renderTasks(user);
             usernameBarEl.textContent = user.username;
         }
     })();
 
     const usernameBarEl = document.querySelector('#usernameBar');
     usernameBarEl.textContent = storage.getUserData.data.username;
-
-
-    const timetableDivEl = document.querySelector('#timetableDiv'); // корневой див для таблицы
     let selectedTags = []; // массив для хранения выбранных тегов, обнуляется при каждом сабмите или отмене
-    let selectLessonNumber = '1';
-    let selectLessonDay = 'Понедельник';
-    let selectLessonType = 'Лекция';
 
     let innerHTML = `
 <div class="fadeIn wow animated" data-animation="true">
@@ -58,12 +52,12 @@ export function addTask() {
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
 
                                     <label id="inputNameLabel">Название заметки</label>
-                                    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonName"
+                                    <input type="text" class="form-control form-control-sm shadow-sm" id="taskName"
                                            placeholder="Название заметки" autofocus="autofocus">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                                     <label>Примечание</label>
-                                    <input type="text" class="form-control form-control-sm shadow-sm" id="lessonNote" placeholder="Примечание">
+                                    <input type="text" class="form-control form-control-sm shadow-sm" id="taskNote" placeholder="Примечание">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" style="margin-top: 0.5rem">
                                     <label id="inputNameLabel" class="h6">Выбранные теги: </label>
@@ -81,21 +75,16 @@ export function addTask() {
     const msgEl = document.querySelector('#msgEl');
     msgEl.innerHTML = '';
 
-
-
     const addDivFormEl = document.querySelector('#addDivForm');
     const addTaskButtonEl = document.querySelector('#addTaskButton');
     addTaskButtonEl.addEventListener('click', () => {
-        const addNewTagInner = document.querySelector('#addNewTagInner');
         const serviceMsgEl = document.createElement('label');
         serviceMsgEl.innerHTML = '';
-        const tagsInnerEl = document.querySelector('#tagsInner');
         renderClass.editLessonFlag = false;
         addDivFormEl.innerHTML = '';
         addDivFormEl.innerHTML = innerHTML;
         renderTagsForTracker(user);
         const addLessonFormEl = document.querySelector('#addLessonForm');
-
 
         const cancelAddButton = document.querySelector('#cancelAddButton');
         cancelAddButton.addEventListener('click', () => {
@@ -115,37 +104,45 @@ export function addTask() {
     <span class="sr-only">Loading...</span>
     </div>
     `;
-
-
-
-
-
-
-
-
+            const taskNameEl = document.querySelector('#taskName');
+            const taskName = taskNameEl.value;
+            const taskNoteEl = document.querySelector('#taskNote');
+            const taskNote = taskNoteEl.value;
+            const taskObjectToSend = {
+                taskName: taskName,
+                taskNote: taskNote,
+                tags: selectedTags,
+                done: false
+            };
+            user.tasks.push(taskObjectToSend);
+            console.log(user.tasks);
             selectedTags = [];
-            // const data = new Link(user);
-            // storage.add(data);
-            // let timetableUpdate = await http.timetableUpdate(user);
-            //
-            // let _resultUpdateFlag = '';
-            // await timetableUpdate.json().then(async (data) => {
-            //     _resultUpdateFlag = data;
-            //     await console.log(data);
-            // });
-            //
-            // if (_resultUpdateFlag === 'Timetable Updated') {
-            //     msgEl.innerHTML = '';
-            //     msgEl.innerHTML = `
-            // <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
-            //     <strong>Занятие добавлено</strong>
-            //     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            //     <span aria-hidden="true">&times;</span>
-            //     </button>
-            // </div>
-            // `;
-            //
-            // }
+            let timetableUpdate = await http.timetableUpdate(user);
+            let _resultUpdateFlag = '';
+            await timetableUpdate.json().then(async (data) => {
+                _resultUpdateFlag = data;
+                await console.log(data);
+                renderTaskList.renderTasks(user);
+
+            });
+
+            if (_resultUpdateFlag === 'Timetable Updated') {
+                addDivFormEl.className = 'account-label h6 fadeOut wow animated';
+                setTimeout(() => {
+                    addDivFormEl.innerHTML = '';
+                    addDivFormEl.className = 'account-label h6';
+                }, 800);
+                msgEl.innerHTML = '';
+                msgEl.innerHTML = `
+            <div class="alert alert-success alert-dismissible fade show shadow-sm" id="errorEl" role="alert">
+                <strong>Заметка добавлена</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            `;
+            }
+
         })
     });
 

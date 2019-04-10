@@ -5,7 +5,6 @@
     <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css
           integrity=sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS crossorigin=anonymous>
-    <!--<link rel=stylesheet href=css/style.css>-->
     <title>Timetable</title>
     <script src=https://code.jquery.com/jquery-3.3.1.slim.min.js
             integrity=sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo
@@ -17,6 +16,8 @@
             integrity=sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM
             crossorigin=anonymous></script>
     <!--<link rel=stylesheet href=css/animate.css>-->
+    <!--<link rel=stylesheet href=css/style.css>-->
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
@@ -44,6 +45,39 @@
                     <strong>Добавить задачу</strong></button>
                 <div id=msgEl></div>
                 <div id=addDivForm></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class=container-fluid>
+    <div class=container>
+        <div class="row  .d-none .d-xl-block">
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 h6 text-muted">
+                Название заметки
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 h6 text-muted">
+                Примечание
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 h6 text-muted">
+                Теги
+            </div>
+
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=container-fluid>
+    <div class=container>
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="tasksInner">
+                <!--INNER ДЛЯ ЗАМЕТОК-->
             </div>
         </div>
     </div>
