@@ -11,7 +11,8 @@ module.exports = {
         account: "./src/accountEntry.js",
         timetable: "./src/timetableEntry.js",
         tasktracker: "./src/taskTrackerEntry.js",
-        registration: "./src/regEntry.js"
+        registration: "./src/regEntry.js",
+        help: "./src/helpEntry.js"
     }, //  можно переопределить, вход
     output: {
         filename:"[name]-[hash].js", // [hash] - спец. маркер, вместо которого подставится хеш
@@ -81,6 +82,10 @@ module.exports = {
         new HtmlPlugin({
             filename: "registration.html", // в какой файл
             template: "src/registration.html" // в шаблон
+        }),
+        new HtmlPlugin({
+            filename: "help.html", // в какой файл
+            template: "src/help.html" // в шаблон
         }),
 
         new MiniCssExtractPlugin({

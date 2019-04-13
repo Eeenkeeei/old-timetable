@@ -113,7 +113,7 @@ export function account() {
 
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-success" id="accountInfoChange">Сохранить
+                                <button type="submit" class="btn btn-outline-dark btn-sm" id="accountInfoChange">Сохранить
                                     изменения
                                 </button>
                             </div>
@@ -305,9 +305,9 @@ export function account() {
                             <div class="col-sm-12">
                             <hr>
                             </div>
-                            <label class="col-sm-5 text-muted account-label" id=""><h4>Поддержка</h4></label>
+                            <label class="col-sm-5 text-muted account-label" id=""><h4>Помощь</h4></label>
                             <div class="col-sm-4">
-                                <label class="account-label h6 text-muted" style="cursor: pointer">ЗАДАТЬ ВОПРОС ПОДДЕРЖКЕ</label>
+                                <a href="../help.html"<label class="account-label h6 text-muted" style="cursor: pointer">ОБРАТИТЬСЯ В ПОДДЕРЖКУ</label></a>
                               
                             </div>
                         </div>
@@ -356,12 +356,5 @@ export function account() {
         lessonsTime.renderLessonsTime(user);
         renderTags.renderTagsForAccount(user);
     }
-
-
-
-
-
-
-
 
 }

@@ -14,17 +14,16 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 70px;
 }
 
 ul.footer-links {
-    margin: 0; /* Обнуляем значение отступов */
-    padding: 4px; /* Значение полей */
+    margin: 0;
+    padding: 4px;
 }
 ul.footer-links li {
-    display: inline; /* Отображать как строчный элемент */
-    margin-right: 1.4rem; /* Отступ слева */
+    display: inline;
+    margin-right: 1.4rem;
     color: black
 }
 
