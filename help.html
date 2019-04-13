@@ -23,7 +23,7 @@
     <link href="help-eb31f8c27c9befdba175.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class=container-fluid><a href=account.html class=navbar-brad><img
             src=images/logo-730f20f26b4f36f51e692bc5f9205f8b-730f20f26b4f36f51e692bc5f9205f8b.png alt=""></a> <a
             class=navbar-brand href=account.html id=usernameBar></a>
@@ -33,46 +33,41 @@
             <ul class="navbar-nav ml-auto nav-pills">
                 <li class=nav-item><a href=account.html class=nav-link>Аккаунт</a></li>
                 <li class=nav-item><a href=timetable.html class=nav-link>Мое расписание</a></li>
-                <li class="nav-item active"><a href=tasktracker.html class=nav-link>Менеджер задач</a></li>
-                <li class=nav-item><a href=help.html class=nav-link>Поддержка</a></li>
+                <li class=nav-item><a href=tasktracker.html class=nav-link>Менеджер задач</a></li>
+                <li class="nav-item active"><a href=help.html class=nav-link>Поддержка</a></li>
                 <li class=nav-item><a href=# class=nav-link id=exitButton>Выход</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class=container-fluid>
+<div class="container fadeIn wow animated">
+    <div class="row justify-content-center">
+        <div class=col-10>
+            <form id=questionForm novalidate>
+                <div class=form-group><label class=h5>Введите тему вопроса</label>
+                    <p><label class="h6 text-muted">Не менее 6 символов</label></p> <input class=form-control
+                                                                                           id=inputTheme
+                                                                                           placeholder="Тема вопроса"
+                                                                                           required></div>
+                <div class=form-group><label class=h5>Подробно опишите проблему</label>
+                    <p><label class="h6 text-muted">Не менее 30 символов</label></p> <textarea type=password
+                                                                                               class=form-control
+                                                                                               id=inputText
+                                                                                               placeholder="Опишите проблему"
+                                                                                               required></textarea>
+                </div>
+                <button type=submit class="btn btn-outline-dark btn-sm">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-fluid showAnim" style=margin-bottom:3rem>
     <div class=container>
         <div class="row justify-content-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <button type=button class="btn btn-outline-success shadow-sm fadeIn wow animated" id=addTaskButton>
-                    <strong>Добавить задачу</strong></button>
-                <div id=msgEl></div>
-                <div id=addDivForm></div>
-            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10" id=innerForQuestions></div>
         </div>
     </div>
 </div>
-<div class=container-fluid>
-    <div class=container>
-        <div class="row .d-none .d-xl-block">
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 h6 text-muted"> Название заметки</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 h6 text-muted"> Примечание</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-xl-4 h6 text-muted"> Теги</div>
-            <div class=col-12>
-                <hr>
-            </div>
-        </div>
-    </div>
-</div>
-<div class=container-fluid style=margin-bottom:3rem>
-    <div class=container>
-        <div class="row justify-content-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id=tasksInner></div>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript" src="tasktracker-eb31f8c27c9befdba175.js"></script>
-
+<script type="text/javascript" src="help-eb31f8c27c9befdba175.js"></script>
 </body>
 </html>
