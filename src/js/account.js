@@ -307,7 +307,7 @@ export function account() {
                             </div>
                             <label class="col-sm-5 text-muted account-label" id=""><h4>Помощь</h4></label>
                             <div class="col-sm-4">
-                                <a href="../help.html"<label class="account-label h6 text-muted" style="cursor: pointer">ОБРАТИТЬСЯ В ПОДДЕРЖКУ</label></a>
+                                <a href="help.html"<label class="account-label h6 text-muted" style="cursor: pointer">ОБРАТИТЬСЯ В ПОДДЕРЖКУ</label></a>
                               
                             </div>
                         </div>

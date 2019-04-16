@@ -3,6 +3,7 @@ import {DataStorage} from "./lib.js";
 import {LocalStorage} from "./storage.js";
 import {Link} from "./lib.js";
 import {ServerLink} from "./serverLink.js";
+import {innerNews} from "./innerNews.js";
 
 export function index() {
 
@@ -80,5 +81,6 @@ export function index() {
         });
         logFormEl.appendChild(textBoxEl)
     });
+    innerNews();
 
 }
