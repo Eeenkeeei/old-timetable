@@ -8,6 +8,7 @@
 
 ## Стек технологий:
 - Pure JS
+- Local storate
 - Bootstrap
 - Fetch API
 - Webpack
