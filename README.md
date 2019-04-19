@@ -18,6 +18,6 @@
 - bcrypt
 - travis-ci/gh-pages/heroku
 
-### Время на разработку - 5 недель, 120 часов. 
+### Время на разработку - 5 недель, 140 часов. 
 
 [![Build Status](https://travis-ci.org/Eeenkeeei/timetable.svg?branch=master)](https://travis-ci.org/Eeenkeeei/timetable)
